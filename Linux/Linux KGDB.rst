@@ -1,5 +1,5 @@
 ================================================================================
-JTAG & KGDB – Linux Kernel Debugging Cheatsheet (Early 2026)
+🐛 JTAG & KGDB – Linux Kernel Debugging Cheatsheet (Early 2026)
 ================================================================================
 
 **Comprehensive guide to low-level Linux kernel debugging**
@@ -10,7 +10,7 @@ JTAG & KGDB – Linux Kernel Debugging Cheatsheet (Early 2026)
    :depth: 2
    :local:
 
-Introduction to Kernel Debugging Methods
+📖 Introduction to Kernel Debugging Methods
 ================================================================================
 
 🎯 **Why Two Methods?**
@@ -26,7 +26,7 @@ Introduction to Kernel Debugging Methods
 ✓ **No hardware available**? → KGDB (only needs serial)
 
 
-Quick Comparison: JTAG vs KGDB
+⚖️ Quick Comparison: JTAG vs KGDB
 ================================================================================
 
 +----------------------------------+--------------------------------------+--------------------------------------+
@@ -42,9 +42,9 @@ Quick Comparison: JTAG vs KGDB
 +----------------------------------+--------------------------------------+--------------------------------------+
 | **Performance impact**           | 🟢 Minimal                           | 🟡 Small (polling + serial overhead) |
 +----------------------------------+--------------------------------------+--------------------------------------+
-| **Breakpoints (HW/SW)**          | ✅ Unlimited hardware breaks         | ✅ SW breaks (fewer hardware)         |
+| **Breakpoints (HW/SW)**          | 🟢 🟢 ✅ Unlimited hardware breaks         | 🟢 🟢 ✅ SW breaks (fewer hardware)         |
 +----------------------------------+--------------------------------------+--------------------------------------+
-| **Trace (ETM/ETB)**              | ✅ Yes (if supported)                | ❌ No                                |
+| **Trace (ETM/ETB)**              | 🟢 🟢 ✅ Yes (if supported)                | 🔴 🔴 ❌ No                                |
 +----------------------------------+--------------------------------------+--------------------------------------+
 | **Setup complexity**             | 🟡 Medium (OpenOCD + probe)          | 🟢 Easy (kernel config + serial)     |
 +----------------------------------+--------------------------------------+--------------------------------------+
@@ -54,17 +54,17 @@ Quick Comparison: JTAG vs KGDB
 +----------------------------------+--------------------------------------+--------------------------------------+
 
 
-Essential Kernel Configuration (Both Methods)
+🐧 ⭐ 🐧 Essential Kernel Configuration (Both Methods)
 ================================================================================
 
 🛠️ **Base Debug Configuration:**
 
 .. code-block:: bash
 
-   # Symbols & debug info (essential!)
+⭐    # Symbols & debug info (essential!)
    CONFIG_DEBUG_INFO=y                    # Full DWARF debug symbols
-   CONFIG_DEBUG_INFO_REDUCED=n            # Avoid stripped symbols
-   CONFIG_GDB_SCRIPTS=y                   # Kernel GDB helpers (lx-*, etc.)
+   CONFIG_DEBUG_INFO_REDUCED=n            # 🔴 🔴 Avoid stripped symbols
+🐧    CONFIG_GDB_SCRIPTS=y                   # Kernel GDB helpers (lx-*, etc.)
    
    # Address randomization (disable for stable addresses)
    nokaslr                                # Kernel command line
@@ -78,17 +78,17 @@ Essential Kernel Configuration (Both Methods)
    CONFIG_FRAME_POINTER=y                 # Better backtraces
    CONFIG_DEBUG_KERNEL=y                  # General debug features
    CONFIG_BUG=y                           # Panic on BUG()
-   CONFIG_MAGIC_SYSRQ=y                   # Magic SysRq key (for KGDB entry)
+⭐    CONFIG_MAGIC_SYSRQ=y                   # Magic SysRq key (for KGDB entry)
 
 
-⭐⭐⭐ KGDB – Software Debugging (Most Common)
+🐛 ⭐⭐⭐ KGDB – Software Debugging (Most Common)
 ================================================================================
 
-**Best for:** Normal kernel/driver development when hardware is stable
+**🟢 🟢 Best for:** Normal kernel/driver development when hardware is stable
 
 **Setup: 3 Easy Steps**
 
-Step 1️⃣ : Kernel Configuration
+🐧 Step 1️⃣ : Kernel Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
@@ -101,7 +101,7 @@ Step 1️⃣ : Kernel Configuration
    CONFIG_KGDB_KDB=y                     # kdb shell (lightweight alternative)
    CONFIG_KGDB_TESTS=n                   # Self-tests (not needed for production)
 
-Step 2️⃣ : Boot Kernel with KGDB Enabled
+🐧 Step 2️⃣ : Boot Kernel with KGDB Enabled
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Option A: Wait at boot for debugger (most convenient)**
@@ -139,7 +139,7 @@ Step 3️⃣ : Connect GDB from Host
    minicom -D /dev/ttyUSB0 -b 115200
    
    # Terminal 2: Launch GDB
-   arm-linux-gnueabihf-gdb ./vmlinux
+🐧    arm-linux-gnueabihf-gdb ./vmlinux
    
    (gdb) target remote /dev/ttyUSB0      # Connect to serial device
    # or
@@ -147,15 +147,15 @@ Step 3️⃣ : Connect GDB from Host
 
 **At this point:**
 
-- ✅ Kernel is halted, waiting for debugger commands
-- ✅ You can set breakpoints, step, inspect memory
-- ✅ Use standard GDB commands (see reference below)
+- 🟢 🟢 ✅ Kernel is halted, waiting for debugger commands
+- 🟢 🟢 ✅ You can set breakpoints, step, inspect memory
+- 🟢 🟢 ✅ Use standard GDB commands (see reference below)
 
 
-⭐⭐⭐⭐ JTAG – Hardware Debugging (Professional / Bring-up)
+🐛 ⭐⭐⭐⭐ JTAG – Hardware Debugging (Professional / Bring-up)
 ================================================================================
 
-**Best for:** Early boot, bootloader debugging, hard hangs, timing-sensitive code
+**🟢 🟢 Best for:** Early boot, bootloader debugging, hard hangs, timing-sensitive code
 
 **Hardware Options (2026 Popular Choices):**
 
@@ -164,16 +164,16 @@ Step 3️⃣ : Connect GDB from Host
 =======================  =====================  ================  =================
 SEGGER J-Link            EDU Mini (~$60)        💰 Budget         ⭐⭐⭐ Excellent
                          Pro ($300–$1000)       💰💰 Professional
-ST-Link                  V2 Clones ($5–$15)     💰 Budget         ⭐⭐ Good
+ST-Link                  V2 Clones ($5–$15)     💰 Budget         ⭐⭐ 🟢 🟢 Good
                          V3 Official ($25)      💰 Budget
-OpenOCD-Compatible       FT2232 (DIY)           💰 Budget         ⭐⭐ Good
+OpenOCD-Compatible       FT2232 (DIY)           💰 Budget         ⭐⭐ 🟢 🟢 Good
                          Tigard / Bus Pirate
 Lauterbach TRACE32       —                      💰💰💰 Enterprise  ⭐⭐⭐⭐ Excellent
 =======================  =====================  ================  =================
 
 **Setup: 4 Steps (with OpenOCD + GDB)**
 
-Step 1️⃣ : Hardware Connection
+🔧 Step 1️⃣ : Hardware Connection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ✓ Connect JTAG probe to board JTAG pins (TCO, TDI, TDO, TMS, GND, VCC)
@@ -228,7 +228,7 @@ Step 3️⃣ : Start OpenOCD with Your Board Config
    ls /usr/share/openocd/scripts/interface/   # Available probes
    ls /usr/share/openocd/scripts/target/      # Available targets
 
-Step 4️⃣ : Connect GDB and Debug
+🐛 Step 4️⃣ : Connect GDB and Debug
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Terminal 1: OpenOCD running (from Step 3)**
@@ -237,12 +237,12 @@ Step 4️⃣ : Connect GDB and Debug
 
 .. code-block:: bash
 
-   arm-linux-gnueabihf-gdb ./vmlinux
+🐧    arm-linux-gnueabihf-gdb ./vmlinux
    
    (gdb) target remote :3333              # Connect to OpenOCD GDB server
    (gdb) monitor reset halt               # Reset CPU and halt
    # or
-   (gdb) monitor reset init               # Reset with initialization
+⚙️    (gdb) monitor reset init               # Reset with initialization
    
    # Now set breakpoint at kernel entry
    (gdb) hbreak *0x80000000               # Adjust for your kernel physical address!
@@ -250,7 +250,7 @@ Step 4️⃣ : Connect GDB and Debug
    # → CPU stops at breakpoint, ready for inspection
 
 
-🎯 JTAG Pro Tips (Advanced)
+💡 🎯 JTAG Pro Tips (Advanced)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Early Kernel Entry (Very Common Pattern):**
@@ -288,7 +288,7 @@ Step 4️⃣ : Connect GDB and Debug
    # → U-Boot starts, stops at hbreak
 
 
-Essential GDB Commands (Both KGDB & JTAG)
+⭐ Essential GDB Commands (Both KGDB & JTAG)
 ================================================================================
 
 **Breakpoints & Stepping:**
@@ -344,7 +344,7 @@ Essential GDB Commands (Both KGDB & JTAG)
    lx-tasks                # Like ps with more detail
    lx-iomem                # I/O memory regions
    lx-modulelist           # Loaded modules
-   lx-version              # Kernel version
+🐧    lx-version              # Kernel version
    
    # Example:
    (gdb) lx-symbols
@@ -401,7 +401,7 @@ Quick Troubleshooting
 
    # Verify vmlinux has debug info
    file ./vmlinux
-   # Should show: ELF 32-bit LSB executable, version 1 (SYSV), dynamically linked...
+⚙️    # Should show: ELF 32-bit LSB executable, version 1 (SYSV), dynamically linked...
    
    readelf -S ./vmlinux | grep debug
    # Should show .debug_info, .debug_line, etc.
@@ -420,13 +420,13 @@ Quick Troubleshooting
    info symbol 0x80000000
 
 
-Modern Recommendations (Early 2026)
+⚙️ Modern Recommendations (Early 2026)
 ================================================================================
 
 📌 **Scenario-Based Guidance:**
 
 **Scenario 1: Board Bring-up / Very Early Boot**
-   → 🔧 **JTAG + OpenOCD + GDB** (best reliability)
+   → 🔧 **JTAG + OpenOCD + GDB** (🟢 🟢 best reliability)
    → Optional: SEGGER J-Link EDU ($60) or ST-Link ($15)
 
 **Scenario 2: Normal Kernel/Driver Development**
@@ -438,9 +438,9 @@ Modern Recommendations (Early 2026)
    → Or Lauterbach TRACE32 (professional)
 
 **Scenario 4: QEMU / Virtual Testing**
-   → 🟢 **Built-in gdbstub** (no hardware needed!)
+🔧    → 🟢 **Built-in gdbstub** (no hardware needed!)
    
-   .. code-block:: bash
+💻    .. code-block:: bash
    
       qemu-system-arm -S -s -kernel vmlinux -m 512
       # Then: gdb ./vmlinux → target remote :1234
@@ -454,7 +454,7 @@ Modern Recommendations (Early 2026)
    → Excellent trace, CI integration, support
 
 
-Popular OpenOCD Configurations (Copy-Paste Ready)
+⚙️ Popular OpenOCD Configurations (Copy-Paste Ready)
 ================================================================================
 
 **ST-Link + STM32H7:**
@@ -494,7 +494,7 @@ Popular OpenOCD Configurations (Copy-Paste Ready)
    # Then: gdb vmlinux → target remote :1234
 
 
-Decision Tree: Which Method to Use?
+⚙️ Decision Tree: Which Method to Use?
 ================================================================================
 
 .. code-block:: text
@@ -508,7 +508,7 @@ Decision Tree: Which Method to Use?
    │   └── → 🔧 JTAG (more reliable on panic)
    │
    ├── Debugging RUNNING KERNEL (driver, syscall)?
-   │   ├── Have JTAG hardware? → 🔧 JTAG (good choice!)
+   │   ├── Have JTAG hardware? → 🔧 JTAG (🟢 🟢 good choice!)
    │   └── No JTAG? → 📡 KGDB (perfectly fine, simpler setup)
    │
    ├── Using QEMU / Virtual environment?
@@ -518,22 +518,22 @@ Decision Tree: Which Method to Use?
        └── → 🔧 JTAG + ETM/ETB (if SoC supports)
 
 
-Key Takeaways
+⭐ Key Takeaways
 ================================================================================
 
 ✨ **JTAG (🔧 Hardware):**
-   ✅ Catches early boot, bootloader, hard hangs
-   ✅ Unlimited hardware breakpoints
-   ✅ More reliable when kernel is panicked
-   ❌ Needs probe hardware
-   ❌ More setup complexity
+   🟢 🟢 ✅ Catches early boot, bootloader, hard hangs
+   🟢 🟢 ✅ Unlimited hardware breakpoints
+   🟢 🟢 ✅ More reliable when kernel is panicked
+   🔴 🔴 ❌ Needs probe hardware
+   🔴 🔴 ❌ More setup complexity
 
 ✨ **KGDB (📡 Software):**
-   ✅ No extra hardware needed
-   ✅ Simple serial/USB connection
-   ✅ Great for stable systems
-   ❌ Can't debug bootloader
-   ❌ Less reliable on panic
+   🟢 🟢 ✅ No extra hardware needed
+   🟢 🟢 ✅ Simple serial/USB connection
+   🟢 🟢 ✅ Great for stable systems
+   🔴 🔴 ❌ Can't debug bootloader
+   🔴 🔴 ❌ Less reliable on panic
 
 ✨ **Both use standard GDB:**
    → Same commands (break, step, backtrace, print, etc.)
@@ -546,3 +546,11 @@ Key Takeaways
 **Happy kernel debugging!** ⚡🐧🔧
 
 *References: OpenOCD docs (https://openocd.org), Linux kernel docs, GDB manual*
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

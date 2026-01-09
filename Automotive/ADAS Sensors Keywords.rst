@@ -1,18 +1,18 @@
 =====================================
-ADAS Sensors & ISP Keywords Reference
+📚 ⭐ 📚 ADAS Sensors & ISP Keywords Reference
 =====================================
 
-**2026 Guide**: Comprehensive keyword dictionary for Advanced Driver Assistance Systems (ADAS) sensors, sensor fusion, image signal processing (ISP), and automotive perception technologies.
+⭐ **2026 Guide**: Comprehensive keyword dictionary for Advanced Driver Assistance Systems (ADAS) sensors, sensor fusion, image signal processing (ISP), and automotive perception technologies.
 
 .. contents:: Table of Contents
    :depth: 2
 
 ---
 
-ADAS Sensor Fundamentals
+🎓 ADAS Sensor Fundamentals
 ========================
 
-Core Sensor Types
+📡 Core Sensor Types
 ~~~~~~~~~~~~~~~~~
 
 **Camera / Vision Sensor**
@@ -36,7 +36,7 @@ Core Sensor Types
 **IMU (Inertial Measurement Unit)**
   Combined accelerometers (3-axis) + gyroscopes (3-axis) + magnetometer measuring vehicle motion. Strength: dead-reckoning in GPS-denied areas, high-frequency motion data. Weakness: drift over time without GPS correction.
 
-Sensor Fusion & Perception
+📡 Sensor Fusion & Perception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Sensor Fusion**
@@ -66,7 +66,7 @@ Sensor Fusion & Perception
 **SLAM (Simultaneous Localization and Mapping)**
   Real-time technique building spatial map of environment while localizing vehicle position. Uses camera + IMU or LiDAR + IMU. Enables HD map building for autonomous vehicles.
 
-Object Detection & Classification
+⚙️ Object Detection & Classification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Object Detection**
@@ -93,11 +93,11 @@ Object Detection & Classification
 **Vehicle Classification**
   Categorizing detected vehicles into classes (car, truck, bus, motorcycle). Helps ADAS differentiate behavior (truck = longer braking distance, motorcycle = smaller size).
 
-Sensor Specifications & Parameters
+💾 Sensor Specifications & Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Field of View (FOV)**
-  Angular range sensor captures. Camera: 30-180°+, Radar: 50-90°, LiDAR: 120-360° (mechanical) or 120° × 25° (solid-state). Horizontal FOV critical for multi-vehicle detection.
+⭐   Angular range sensor captures. Camera: 30-180°+, Radar: 50-90°, LiDAR: 120-360° (mechanical) or 120° × 25° (solid-state). Horizontal FOV critical for multi-vehicle detection.
 
 **Range / Maximum Range**
   Maximum distance sensor reliably detects objects. Camera: 50-250 m (depends on object size), Radar LR: 150-250+ m, LiDAR: 100-200 m, Ultrasonic: 5-7 m.
@@ -134,7 +134,7 @@ Sensor Specifications & Parameters
 Image Signal Processing (ISP) Pipeline
 =======================================
 
-Core ISP Concepts
+🎓 Core ISP Concepts
 ~~~~~~~~~~~~~~~~~
 
 **ISP (Image Signal Processor)**
@@ -144,7 +144,7 @@ Core ISP Concepts
   Unprocessed sensor output where each pixel captures only one color (red, green, or blue) via color filter array. Standard patterns: RGGB, GRBG, GBRG, BGGR. Requires demosaicing to produce full RGB image.
 
 **Demosaicing / Debayering / CFA Interpolation**
-  Interpolating missing color values from neighboring pixels to reconstruct full RGB image from Bayer CFA. Algorithms: nearest neighbor (poor quality), bilinear (moderate), edge-directed (EDAC, good quality), high-quality (12+ sample kernels).
+  Interpolating missing color values from neighboring pixels to reconstruct full RGB image from Bayer CFA. Algorithms: nearest neighbor (poor quality), bilinear (moderate), edge-directed (EDAC, 🟢 🟢 good quality), high-quality (12+ sample kernels).
 
 **Sensor Black Level / Pedestal**
   Fixed dark offset from sensor dark current and circuitry (~50-100 mV typical). Removed via black level correction to properly center image data and improve dynamic range.
@@ -177,7 +177,7 @@ ISP Processing Stages
   Non-linear brightness adjustment mapping linear sensor data to perceptual brightness. sRGB gamma = 2.2 (typical). Formula: V_out = V_in^(1/gamma). Improves low-light visibility without clipping.
 
 **Lens Distortion Correction**
-  Removing barrel (pincushion distortion from wide-angle lenses via radial distortion model: r_distorted = r_undistorted × (1 + k1×r² + k2×r⁴). Requires calibration to estimate k1, k2 coefficients. Essential for accurate lane detection, object localization.
+⭐   Removing barrel (pincushion distortion from wide-angle lenses via radial distortion model: r_distorted = r_undistorted × (1 + k1×r² + k2×r⁴). Requires calibration to estimate k1, k2 coefficients. Essential for accurate lane detection, object localization.
 
 **Lens Shading / Vignetting Correction**
   Compensating for uneven illumination across image from lens optical properties. Correction: multiply pixel by position-dependent gain map (pre-computed from flat-field calibration). Typical gain variation: ±20-30% from center to edges.
@@ -185,8 +185,8 @@ ISP Processing Stages
 **Color Correction / Color Correction Matrix (CCM)**
   3×3 matrix transformation converting from sensor color space to standard output space (sRGB, Adobe RGB, etc.). Accounts for camera spectral sensitivity vs standard observer response. Matrix calibrated against color reference (Macbeth ColorChecker).
 
-**Bad Pixel Correction / Defective Pixel Removal**
-  Identifying and interpolating stuck pixels, hot pixels (sensor defects) or dead pixels (permanently low output). Methods: spatial interpolation from neighbors, temporal averaging across frames. Typical defect rate: <100 bad pixels per megapixel.
+**🔴 🔴 Bad Pixel Correction / Defective Pixel Removal**
+  Identifying and interpolating stuck pixels, hot pixels (sensor defects) or dead pixels (permanently low output). Methods: spatial interpolation from neighbors, temporal averaging across frames. Typical defect rate: <100 🔴 🔴 bad pixels per megapixel.
 
 **Sharpening / Edge Enhancement**
   Boosting contrast at edges to improve apparent sharpness. Algorithms: unsharp mask (output = input + strength × (input - blurred)), Sobel/Laplacian-based sharpening. Trade-off: increased noise, ringing artifacts at high strength.
@@ -203,7 +203,7 @@ ISP Processing Stages
 **Lens Optical Aberration Correction**
   Correcting chromatic aberration (misalignment of R/G/B channels from lens), spherical aberration (focus variation across FOV). Methods: per-channel spatial registration, polynomial correction models.
 
-Advanced ISP Features
+🎯 Advanced ISP Features
 ~~~~~~~~~~~~~~~~~~~~~
 
 **Machine Vision ISP**
@@ -216,7 +216,7 @@ Advanced ISP Features
   Optimizing ISP parameters (AEC target, AWB gains, noise reduction strength, sharpening amount) to maximize downstream perception accuracy. Method: iterate on test dataset, measure detection mAP/recall.
 
 **Stereo ISP**
-  Coordinated ISP processing for stereo camera pairs ensuring consistency across cameras (matched white balance, exposure, gamma). Critical for stereo matching accuracy (epipolar geometry).
+⭐   Coordinated ISP processing for stereo camera pairs ensuring consistency across cameras (matched white balance, exposure, gamma). Critical for stereo matching accuracy (epipolar geometry).
 
 **Raw Image Recording**
   Storing unprocessed sensor data (Bayer pattern) for offline ISP development/tuning. Enables flexibility in algorithm changes without re-recording. Storage: ~50-100 MB/s per camera @ 30 fps.
@@ -224,14 +224,14 @@ Advanced ISP Features
 **ISP Latency Budget**
   Time constraint for ISP processing within overall ADAS system latency budget (~130-260 ms total for Level 2). ISP typically 5-20 ms, leaving 110-255 ms for object detection, fusion, decision-making.
 
-Depth Estimation Methods
+⚙️ Depth Estimation Methods
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Stereo Vision / Stereo Matching**
   Computing disparity map from stereo camera pair by finding corresponding pixels in left/right images. Depth = (baseline × focal_length) / disparity. Accuracy: ~5-10% of distance. Latency: 10-50 ms depending on resolution.
 
 **Epipolar Geometry**
-  Geometric relationship constraining matching of stereo pairs. Epipolar line: line in right image where corresponding left pixel must lie (eliminates 2D search space to 1D). Essential for stereo efficiency.
+⭐   Geometric relationship constraining matching of stereo pairs. Epipolar line: line in right image where corresponding left pixel must lie (eliminates 2D search space to 1D). Essential for stereo efficiency.
 
 **Disparity Map**
   Dense depth map from stereo matching where each pixel has estimated disparity (in pixels). Typical resolution: 1280×720 (half HD). Post-processing: median filter, LR consistency check for outlier removal.
@@ -247,10 +247,10 @@ Depth Estimation Methods
 
 ---
 
-Sensor Technologies & Hardware
+🔧 Sensor Technologies & Hardware
 =======================================
 
-Radar Technology
+📡 Radar Technology
 ~~~~~~~~~~~~~~~~
 
 **FMCW (Frequency-Modulated Continuous Wave)**
@@ -299,7 +299,7 @@ LiDAR Technology
   Frequency of laser pulses. Higher PRF = faster updates but range ambiguity. Typical automotive: 100 kHz - 1 MHz.
 
 **Laser Safety / IEC 60825-1**
-  Classification system: Class 1 (<0.39 mW, safe), 1M (pulsed variant), 3R (5 mW, caution), 3B (500 mW, restricted), Class 4 (high power, dangerous). Automotive typically Class 1M or 3B.
+  Classification system: Class 1 (<0.39 mW, safe), 1M (pulsed variant), 3R (5 mW, 🟡 🟡 caution), 3B (500 mW, restricted), Class 4 (high power, dangerous). Automotive typically Class 1M or 3B.
 
 **Beam Divergence**
   Angular width of laser beam. Smaller = tighter focus = smaller spot size at distance. Typical: 0.1-0.3° (10m range = 17-50 cm spot diameter).
@@ -310,7 +310,7 @@ LiDAR Technology
 **Ground Plane Extraction**
   Identifying road surface (ground) points from point cloud using RANSAC or height-based filtering. Removes road from clutter for cleaner obstacle detection.
 
-Camera Technology
+📡 Camera Technology
 ~~~~~~~~~~~~~~~~~
 
 **CMOS Sensor**
@@ -348,7 +348,7 @@ Ultrasonic Technology
   Crystal material vibrating at specific frequency when driven by AC voltage. 40 kHz resonance for automotive parking sensors. Efficient mechanical oscillation, low cost.
 
 **Acoustic Impedance**
-  Property resisting wave motion (Z = density × sound_velocity). Impedance mismatch at boundaries causes reflections (echo). Air-to-plastic: large mismatch, good reflection.
+  Property resisting wave motion (Z = density × sound_velocity). Impedance mismatch at boundaries causes reflections (echo). Air-to-plastic: large mismatch, 🟢 🟢 good reflection.
 
 **Speed of Sound**
   ~343 m/s at 20°C sea level. Varies with temperature (±0.6 m/s per °C). Requires compensation in measurement: distance = speed × time / 2.
@@ -363,7 +363,7 @@ Ultrasonic Technology
   Detecting when received signal crosses amplitude threshold to determine time-of-arrival. Simple method, sensitive to threshold setting (false positives/negatives).
 
 **Time-Division Multiplexing (TDM)**
-  Sequencing transmissions from multiple ultrasonic sensors to avoid crosstalk (each sensor transmits at different time). Typical: 8 sensors × ~10 Hz = multiplexed at ~80 kHz.
+  Sequencing transmissions from multiple ultrasonic sensors to 🔴 🔴 avoid crosstalk (each sensor transmits at different time). Typical: 8 sensors × ~10 Hz = multiplexed at ~80 kHz.
 
 **Temperature Compensation**
   Adjusting distance calculation for speed of sound variation with temperature. Formula: distance = (speed × (1 + 0.002 × (T - 20))) × time / 2.
@@ -394,10 +394,10 @@ Thermal/Infrared Technology
 
 ---
 
-ADAS Standards & Compliance
+🚗 ADAS Standards & Compliance
 =============================
 
-Safety Standards
+🛡️ Safety Standards
 ~~~~~~~~~~~~~~~~
 
 **ISO 26262 (Functional Safety for Automotive)**
@@ -420,7 +420,7 @@ Safety Standards
 **SOTIF (Safety of the Intended Functionality)**
   ISO 26262:2018 Addition: addresses risks from sensor errors, algorithmic limitations (not just component failures). E.g., camera fails in fog = functional failure requiring detection/mitigation.
 
-Performance & Test Standards
+⚡ Performance & Test Standards
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **mAP (Mean Average Precision)**
@@ -445,10 +445,10 @@ Performance & Test Standards
 
 ---
 
-Integration & System Concepts
+🎓 Integration & System Concepts
 =============================
 
-Sensor Architecture
+📡 Sensor Architecture
 ~~~~~~~~~~~~~~~~~~~
 
 **Distributed Architecture**
@@ -463,7 +463,7 @@ Sensor Architecture
 **Bus / Communication Protocol**
   CAN (1 Mbps, traditional), FlexRay (10 Mbps, redundant), Ethernet (100 Mbps-1 Gbps, modern). Vehicle synchronization: all sensors timestamped to master clock ±50 ms tolerance.
 
-Compute Platforms
+🧮 Compute Platforms
 ~~~~~~~~~~~~~~~~~
 
 **NVIDIA Orin**
@@ -482,11 +482,11 @@ Compute Platforms
   TI automotive deep learning accelerator (TIDL). Supports multiple frameworks (TensorFlow, PyTorch).
 
 **Hardware Acceleration Units**
-  Dedicated neural network accelerators (NPU, TPU, etc.) speeding up inference 10-100×. Essential for real-time processing.
+⭐   Dedicated neural network accelerators (NPU, TPU, etc.) speeding up inference 10-100×. Essential for real-time processing.
 
 ---
 
-Performance Metrics & Benchmarking
+⚡ Performance Metrics & Benchmarking
 ===================================
 
 Latency Breakdown (System-Level)
@@ -504,7 +504,7 @@ Latency Breakdown (System-Level)
 **Real-Time Processing Requirements**
   30 fps = 33 ms per frame budget. 60 fps = 16.7 ms. All processing must complete within frame period.
 
-Computational Load Estimation
+⚙️ Computational Load Estimation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Measurement Units**:
@@ -549,3 +549,18 @@ Accuracy Metrics
 **Compatibility**: ADAS Level 0-3, ISO 26262 / SAE J3016 standards
 **Scope**: Sensors, ISP, fusion, standards, performance metrics
 
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

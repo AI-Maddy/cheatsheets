@@ -1,0 +1,95 @@
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+
+**IEC 61508 Cheat Sheet**  
+(Functional safety of electrical/electronic/programmable electronic safety-related systems – 2nd edition 2010, still the core reference in 2025–2026 for industrial, process, machinery, rail, and many automotive derivatives)
+
+🛡️ 1. Safety Integrity Levels (SIL) – Targets & Requirements
+
+SIL | Low Demand Mode PFDavg | High / Continuous Demand Mode PFH | Typical Hardware Fault Tolerance (HFT) | Typical Application Examples
+----|-------------------------|------------------------------------|----------------------------------------|--------------------------------
+**SIL 1** | 10⁻² – 10⁻¹             | 10⁻⁶ – 10⁻⁵                       | HFT = 0                                | Basic alarms, simple interlocks
+**SIL 2** | 10⁻³ – 10⁻²             | 10⁻⁷ – 10⁻⁶                       | HFT = 0                                | Most common process shutdowns, burner management
+**SIL 3** | 10⁻⁴ – 10⁻³             | 10⁻⁸ – 10⁻⁷                       | HFT ≥ 1 (1oo2, 1oo2D)                  | High-risk emergency shutdown, turbine protection
+**SIL 4** | 10⁻⁵ – 10⁻⁴             | 10⁻⁹ – 10⁻⁸                       | HFT ≥ 1–2 (diverse 1oo2D, 2oo3)        | Very rare – nuclear, some railway signaling
+
+⭐ 📌 2. Key Metrics & Architectural Requirements
+
+Metric / Concept               | Definition / Purpose                                                                 | Typical SIL 2 | Typical SIL 3 | Typical SIL 4
+-------------------------------|--------------------------------------------------------------------------------------|---------------|---------------|---------------
+**PFDavg**                     | Average Probability of Failure on Demand (low demand mode)                           | 10⁻³–10⁻²     | 10⁻⁴–10⁻³     | 10⁻⁵–10⁻⁴
+**PFH**                        | Probability of dangerous Failure per Hour (high/continuous demand)                   | 10⁻⁷–10⁻⁶     | 10⁻⁸–10⁻⁷     | 10⁻⁹–10⁻⁸
+**SFF** (Safe Failure Fraction)| (Safe + Dangerous Detected) / Total dangerous failures (Route 1H)                   | ≥ 60–90 %     | ≥ 90 %        | ≥ 99 %
+**Hardware Fault Tolerance (HFT)** | Max number of faults without losing safety function                               | 0             | ≥ 1           | ≥ 1–2
+**Diagnostic Coverage (DC)**   | Percentage of dangerous faults detected by diagnostics                               | 60–90 %       | 90–99 %       | > 99 %
+**β-factor**                   | Fraction of failures that are common-cause (dependent failure analysis)              | < 10 %        | < 5 %         | < 2–5 %
+
+📖 3. IEC 61508 Parts – Quick Overview (7 parts)
+
+Part | Title / Focus                                      | Most Frequent Use
+-----|----------------------------------------------------|----------------------
+**Part 1** | General requirements & SIL definition              | Safety lifecycle, SIL assignment
+**Part 2** | Requirements for E/E/PE safety-related systems – hardware | FMEDA, Route 1H/2H, SFF calculation
+**Part 3** | Software requirements                                  | Software lifecycle, V-model, restricted coding
+**Part 4** | Definitions & abbreviations                            | Reference for terms (PFD, PFH, SFF, etc.)
+**Part 5** | Examples of methods for SIL determination              | Risk graph, risk matrix, LOPA
+**Part 6** | Guidelines on the application of Parts 2 & 3           | Practical implementation, fault injection
+**Part 7** | Overview of techniques & measures                      | Annexes with recommended techniques
+
+🛡️ 4. Safety Lifecycle – Simplified V-Model Flow (IEC 61508 Part 1)
+
+⭐ Phase                              | Key Activities / Deliverables
+-----------------------------------|-----------------------------------------------
+1. Concept & Scope Definition      | Scope, overall safety requirements
+2. Hazard & Risk Analysis          | Hazard identification, risk assessment, SIL assignment
+3. Overall Safety Requirements Specification | Safety functions, SIL targets, response times
+4. Overall System Design           | Architecture, sensor–logic–actuator split
+5. E/E/PE System Design & Development | HW & SW detailed design, FMEDA, SFF
+6. Verification & Validation       | Testing, fault injection, coverage
+7. Overall Installation & Commissioning | Field installation & startup tests
+8. Overall Operation & Maintenance | Proof testing, modification management
+9. Overall Modification & Retrofit | Impact analysis, re-verification
+10. Decommissioning                | Safe removal
+
+🔧 5. Hardware (HW) Routes to Compliance (Part 2)
+
+Route       | Requirements                                                                 | Typical Use Case
+------------|------------------------------------------------------------------------------|---------------------
+**Route 1H**| High SFF + architectural constraints (HFT)                                   | Most common for new designs
+**Route 2H**| Proven-in-use data + high diagnostic coverage                                | Field-proven legacy devices
+**Route 3H**| Combination of 1H & 2H (rare)                                                | Hybrid cases
+
+📡 6. Software (SW) Development Requirements (Part 3)
+
+SIL | Highly Recommended Techniques (HR)                              | Typical Tools / Practices
+----|------------------------------------------------------------------|---------------------------
+1–2 | Structured programming, defensive coding, modular design        | Structured text, ladder, C (MISRA subset)
+3   | Strong typing, static analysis, diverse design, fault injection | Restricted C/C++, formal methods (limited)
+4   | Formal methods, diverse programming, full coverage + independence| SPARK Ada, Astrée, Frama-C, very strict subset
+
+🛡️ 7. Quick One-liners (what safety engineers actually say)
+
+- “SIL 3 almost always needs 1oo2D or better – 1oo1 is rarely sufficient.”
+- “PFDavg is dominated by proof test interval – test more often or improve diagnostics.”
+- “β-factor > 10 % usually kills your SIL 3 architecture.”
+- “For SIL 4 you need formal methods or extremely strong proven-in-use data.”
+- “Partial stroke testing is the easiest way to get high DC on valves.”
+- “Software for SIL 3/4 must be developed completely independently from BPCS.”
+- “FMEDA + field failure data is the realistic path for Route 2H.”
+
+This cheat sheet covers the ~80 % of IEC 61508 concepts you will encounter in process, machinery, and safety instrumented system projects in 2026. Keep Part 2 (hardware), Part 3 (software), and the SIL tables close when doing FMEDA or SIL verification.
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

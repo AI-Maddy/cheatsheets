@@ -9,11 +9,11 @@ ARM ISP (Image Signal Processor) Cheatsheet (2026)
 
 ---
 
-**Keywords Overview**: ISP pipeline, Bayer demosaicing, white balance, color correction, gamma correction, noise reduction (NR), edge enhancement, lens distortion correction, tone mapping, auto-exposure (AE), auto-focus (AF), auto-white-balance (AWB), RAW processing, HDR, video stabilization.
+⭐ **Keywords Overview**: ISP pipeline, Bayer demosaicing, white balance, color correction, gamma correction, noise reduction (NR), edge enhancement, lens distortion correction, tone mapping, auto-exposure (AE), auto-focus (AF), auto-white-balance (AWB), RAW processing, HDR, video stabilization.
 
 ---
 
-ARM ISP Architecture Overview
+📖 ARM ISP Architecture Overview
 =============================
 
 ISP Processing Stages (Typical Pipeline)
@@ -33,14 +33,14 @@ The ARM ISP follows a sequential processing pipeline from RAW sensor data to out
 10. **Tone Mapping**: Map HDR → LDR (if applicable)
 11. **Video Output**: YUV 4:2:0 or RGB output
 
-**Keywords**: Color Filter Array (CFA), RAW processing, linear RGB, sRGB gamma, color space conversion, ISP datapath.
+⭐ **Keywords**: Color Filter Array (CFA), RAW processing, linear RGB, sRGB gamma, color space conversion, ISP datapath.
 
 ---
 
-Core ISP Components & Functions
+📚 Core ISP Components & Functions
 ===============================
 
-Sensor Interface
+📡 Sensor Interface
 ----------------
 
 **Supported Formats**:
@@ -61,9 +61,9 @@ Sensor Interface
 | MIPI CSI-2       | Variable         | DPCM/Lossless        | High-speed serial link    |
 +------------------+------------------+----------------------+---------------------------+
 
-**Keywords**: Bayer pattern, CFA (Color Filter Array), pixel format, data rate (Mbps), MIPI CSI-2, I3C interface.
+⭐ **Keywords**: Bayer pattern, CFA (Color Filter Array), pixel format, data rate (Mbps), MIPI CSI-2, I3C interface.
 
-Black Level Correction (BLC)
+⚙️ Black Level Correction (BLC)
 -----------------------------
 
 Removes dark offset from sensor output:
@@ -75,9 +75,9 @@ Removes dark offset from sensor output:
     uint8_t output = (input - blc_value) >> shift;  // Prevent underflow with saturation
 
 **Purpose**: Correct fixed pattern noise, improve dynamic range
-**Keywords**: Dark frame subtraction, pedestal removal, offset correction, linearization.
+⭐ **Keywords**: Dark frame subtraction, pedestal removal, offset correction, linearization.
 
-Lens Shading Correction (LSC)
+⚙️ Lens Shading Correction (LSC)
 -----------------------------
 
 Corrects uneven illumination (vignetting) across the image:
@@ -91,7 +91,7 @@ Corrects uneven illumination (vignetting) across the image:
 
 **Correction Method**: Pre-computed gain map (lookup table or polynomial)
 **Storage**: ~1-4 KB for typical gain map
-**Keywords**: Vignetting correction, illumination correction, gain map, spatial interpolation, LSC calibration.
+⭐ **Keywords**: Vignetting correction, illumination correction, gain map, spatial interpolation, LSC calibration.
 
 White Balance (WB)
 ------------------
@@ -116,9 +116,9 @@ Adjusts color channel gains to achieve neutral colors under different lighting:
 
 - **Manual Presets**: Daylight, cloudy, tungsten, fluorescent, custom
 
-**Keywords**: Color temperature (Kelvin), white point, AWB algorithm, color constancy, Planckian locus, AWB convergence.
+⭐ **Keywords**: Color temperature (Kelvin), white point, AWB algorithm, color constancy, Planckian locus, AWB convergence.
 
-Demosaicing (CFA Interpolation)
+⚙️ Demosaicing (CFA Interpolation)
 --------------------------------
 
 Interpolates missing color channels from Bayer pattern to produce full RGB:
@@ -132,7 +132,7 @@ Interpolates missing color channels from Bayer pattern to produce full RGB:
 +------------------------+--------+-------+----------+------------------------+
 | Bilinear              | Fair   | Fast  | Blurred  | 4 samples              |
 +------------------------+--------+-------+----------+------------------------+
-| Edge-Directed (EDAC)  | Good   | Medium| Low      | Edge detection + 4-8   |
+| Edge-Directed (EDAC)  | 🟢 🟢 Good   | Medium| Low      | Edge detection + 4-8   |
 +------------------------+--------+-------+----------+------------------------+
 | High-Quality (HQ)     | Excellent| Slow | Minimal  | 12+ samples            |
 +------------------------+--------+-------+----------+------------------------+
@@ -153,9 +153,9 @@ Interpolates missing color channels from Bayer pattern to produce full RGB:
         output = (left + right) >> 1;
     }
 
-**Keywords**: Bayer interpolation, CFA demosaicing, edge-aware interpolation, color plane alignment, alias artifacts.
+⭐ **Keywords**: Bayer interpolation, CFA demosaicing, edge-aware interpolation, color plane alignment, alias artifacts.
 
-Color Correction Matrix (CCM)
+⚙️ Color Correction Matrix (CCM)
 -----------------------------
 
 Transforms from sensor color space to standard output color space (sRGB, Adobe RGB):
@@ -176,9 +176,9 @@ Transforms from sensor color space to standard output color space (sRGB, Adobe R
 
 **Calibration**: Requires color reference chart (Macbeth ColorChecker or similar)
 **Adaptive CCM**: Different matrices for different color temperatures
-**Keywords**: Color space transformation, chrominance correction, color gamut, gamut mapping.
+⭐ **Keywords**: Color space transformation, chrominance correction, color gamut, gamut mapping.
 
-Gamma Correction & Tone Mapping
+⚙️ Gamma Correction & Tone Mapping
 --------------------------------
 
 Applies perceptual tone curve for display-friendly output:
@@ -203,9 +203,9 @@ Applies perceptual tone curve for display-friendly output:
 - Preserve local contrast (shadow/highlight balance)
 - Algorithms: Reinhard, gradient domain, bilateral filtering
 
-**Keywords**: Gamma 2.2, sRGB gamma curve, tone mapping curve, EOTF (electro-optical transfer function), inverse OECF.
+⭐ **Keywords**: Gamma 2.2, sRGB gamma curve, tone mapping curve, EOTF (electro-optical transfer function), inverse OECF.
 
-Noise Reduction (NR)
+⚙️ Noise Reduction (NR)
 --------------------
 
 Reduces sensor noise (shot noise, read noise) while preserving detail:
@@ -249,7 +249,7 @@ Reduces sensor noise (shot noise, read noise) while preserving detail:
 - Frame averaging: Reduce flicker without ghosting
 - Optical flow: Motion-compensated filtering for moving objects
 
-**Keywords**: Gaussian blur, bilateral filtering, non-local means (NLM), denoise, denoiser strength, temporal coherence.
+⭐ **Keywords**: Gaussian blur, bilateral filtering, non-local means (NLM), denoise, denoiser strength, temporal coherence.
 
 Edge Enhancement (Sharpening)
 ------------------------------
@@ -275,9 +275,9 @@ Enhances edge contrast for perceived sharpness:
 - **Radius**: Kernel size (1-3 pixels typical)
 - **Threshold**: Minimum edge amplitude to sharpen
 
-**Keywords**: Unsharp mask, Sobel filter, Laplacian, high-pass filter, edge detection kernel, sharpening artifact.
+⭐ **Keywords**: Unsharp mask, Sobel filter, Laplacian, high-pass filter, edge detection kernel, sharpening artifact.
 
-Lens Distortion Correction
+⚙️ Lens Distortion Correction
 ---------------------------
 
 Corrects barrel/pincushion distortion from camera lens:
@@ -304,14 +304,14 @@ Corrects barrel/pincushion distortion from camera lens:
 - Principal point (cx, cy)
 - Distortion coefficients (k1, k2, k3, ...)
 
-**Keywords**: Barrel distortion, pincushion distortion, radial distortion, tangential distortion, distortion coefficients, calibration.
+⭐ **Keywords**: Barrel distortion, pincushion distortion, radial distortion, tangential distortion, distortion coefficients, calibration.
 
 ---
 
 Auto-Exposure (AE) & Auto-Focus (AF)
 =====================================
 
-Auto-Exposure (AE) Algorithm
+🧮 Auto-Exposure (AE) Algorithm
 -----------------------------
 
 Automatically adjusts sensor gain and integration time for proper brightness:
@@ -319,7 +319,7 @@ Automatically adjusts sensor gain and integration time for proper brightness:
 **Metering Modes**:
 
 +---------------+-------------------+------------------+-------------------+
-| Mode          | Weight Distribution| Best For         | Sensitivity       |
+| Mode          | Weight Distribution| 🟢 🟢 Best For         | Sensitivity       |
 +===============+===================+==================+===================+
 | Average       | Uniform           | Generic scenes   | Low               |
 +---------------+-------------------+------------------+-------------------+
@@ -336,7 +336,7 @@ Automatically adjusts sensor gain and integration time for proper brightness:
 
     // Simplified AE feedback loop
     uint32_t histogram[256];
-    compute_histogram(frame, histogram);
+💾     compute_histogram(frame, histogram);
     
     uint32_t mean_brightness = compute_weighted_mean(histogram, weights);
     uint32_t target_brightness = 128;  // 50% target
@@ -349,11 +349,11 @@ Automatically adjusts sensor gain and integration time for proper brightness:
 **Parameters**:
 - **Target Brightness**: Typical 40-50% of range
 - **Convergence Speed**: 30-100 ms for stable lock
-- **Flicker Avoidance**: Align exposure to power line frequency (50/60 Hz)
+- **Flicker 🔴 🔴 Avoidance**: Align exposure to power line frequency (50/60 Hz)
 
-**Keywords**: Metering, exposure compensation, AE lock, flicker reduction, anti-flicker filter, histogram-based AE.
+⭐ **Keywords**: Metering, exposure compensation, AE lock, flicker reduction, anti-flicker filter, histogram-based AE.
 
-Auto-Focus (AF) Algorithm
+🧮 Auto-Focus (AF) Algorithm
 --------------------------
 
 Automatically adjusts lens focus for sharp images:
@@ -392,14 +392,14 @@ Automatically adjusts lens focus for sharp images:
 - **Contrast**: Edge contrast measure
 - **Frequency**: High-frequency content
 
-**Keywords**: Phase-detection AF, contrast AF, focus scoring, depth map, PDAF pixel, laser AF, time-of-flight.
+⭐ **Keywords**: Phase-detection AF, contrast AF, focus scoring, depth map, PDAF pixel, laser AF, time-of-flight.
 
 ---
 
 Color Processing Deep Dive
 ===========================
 
-Color Spaces & Conversions
+⚙️ Color Spaces & Conversions
 ---------------------------
 
 **Common Color Spaces**:
@@ -425,14 +425,14 @@ Color Spaces & Conversions
     // Linear RGB → YUV (ITU-R BT.709)
     Y  =  0.2126*R + 0.7152*G + 0.0722*B
     Cb = -0.1145*R - 0.3855*G + 0.5*B       // +128 offset for storage
-    Cr =  0.5*R - 0.4542*G - 0.0458*B      // +128 offset for storage
+💾     Cr =  0.5*R - 0.4542*G - 0.0458*B      // +128 offset for storage
     
     // Fixed-point Q7 implementation:
     Y  = (27*R + 92*G +  9*B) >> 7;
     Cb = (128 - 15*R - 49*G + 64*B) >> 7;
     Cr = (128 + 64*R - 58*G -  6*B) >> 7;
 
-**Keywords**: Color space conversion, RGB to YUV, chroma subsampling (4:2:0, 4:2:2), color matrix.
+⭐ **Keywords**: Color space conversion, RGB to YUV, chroma subsampling (4:2:0, 4:2:2), color matrix.
 
 Chroma Subsampling
 -------------------
@@ -451,14 +451,14 @@ Reduces color information while preserving luminance (exploits human vision):
 
 **Impact**:
 - **4:4:4**: Full color quality, 1× bandwidth
-- **4:2:2**: Good for video, 0.5× bandwidth (JPEG, broadcast)
+- **4:2:2**: 🟢 🟢 Good for video, 0.5× bandwidth (JPEG, broadcast)
 - **4:2:0**: Optimal compression, 0.5× bandwidth (YouTube, HEVC)
 
-**Keywords**: Chroma subsampling, color downsampling, YUV 4:2:0, color bandwidth.
+⭐ **Keywords**: Chroma subsampling, color downsampling, YUV 4:2:0, color bandwidth.
 
 ---
 
-Advanced ISP Features
+🎯 Advanced ISP Features
 =====================
 
 HDR Processing
@@ -484,9 +484,9 @@ Merges multiple exposures to create high dynamic range output:
     output = (weight_short*short_exp + weight_normal*normal_exp + weight_long*long_exp) 
              / (weight_short + weight_normal + weight_long);
 
-**Keywords**: Multi-exposure fusion, tone mapping, local contrast enhancement, ghost removal.
+⭐ **Keywords**: Multi-exposure fusion, tone mapping, local contrast enhancement, ghost removal.
 
-Video Stabilization
+⚙️ Video Stabilization
 --------------------
 
 Reduces camera shake through optical or digital stabilization:
@@ -496,10 +496,10 @@ Reduces camera shake through optical or digital stabilization:
 .. code-block:: c
 
     // Frame-to-frame motion estimation (optical flow)
-    motion_vector = estimate_optical_flow(previous_frame, current_frame);
+💾     motion_vector = estimate_optical_flow(previous_frame, current_frame);
     
     // Smooth motion over time (Kalman filter)
-    smooth_motion = kalman_filter(motion_vector);
+⚙️     smooth_motion = kalman_filter(motion_vector);
     
     // Compensate: shift current frame
     stabilized = warp(current_frame, smooth_motion);
@@ -508,9 +508,9 @@ Reduces camera shake through optical or digital stabilization:
 - **Jitter**: High-frequency shake (reduce with temporal smoothing)
 - **Drift**: Long-term motion bias (compensate with Kalman filtering)
 
-**Keywords**: Optical flow, motion estimation, Kalman filter, digital stabilization, OIS (Optical Image Stabilization).
+⭐ **Keywords**: Optical flow, motion estimation, Kalman filter, digital stabilization, OIS (Optical Image Stabilization).
 
-Face Detection & Recognition
+⚙️ Face Detection & Recognition
 -----------------------------
 
 Detects faces for AF/AE optimization and image enhancement:
@@ -520,14 +520,14 @@ Detects faces for AF/AE optimization and image enhancement:
 - Apply higher metering weight to face center
 - Focus on eyes for portrait mode
 
-**Keywords**: Face detection, eye detection, face recognition, histogram equalization for faces.
+⭐ **Keywords**: Face detection, eye detection, face recognition, histogram equalization for faces.
 
 ---
 
-Performance & Optimization
+⚡ Performance & Optimization
 ===========================
 
-ISP Pipeline Performance Benchmarks
+⚡ ISP Pipeline Performance Benchmarks
 -----------------------------------
 
 +------------------------+-----------+-----------+----------+
@@ -547,9 +547,9 @@ ISP Pipeline Performance Benchmarks
 - 60 fps @ 720p: 16.7 ms per frame
 - 120 fps @ 480p: 8.3 ms per frame
 
-**Keywords**: Throughput (Mpixels/s), latency budgeting, frame rate, pipeline bottleneck.
+⭐ **Keywords**: Throughput (Mpixels/s), latency budgeting, frame rate, pipeline bottleneck.
 
-Optimization Techniques
+⚡ Optimization Techniques
 -----------------------
 
 **1. SIMD Vectorization**
@@ -579,7 +579,7 @@ Optimization Techniques
 - Tile parallelization: Split image into regions
 - Line-based streaming: Process row-by-row with minimal memory
 
-**Keywords**: Vectorization, cache optimization, tile-based processing, streaming, fixed-point acceleration.
+⭐ **Keywords**: Vectorization, cache optimization, tile-based processing, streaming, fixed-point acceleration.
 
 ---
 
@@ -605,9 +605,9 @@ ARM Compiler & Libraries
     // Fast bilateral filter using ARM NEON
     arm_neon_bilateral_filter(src, dst, diameter, sigma_s, sigma_r);
 
-**Keywords**: CMSIS-DSP, OpenCV, LibYUV, TensorFlow Lite, NEON intrinsics.
+⭐ **Keywords**: CMSIS-DSP, OpenCV, LibYUV, TensorFlow Lite, NEON intrinsics.
 
-Debugging & Profiling
+🐛 Debugging & Profiling
 ---------------------
 
 **Tools**:
@@ -622,11 +622,11 @@ Debugging & Profiling
 3. **Artifacts**: Demosaicing errors, sharpening halos
 4. **Flicker**: AE oscillation, frame-to-frame instability
 
-**Keywords**: Gstreamer, RAW viewer, histogram, profiling, frame capture.
+⭐ **Keywords**: Gstreamer, RAW viewer, histogram, profiling, frame capture.
 
 ---
 
-Reference: Fixed-Point ISP Calculations
+📚 Reference: Fixed-Point ISP Calculations
 ========================================
 
 .. code-block:: c
@@ -643,7 +643,7 @@ Reference: Fixed-Point ISP Calculations
 
 ---
 
-Essential References
+📚 ⭐ 📚 Essential References
 ====================
 
 - **MIPI Camera Serial Interface (CSI-2)**: https://mipi.org/
@@ -655,3 +655,19 @@ Essential References
 ---
 
 **Last Updated**: January 2026 | **Compatibility**: ARM Cortex-A (all variants), Cortex-M55/M85, CMSIS-DSP v1.14+
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

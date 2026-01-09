@@ -1,5 +1,5 @@
 =====================================
-ADAS Sensors & Sensor Fusion Cheatsheet
+🚗 ADAS Sensors & Sensor Fusion Cheatsheet
 =====================================
 
 **2026 Guide**: Comprehensive coverage of Advanced Driver Assistance Systems (ADAS) sensors, specifications, fusion architectures, and implementation strategies for automotive perception systems.
@@ -9,14 +9,14 @@ ADAS Sensors & Sensor Fusion Cheatsheet
 
 ---
 
-**Keywords Overview**: ADAS, sensor fusion, camera, LiDAR, radar, ultrasonic, ToF, FMCW, object detection, tracking, perception pipeline, sensor calibration, redundancy, Level 2/3 autonomous vehicles, sensor architecture, 77 GHz radar, solid-state LiDAR, multi-modal fusion, depth estimation.
+⭐ **Keywords Overview**: ADAS, sensor fusion, camera, LiDAR, radar, ultrasonic, ToF, FMCW, object detection, tracking, perception pipeline, sensor calibration, redundancy, Level 2/3 autonomous vehicles, sensor architecture, 77 GHz radar, solid-state LiDAR, multi-modal fusion, depth estimation.
 
 ---
 
-Sensor Type Overview & Comparison Matrix
+📖 Sensor Type Overview & Comparison Matrix
 =========================================
 
-Core ADAS Sensor Types
+🚗 Core ADAS Sensor Types
 ~~~~~~~~~~~~~~~~~~~~~~
 
 +-------------------+---------------------+-------------------+--------------------+---------------------+-----------------------------------+
@@ -28,7 +28,7 @@ Core ADAS Sensor Types
 +-------------------+---------------------+-------------------+--------------------+---------------------+-----------------------------------+
 | **LiDAR**         | Laser scanning      | 0.5-200+ m        | High-res 3D        | Moderate (rain/snow)| Precise 3D mapping, obstacle det.  |
 +-------------------+---------------------+-------------------+--------------------+---------------------+-----------------------------------+
-| **Ultrasonic**    | Acoustic pulse      | 0.2-5 m           | Very limited       | Good                | Parking, low-speed safety          |
+| **Ultrasonic**    | Acoustic pulse      | 0.2-5 m           | Very limited       | 🟢 🟢 Good                | Parking, low-speed safety          |
 +-------------------+---------------------+-------------------+--------------------+---------------------+-----------------------------------+
 | **Thermal/IR**    | LWIR imaging        | 50-100 m          | Low-res, heat only | Excellent (night)   | Pedestrian detection, night vision |
 +-------------------+---------------------+-------------------+--------------------+---------------------+-----------------------------------+
@@ -37,10 +37,10 @@ Core ADAS Sensor Types
 
 ---
 
-Camera Systems (Vision-Based Perception)
+📡 Camera Systems (Vision-Based Perception)
 =========================================
 
-Overview
+📖 Overview
 --------
 
 Cameras provide semantic understanding (what objects are, not just where). Modern ADAS systems typically use:
@@ -50,7 +50,7 @@ Cameras provide semantic understanding (what objects are, not just where). Moder
 - **Driver monitoring (DMS)**: Eye gaze, attention level
 - **Night vision (IR)**: Thermal imaging for low-light pedestrian detection
 
-Camera Specifications & Generations
+📡 Camera Specifications & Generations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +-------------------+--------+--------+-----+----------+---------+
@@ -73,16 +73,16 @@ Camera Specifications & Generations
 |                  | ultra  |        |     |          |         |
 +-------------------+--------+--------+-----+----------+---------+
 
-Advanced Camera Features (2026)
+📡 Advanced Camera Features (2026)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **High Dynamic Range (HDR)**:
 - Captures bright headlights + dark road in single frame
-- Essential for nighttime ADAS reliability
+⭐ - Essential for nighttime ADAS reliability
 - Computational overhead: ~10-15% additional processing
 
 **Global Shutter**:
-- Eliminates rolling shutter distortion (critical for fast motion detection)
+⭐ - Eliminates rolling shutter distortion (critical for fast motion detection)
 - Reduces motion blur in high-speed scenarios
 - Preferred for automotive over rolling shutter
 
@@ -97,7 +97,7 @@ Advanced Camera Features (2026)
 - Replaces LiDAR in budget-conscious systems
 - Depth accuracy: ~5-10% of distance
 
-Camera Image Processing Pipeline
+📡 Camera Image Processing Pipeline
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
@@ -130,7 +130,7 @@ Camera Image Processing Pipeline
 **Typical Hardware**:
 - NVIDIA Orin (200 TFLOPS), Tesla FSD Computer (144 TFLOPS), Qualcomm Snapdragon Ride, Mobileye SuperVision (SoC)
 
-Camera Calibration & Synchronization
+📡 Camera Calibration & Synchronization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Intrinsic Calibration** (per-camera, done once in factory):
@@ -154,7 +154,7 @@ Camera Calibration & Synchronization
 .. code-block:: c
 
     // Translation: [x, y, z] from vehicle reference point
-    // Rotation: Roll (Φ), Pitch (θ), Yaw (ψ) — or 3×3 rotation matrix R
+⚙️     // Rotation: Roll (Φ), Pitch (θ), Yaw (ψ) — or 3×3 rotation matrix R
     
     // Typical front camera:
     // Position: x=+1.0m (forward), y=0m (center), z=+1.5m (height)
@@ -163,25 +163,25 @@ Camera Calibration & Synchronization
 **Temporal Synchronization**:
 - All cameras must capture within ±50 ms window (CAN bus / vehicle sync pulse)
 - Global shutter preferred over rolling shutter
-- Timestamp accuracy critical for fusion with radar/LiDAR
+⭐ - Timestamp accuracy critical for fusion with radar/LiDAR
 
-**Keywords**: Demosaicing, ISP (Image Signal Processor), lens distortion, epipolar geometry, stereo rectification, intrinsic/extrinsic calibration, rolling shutter vs global shutter, dynamic range.
+⭐ **Keywords**: Demosaicing, ISP (Image Signal Processor), lens distortion, epipolar geometry, stereo rectification, intrinsic/extrinsic calibration, rolling shutter vs global shutter, dynamic range.
 
 ---
 
-Radar Systems (Radio Detection & Ranging)
+📡 Radar Systems (Radio Detection & Ranging)
 ==========================================
 
-Overview
+📖 Overview
 --------
 
 Radar provides:
-- **Velocity measurement** (Doppler shift) — critical for ACC, AEB
+⭐ - **Velocity measurement** (Doppler shift) — critical for ACC, AEB
 - **Weather robustness** — works in rain, fog, snow
 - **All-day/night operation** — no lighting dependency
 - **Cost efficiency** — mature technology, mass production
 
-Radar Operating Principles
+📡 Radar Operating Principles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Frequency & Wavelength**:
@@ -230,7 +230,7 @@ Radar Operating Principles
     // Example: R=100m, B=400 MHz, T=40 μs:
     // f_beat = 2 × 100 × 400e6 / (3e8 × 40e-6) ≈ 667 kHz
 
-Radar Architecture Types
+📡 Radar Architecture Types
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Chirp Sequence (Most Common in 2026)**:
@@ -259,7 +259,7 @@ Radar Architecture Types
 +-------------------+---------+--------+----------+------------------+
 | 2 TX, 4 RX (phased)| 2      | 4      | ~50°     | ~15° (better)    |
 +-------------------+---------+--------+----------+------------------+
-| 3 TX, 4 RX (array)| 3       | 4      | ~60°     | ~5-10° (good)    |
+| 3 TX, 4 RX (array)| 3       | 4      | ~60°     | ~5-10° (🟢 🟢 good)    |
 +-------------------+---------+--------+----------+------------------+
 
 **Radar Performance Characteristics**:
@@ -278,7 +278,7 @@ Radar Architecture Types
 | Update Rate         | 20-50 Hz  | 10-20 Hz      | 10-20 Hz |
 +---------------------+-----------+---------------+--------+
 
-Radar Sensor Placement (Typical Configuration)
+📡 Radar Sensor Placement (Typical Configuration)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
@@ -289,7 +289,7 @@ Radar Sensor Placement (Typical Configuration)
                   |
         ----------+-----------
        |                     |
-    [SR]                   [SR]  (Short-Range Radars - corners)
+📡     [SR]                   [SR]  (Short-Range Radars - corners)
     
     Side View:
     [LR Front] — [SR] — [SR Rear] — [Rear LR]
@@ -299,16 +299,16 @@ Radar Sensor Placement (Typical Configuration)
     - 1× Front LR (77 GHz): 250m range, vehicle/obstacle detection
     - 2× Front SR: 30m range, blind spot monitoring
     - 2× Rear SR: Close-range rear monitoring
-    - 2× Rear LR (optional): Rear cross-traffic alert (RCTA)
+⚙️     - 2× Rear LR (optional): Rear cross-traffic alert (RCTA)
     
     Total: 5-7 radars per vehicle
 
-Radar Signal Processing Pipeline
+📡 Radar Signal Processing Pipeline
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c
 
-    // Simplified radar signal processing flow
+📡     // Simplified radar signal processing flow
     
     Raw ADC samples (I/Q data)
             ↓
@@ -335,14 +335,14 @@ Radar Signal Processing Pipeline
 - Tracking + fusion: ~1-5 GFLOPS
 - Real-time latency: 50-100 ms end-to-end
 
-**Keywords**: FMCW, Doppler shift, beamforming, constant false alarm rate (CFAR), range resolution, velocity measurement, phased array, monopulse radar.
+⭐ **Keywords**: FMCW, Doppler shift, beamforming, constant false alarm rate (CFAR), range resolution, velocity measurement, phased array, monopulse radar.
 
 ---
 
-LiDAR Systems (Light Detection & Ranging)
+⚙️ LiDAR Systems (Light Detection & Ranging)
 ==========================================
 
-Overview
+📖 Overview
 --------
 
 LiDAR provides 3D point clouds with:
@@ -390,12 +390,12 @@ LiDAR Operating Principles
 +-------+----------+-----+--------+---------+---------+
 | 1M    | <0.39 mW| Pulsed| Emerging| Safe   | with optics |
 +-------+----------+-----+--------+---------+---------+
-| 3R    | 5 mW    | Med | Rare   | Caution | Avoid direct |
+| 3R    | 5 mW    | Med | Rare   | 🟡 🟡 Caution | 🔴 🔴 Avoid direct |
 +-------+----------+-----+--------+---------+---------+
 | 3B    | 500 mW  | High| Older  | Danger  | Restricted |
 +-------+----------+-----+--------+---------+---------+
 
-LiDAR Architecture Types (2026)
+🏗️ LiDAR Architecture Types (2026)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Mechanical Spinning LiDAR** (Traditional, declining):
@@ -420,12 +420,12 @@ LiDAR Architecture Types (2026)
     ✓ Smaller form factor (can be integrated into bumper)
     ✓ Lower cost target: $100-500 (2026-2030)
     ✓ Lower power consumption: <5 W
-    ✓ Faster update rate: 20-50 Hz
+⚡     ✓ Faster update rate: 20-50 Hz
     
     Trade-offs:
     - Smaller field of view (often 120° × 25° vs 360° × 50°)
     - Slightly lower point cloud density (initially)
-    - Immature supply chain (ramping 2024-2026)
+💾     - Immature supply chain (ramping 2024-2026)
     
     Example: Luminar Iris, Waymo 5th-gen (custom), Mobileye Chauffeur LiDAR
 
@@ -491,19 +491,19 @@ LiDAR Point Cloud Processing
 - Tracking: 1-5 GFLOPS
 - Total per LiDAR: 15-100 GFLOPS
 
-**Keywords**: Time-of-flight, point cloud, solid-state LiDAR, mechanical scanning, flash LiDAR, voxelization, ground plane estimation, 3D neural networks (PointNet++, VoxelNet).
+⭐ **Keywords**: Time-of-flight, point cloud, solid-state LiDAR, mechanical scanning, flash LiDAR, voxelization, ground plane estimation, 3D neural networks (PointNet++, VoxelNet).
 
 ---
 
-Ultrasonic Sensor Systems
+📡 Ultrasonic Sensor Systems
 ==========================
 
-Overview
+📖 Overview
 --------
 
 Ultrasonic sensors provide:
 - **Very low cost** (~$10-30 per sensor)
-- **Close-range safety** (parking, low-speed collision avoidance)
+- **Close-range safety** (parking, low-speed collision 🔴 🔴 avoidance)
 - **Weather independence** (no visual/RF interference)
 - **Mature technology** (used since 1990s)
 
@@ -533,14 +533,14 @@ Ultrasonic Operating Principles
     - Frequency: 40 kHz (most common)
     - Wavelength: 343 m/s / 40 kHz ≈ 8.6 mm
     - Wavelength determines resolution (~1 cm typical)
-    - Higher frequency → shorter range but better resolution
+⚙️     - Higher frequency → shorter range but better resolution
     
     Frequency ranges:
     - 20-30 kHz: Very long range (rare, <5m for parking)
     - 40 kHz: Standard (5-7 m range typical)
     - 60+ kHz: Research/niche (very short range)
 
-Ultrasonic Sensor Configuration
+📡 Ultrasonic Sensor Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Typical Parking Assistant Layout**:
@@ -564,7 +564,7 @@ Ultrasonic Sensor Configuration
 
 .. code-block:: c
 
-    // Ultrasonic transmission pattern (automotive, 40 kHz)
+🚗     // Ultrasonic transmission pattern (automotive, 40 kHz)
     
     // Transmitter (piezoelectric crystal):
     // 1. Drive at 40 kHz frequency
@@ -639,14 +639,14 @@ Ultrasonic Processing Pipeline
 | Cross-talk immunity | Moderate |
 +---------------------+-------+
 
-**Keywords**: Piezoelectric transducer, acoustic impedance, speed of sound, ring-down, envelope detection, threshold crossing, time-division multiplexing.
+⭐ **Keywords**: Piezoelectric transducer, acoustic impedance, speed of sound, ring-down, envelope detection, threshold crossing, time-division multiplexing.
 
 ---
 
-Thermal & Infrared Sensors
+📡 Thermal & Infrared Sensors
 ===========================
 
-Overview
+📖 Overview
 --------
 
 Thermal imaging detects heat signatures. Modern automotive applications:
@@ -655,7 +655,7 @@ Thermal imaging detects heat signatures. Modern automotive applications:
 - **Animal detection** (wild animals on highway)
 - **Enhanced DMS** (detect drowsiness via eye gaze, eye closure)
 
-Thermal Sensor Types
+📡 Thermal Sensor Types
 ~~~~~~~~~~~~~~~~~~~~
 
 **Long-Wave Infrared (LWIR)** (8-14 μm):
@@ -691,12 +691,12 @@ Thermal Sensor Types
     - Affected by reflections (glass, wet surfaces)
     - Less intuitive (depends on clothing reflectivity)
 
-Thermal Processing & Detection
+⚙️ Thermal Processing & Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: c
 
-    // Simplified thermal pedestrian detection pipeline
+⚙️     // Simplified thermal pedestrian detection pipeline
     
     Raw thermal frame (320×256 @ 9 Hz)
             ↓
@@ -737,14 +737,14 @@ Thermal Processing & Detection
 - **Audi**: Thermal camera option (premium models)
 - **Research**: Dual visible + thermal fusion (increasing adoption)
 
-**Keywords**: LWIR, blackbody radiation, microbolometer, NETD (noise equivalent temperature difference), non-uniformity correction (NUC), bolometer drift.
+⭐ **Keywords**: LWIR, blackbody radiation, microbolometer, NETD (noise equivalent temperature difference), non-uniformity correction (NUC), bolometer drift.
 
 ---
 
-Sensor Fusion Architecture
+📡 Sensor Fusion Architecture
 ===========================
 
-Overview & Importance
+📖 Overview & Importance
 ~~~~~~~~~~~~~~~~~~~~~
 
 **Why Sensor Fusion?**
@@ -760,28 +760,28 @@ Overview & Importance
 | Sensor  | Weather| Object | Cost   | Maturity|
 |         | Robust | Class  |        |         |
 +=========+========+========+========+=========+
-| Camera  | ❌     | ✅✅   | ✅✅  | ✅✅   |
+| Camera  | 🔴 🔴 ❌     | 🟢 🟢 ✅🟢 🟢 ✅   | 🟢 🟢 ✅🟢 🟢 ✅  | 🟢 🟢 ✅🟢 🟢 ✅   |
 +---------+--------+--------+--------+---------+
-| Radar   | ✅✅   | ❌     | ✅     | ✅✅   |
+| Radar   | 🟢 🟢 ✅🟢 🟢 ✅   | 🔴 🔴 ❌     | 🟢 🟢 ✅     | 🟢 🟢 ✅🟢 🟢 ✅   |
 +---------+--------+--------+--------+---------+
-| LiDAR   | ⚠️     | ✅     | ❌     | ✅     |
+| LiDAR   | ⚠️     | 🟢 🟢 ✅     | 🔴 🔴 ❌     | 🟢 🟢 ✅     |
 +---------+--------+--------+--------+---------+
-| Ultrasonic| ✅    | N/A    | ✅✅  | ✅✅   |
+| Ultrasonic| 🟢 🟢 ✅    | N/A    | 🟢 🟢 ✅🟢 🟢 ✅  | 🟢 🟢 ✅🟢 🟢 ✅   |
 +---------+--------+--------+--------+---------+
 
-Sensor Fusion Approaches
+📡 Sensor Fusion Approaches
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Early Fusion** (Low-level):
 
 .. code-block:: text
 
-    Concatenate raw sensor data → Single neural network
+📡     Concatenate raw sensor data → Single neural network
     
     Example:
     [Camera Image] → Concatenate → [Joint NN]
     [LiDAR Points] ─→                    ↓
-    [Radar Detections] ─────────────→ [Fused Output]
+📡     [Radar Detections] ─────────────→ [Fused Output]
     
     Advantages:
     ✓ Network learns implicit correlations
@@ -796,17 +796,17 @@ Sensor Fusion Approaches
 
 .. code-block:: text
 
-    Process sensors independently → Fuse detections
+📡     Process sensors independently → Fuse detections
     
     Example:
     [Camera] → [Detection NN] → [Bounding boxes]
     [LiDAR] → [Detection NN] → [3D boxes]      ─→ [Fusion]
-    [Radar] → [Detection NN] → [Detections]    ─→ [Tracks]
+📡     [Radar] → [Detection NN] → [Detections]    ─→ [Tracks]
     
     Advantages:
     ✓ Modular (replace camera network without retraining)
     ✓ Interpretable (can see each sensor's output)
-    ✓ Computational efficiency
+⚙️     ✓ Computational efficiency
     
     Disadvantages:
     ✗ May miss correlations learned at low level
@@ -816,7 +816,7 @@ Sensor Fusion Approaches
 
 .. code-block:: text
 
-    Extract features from each sensor → Fuse features → Final network
+📡     Extract features from each sensor → Fuse features → Final network
     
     Example:
     [Camera] → [Feature Extractor] → [Feature maps]
@@ -829,25 +829,25 @@ Kalman Filtering for Object Tracking
 .. code-block:: c
 
     // Extended Kalman Filter (EKF) for vehicle tracking
-    // Fuses camera detections + radar velocity
+📡     // Fuses camera detections + radar velocity
     
     // State vector (per tracked object):
     X = [x, y, vx, vy, width, height]ᵀ
-    // Position (x,y), velocity (vx, vy), dimensions
+⚙️     // Position (x,y), velocity (vx, vy), dimensions
     
     // Prediction step (constant velocity model):
     X_pred = A × X + noise
-    // A = transition matrix (typically diagonal + velocity terms)
+⚙️     // A = transition matrix (typically diagonal + velocity terms)
     
     // Measurement update (from camera bounding box):
-    z = [x_camera, y_camera, w_camera, h_camera]ᵀ
+📡     z = [x_camera, y_camera, w_camera, h_camera]ᵀ
     
     // Innovation (residual):
     y = z - H × X_pred  // H = measurement matrix
     
     // Update gain:
     K = P_pred × H^T × (H × P_pred × H^T + R)^-1
-    // R = measurement covariance (camera uncertainty)
+📡     // R = measurement covariance (camera uncertainty)
     
     // State update:
     X = X_pred + K × y
@@ -855,18 +855,18 @@ Kalman Filtering for Object Tracking
     
     // Repeat at 10-50 Hz (depends on update rate)
 
-Data Association (Multi-Object Tracking)
+⚙️ Data Association (Multi-Object Tracking)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Hungarian Algorithm** (Common approach):
 
 .. code-block:: text
 
-    Problem: Match detections to tracked objects
+🔴     Problem: Match detections to tracked objects
     
     Inputs:
     - 5 tracked objects (from previous frame)
-    - 6 new detections (camera + radar combined)
+📡     - 6 new detections (camera + radar combined)
     
     Cost Matrix (5 tracks × 6 detections):
     Euclidean distance or Mahalanobis distance
@@ -882,11 +882,11 @@ Data Association (Multi-Object Tracking)
     - Track#1 → Detection#3 (cost 0.6)
     - Track#2 → Detection#2 (cost 1.5)
     - Track#3, #4, #5 → No match (unmatched)
-    - Detection#1, #4, #5, #6 → New tracks
+⚙️     - Detection#1, #4, #5, #6 → New tracks
     
     Multi-object tracking state managed by Kalman filters for each track
 
-Typical Fusion Architecture (2026)
+🏗️ Typical Fusion Architecture (2026)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
@@ -920,14 +920,14 @@ Typical Fusion Architecture (2026)
             [Vehicle Control Output]
             (Throttle, Brake, Steering)
 
-**Keywords**: Sensor fusion, data association, Kalman filter, multi-object tracking, Hungarian algorithm, Mahalanobis distance, state estimation.
+⭐ **Keywords**: Sensor fusion, data association, Kalman filter, multi-object tracking, Hungarian algorithm, Mahalanobis distance, state estimation.
 
 ---
 
-Sensor Calibration & Maintenance
+📡 Sensor Calibration & Maintenance
 =================================
 
-Intrinsic vs Extrinsic Calibration
+⚙️ Intrinsic vs Extrinsic Calibration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Intrinsic Parameters** (per sensor, factory calibration):
@@ -937,7 +937,7 @@ Intrinsic vs Extrinsic Calibration
     // Camera intrinsics
     Focal length (f_x, f_y)
     Principal point (c_x, c_y)
-    Lens distortion coefficients (k1, k2, p1, p2)
+⚙️     Lens distortion coefficients (k1, k2, p1, p2)
     
     // Radar intrinsics
     Antenna orientation, gain pattern
@@ -955,17 +955,17 @@ Intrinsic vs Extrinsic Calibration
     P = K [R | t]
     // K = 3×3 intrinsic matrix
     // R = 3×3 rotation (roll, pitch, yaw)
-    // t = 3×1 translation (x, y, z from reference point)
+📚     // t = 3×1 translation (x, y, z from reference point)
     
     // Typical front camera calibration:
     // Position: x=+1.2m (forward), y=0m (center), z=+1.5m (height)
-    // Orientation: Yaw=0°, Pitch=-3° (slight downward tilt)
+⚙️     // Orientation: Yaw=0°, Pitch=-3° (slight downward tilt)
     
-    // Tolerance (critical for fusion):
+⭐     // Tolerance (critical for fusion):
     // Position: ±10-20 mm
     // Rotation: ±0.5° (roll), ±1° (pitch/yaw)
 
-Online Calibration Techniques
+⚙️ Online Calibration Techniques
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Self-Calibration (No Ground Truth Needed)**:
@@ -975,7 +975,7 @@ Online Calibration Techniques
     Camera Horizon Line Detection:
     - Detect lane markings, road edges
     - Estimate horizon (vanishing point)
-    - If horizon shifts >2° per 100 frames → recalibrate pitch
+💾     - If horizon shifts >2° per 100 frames → recalibrate pitch
     
     Radar-Camera Cross-Validation:
     - Detect same object in radar and camera
@@ -989,7 +989,7 @@ Online Calibration Techniques
 - **LiDAR**: Every 20,000 km or after environmental exposure
 - **Ultrasonic**: Every 5,000 km (sensitive to bumper changes)
 
-Sensor Degradation & Diagnostics
+📡 Sensor Degradation & Diagnostics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Camera Issues**:
@@ -1038,14 +1038,14 @@ Sensor Degradation & Diagnostics
 | Dirt on diaphragm | Environmental | Silent sensor | Clean transducer | | |
 +---+-------+---+------+---+
 
-**Keywords**: Intrinsic calibration, extrinsic calibration, sensor diagnostics, drift compensation, self-calibration.
+⭐ **Keywords**: Intrinsic calibration, extrinsic calibration, sensor diagnostics, drift compensation, self-calibration.
 
 ---
 
-ADAS Sensor Configurations by Vehicle Class
+🚗 ADAS Sensor Configurations by Vehicle Class
 =============================================
 
-Entry-Level / Budget ADAS (2025-2026)
+🚗 Entry-Level / Budget ADAS (2025-2026)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Typical Setup**:
@@ -1054,11 +1054,11 @@ Entry-Level / Budget ADAS (2025-2026)
 
     Cameras:
     - 1× front camera (1080p, 50° FOV) for lane detection, TSR
-    - 2× surround cameras (front corners) for blind spot / parking
+📡     - 2× surround cameras (front corners) for blind spot / parking
     
     Radars:
     - 1× front long-range (250 m) for ACC, AEB
-    - 2× front short-range (30 m) for blind spot detection
+⚙️     - 2× front short-range (30 m) for blind spot detection
     
     Ultrasonic:
     - 4× front bumper, 4× rear bumper (parking assist)
@@ -1067,7 +1067,7 @@ Entry-Level / Budget ADAS (2025-2026)
     Processing: Single ECU (lower power: 10-15 TFLOPS)
     Cost: ~$500-800 per vehicle (sensor costs only)
 
-Mainstream Mid-Range ADAS (Level 2, 2025-2026)
+🚗 Mainstream Mid-Range ADAS (Level 2, 2025-2026)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Typical Setup** (Most common configuration):
@@ -1080,24 +1080,24 @@ Mainstream Mid-Range ADAS (Level 2, 2025-2026)
     - 1× rear view (reverse camera)
     - 4× surround (360° AVM — Around View Monitor)
     - 1× interior DMS (Driver Monitoring System)
-    Total: 8-10 cameras
+📡     Total: 8-10 cameras
     
     Radars:
     - 1× front long-range (250 m, millimeter-wave 77 GHz)
     - 2× front short-range corners
     - 2× rear short-range (optional, for RCTA)
     - Optional: 1-2 rear medium-range (some brands)
-    Total: 5-6 radars
+📡     Total: 5-6 radars
     
     LiDAR:
-    - Optional: 1× roof-mounted (premium brands only, 2025-2026)
+⚙️     - Optional: 1× roof-mounted (premium brands only, 2025-2026)
     
     Ultrasonic:
     - 4× front, 4-6× rear (parking assist)
     
     Other:
     - GPS/GNSS + IMU (navigation)
-    - Weather sensors (rain, light)
+📡     - Weather sensors (rain, light)
     
     Total: 14-16 main sensors
     Processing: Dual ECU or multi-core SoC (30-50 TFLOPS)
@@ -1116,12 +1116,12 @@ Premium / Autonomous-Capable (Level 2.5-3, 2025-2026)
     - Sides (2): left/right for lane change
     - Rear (1-2)
     - Surround (multiple, for 360° perception)
-    - Interior (1): DMS + occupancy sensing
+⚙️     - Interior (1): DMS + occupancy sensing
     
     Radars:
     - 5-8 units (mix of LR and SR)
     - Front LR (250+ m), front corners (SR)
-    - Rear (optional, premium)
+⚙️     - Rear (optional, premium)
     
     LiDAR:
     - 1-3 units (front primary, rear backup)
@@ -1136,7 +1136,7 @@ Premium / Autonomous-Capable (Level 2.5-3, 2025-2026)
     - mmWave radar (sometimes separate from automotive 77 GHz)
     - Advanced GPS + RTK (real-time kinematic) ± 5-10 cm
     - Weather / light sensors (optical rain, sun position)
-    - Thermal camera (night vision option)
+📡     - Thermal camera (night vision option)
     
     Total: 25-35+ sensors
     Processing: High-end SoC (100-200+ TFLOPS)
@@ -1151,7 +1151,7 @@ Premium / Autonomous-Capable (Level 2.5-3, 2025-2026)
 2026 Trends & Emerging Technologies
 ====================================
 
-Solid-State LiDAR Adoption
+⚙️ Solid-State LiDAR Adoption
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Timeline**:
@@ -1174,7 +1174,7 @@ Solid-State LiDAR Adoption
 ⚠️ Lower point cloud density (partially mitigated by faster update)
 ⚠️ Immature supply chain (ramping 2024-2027)
 
-Vision-First Approaches
+⚙️ Vision-First Approaches
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tesla Approach** (No LiDAR):
@@ -1217,7 +1217,7 @@ Vision-First Approaches
 | Scalability | Fast iteration | Slower (sensor supply) | | |
 +---+---+---+
 
-Post-Quantum Sensor Authentication
+📡 Post-Quantum Sensor Authentication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Emerging Need** (2025-2030):
@@ -1232,7 +1232,7 @@ Post-Quantum Sensor Authentication
 2. **Spread-spectrum radar** (harder to spoof)
 3. **Sensor redundancy** (cross-modal validation)
 
-AI/ML Hardware Integration
+🔧 AI/ML Hardware Integration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **2026 Compute Platforms**:
@@ -1260,38 +1260,38 @@ AI/ML Hardware Integration
 
 ---
 
-Common ADAS Functions Enabled by Sensors
+📚 Common ADAS Functions Enabled by Sensors
 =========================================
 
-Function Summary Table
+📚 Function Summary Table
 ~~~~~~~~~~~~~~~~~~~~~~
 
 +------------------+--------+-------+-------+--------+
 | ADAS Function    | Camera | Radar | LiDAR | Ultrasonic |
 +==================+========+=======+=======+========+
-| Lane Keeping (LKA) | ✅ | ❌ | ❌ | ❌ |
+| Lane Keeping (LKA) | 🟢 🟢 ✅ | 🔴 🔴 ❌ | 🔴 🔴 ❌ | 🔴 🔴 ❌ |
 +------------------+--------+-------+-------+--------+
-| Adaptive Cruise (ACC) | ⚠️ | ✅✅ | ✅ | ❌ |
+| Adaptive Cruise (ACC) | ⚠️ | 🟢 🟢 ✅🟢 🟢 ✅ | 🟢 🟢 ✅ | 🔴 🔴 ❌ |
 +------------------+--------+-------+-------+--------+
-| AEB (Emergency Brake) | ✅ | ✅ | ✅ | ⚠️ |
+| AEB (Emergency Brake) | 🟢 🟢 ✅ | 🟢 🟢 ✅ | 🟢 🟢 ✅ | ⚠️ |
 +------------------+--------+-------+-------+--------+
-| Pedestrian Detection | ✅✅ | ❌ | ✅ | ❌ |
+| Pedestrian Detection | 🟢 🟢 ✅🟢 🟢 ✅ | 🔴 🔴 ❌ | 🟢 🟢 ✅ | 🔴 🔴 ❌ |
 +------------------+--------+-------+-------+--------+
-| Parking Assist | ✅ | ⚠️ | ⚠️ | ✅✅ |
+| Parking Assist | 🟢 🟢 ✅ | ⚠️ | ⚠️ | 🟢 🟢 ✅🟢 🟢 ✅ |
 +------------------+--------+-------+-------+--------+
-| Blind Spot Monitor | ✅ | ✅ | ⚠️ | ❌ |
+| Blind Spot Monitor | 🟢 🟢 ✅ | 🟢 🟢 ✅ | ⚠️ | 🔴 🔴 ❌ |
 +------------------+--------+-------+-------+--------+
-| Traffic Sign Recognition | ✅✅ | ❌ | ❌ | ❌ |
+| Traffic Sign Recognition | 🟢 🟢 ✅🟢 🟢 ✅ | 🔴 🔴 ❌ | 🔴 🔴 ❌ | 🔴 🔴 ❌ |
 +------------------+--------+-------+-------+--------+
 
-(✅ = primary, ✅✅ = essential, ⚠️ = supplementary, ❌ = not used)
+(🟢 🟢 ✅ = primary, 🟢 🟢 ✅🟢 🟢 ✅ = essential, ⚠️ = supplementary, 🔴 🔴 ❌ = not used)
 
 ---
 
-Best Practices & Implementation Checklist
+💻 🟢 🟢 Best Practices & Implementation Checklist
 ==========================================
 
-Sensor Selection Criteria
+📡 Sensor Selection Criteria
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
@@ -1308,7 +1308,7 @@ Sensor Selection Criteria
     [ ] Test in target weather/lighting conditions
     [ ] Plan software update strategy (OTA capable)
 
-Integration & Validation
+⚙️ Integration & Validation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
@@ -1326,10 +1326,10 @@ Integration & Validation
 
 ---
 
-Performance Benchmarks (2026 Hardware)
+⚡ Performance Benchmarks (2026 Hardware)
 ======================================
 
-Sensor Processing Load (Single Sensor, Real-Time)
+📡 Sensor Processing Load (Single Sensor, Real-Time)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +---+---+---+---+
@@ -1357,14 +1357,14 @@ Total System (Mid-Range Level 2):
     Fusion/tracking: 5-10 TFLOPS
     ADAS logic:   2-5 TFLOPS
     ─────────────────────────
-    Total:        15-30 TFLOPS (depends on network complexity)
+🌐     Total:        15-30 TFLOPS (depends on network complexity)
     
     Latency requirement: <150 ms for Level 2
     Power budget: 30-50 W typical (including compute)
 
 ---
 
-References & Standards
+📚 References & Standards
 ======================
 
 **ISO/SAE Standards**:
@@ -1395,3 +1395,18 @@ References & Standards
 **Compatibility**: Automotive Level 0-3 ADAS, ISO 26262 compliant
 **Sensor Maturity**: Camera (mature), Radar (mature), LiDAR (ramping), Solid-state LiDAR (emerging 2026)
 
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

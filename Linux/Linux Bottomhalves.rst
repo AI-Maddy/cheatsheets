@@ -1,3 +1,9 @@
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+
 **cheatsheet** for **Linux bottom half** (deferred work / soft-interrupt) mechanisms as of early 2026.
 
 Bottom halves allow interrupt handlers (top-half) to defer non-urgent/time-consuming work → executed later when system is less busy.
@@ -22,7 +28,7 @@ Bottom halves allow interrupt handlers (top-half) to defer non-urgent/time-consu
 
 | Mechanism          | Context              | Can Sleep? | Concurrency (same instance)      | Allocation     | Latency / Priority     | Main Users / Notes                              | Recommended When?                              | Modern Status (2025–2026)                  |
 |--------------------|----------------------|------------|----------------------------------|----------------|------------------------|-------------------------------------------------|------------------------------------------------|--------------------------------------------|
-| **Softirq**        | Interrupt            | ✗ No       | Multiple CPUs OK                 | Static         | Very low (highest)     | NET_TX/RX, Block, Timer, RCU, SCHED            | Very high-frequency, performance-critical      | Still core, but discouraged for new code   |
+⭐ | **Softirq**        | Interrupt            | ✗ No       | Multiple CPUs OK                 | Static         | Very low (highest)     | NET_TX/RX, Block, Timer, RCU, SCHED            | Very high-frequency, performance-critical      | Still core, but discouraged for new code   |
 | **Tasklet**        | Interrupt            | ✗ No       | Single CPU only (serialized)     | Dynamic        | Low                    | Most drivers, SCSI, old networking              | Fast, non-sleeping work, simpler than softirq  | **Being phased out** (workqueue BH replacement) |
 | **Workqueue**      | Process (kworker)    | ✓ Yes      | Multiple CPUs OK                 | Dynamic        | Medium–High            | Almost everything that can sleep                | Need to sleep, allocate memory, call fs/...    | **Preferred** for almost all new deferred work |
 | **Threaded IRQ**   | Process (irq thread) | ✓ Yes      | Per-IRQ thread                   | Dynamic        | Medium                 | Modern drivers (especially slow bottom halves)  | Replace top-half + bottom-half combo           | Strongly recommended for new drivers       |
@@ -43,7 +49,7 @@ Your interrupt handler needs to defer work?
 │       └── → **Softirq** (very rare for new code)
 │
 └── Can sleep / allocate memory / call blocking functions / take mutexes?
-    ├── Want automatic per-IRQ threading (modern best practice)?
+    ├── Want automatic per-IRQ threading (modern 🟢 🟢 best practice)?
     │   └── → **Threaded IRQ**  (request_threaded_irq())
     └── Want flexible queuing, priorities, system-wide worker pools?
         └── → **Workqueue**  (queue_work* / schedule_work* / delayed_work / system_wq / dedicated wq)
@@ -91,7 +97,7 @@ ps aux | grep kworker       # see workqueue threads activity
 - Raised via ``raise_softirq()`` or ``raise_softirq_irqoff()``
 - Protected by per-CPU disabling, not per-instance locking
 - Used for: networking (NET_TX/RX), block I/O, timers, RCU, scheduling
-- **Key limitation**: New softirqs are almost never accepted upstream (limited slots)
+⭐ - **Key limitation**: New softirqs are almost never accepted upstream (limited slots)
 
 ```c
 // Define at compile time
@@ -169,12 +175,12 @@ destroy_workqueue(wq);
 - Automatic serialization per IRQ
 - ``IRQF_ONESHOT``: Disables IRQ during thread execution (for level-triggered)
 - ``IRQF_TRIGGER_*``: Specify trigger type
-- **Modern best practice** for many drivers
+- **Modern 🟢 🟢 best practice** for many drivers
 
 ```c
 // Top-half runs in interrupt context (must be fast!)
 static irqreturn_t irq_handler(int irq, void *dev_id) {
-    struct my_device *dev = dev_id;
+🔧     struct my_device *dev = dev_id;
     
     // Minimal work here
     if (!(read_status(dev) & STATUS_READY))
@@ -186,7 +192,7 @@ static irqreturn_t irq_handler(int irq, void *dev_id) {
 
 // Bottom-half runs in kernel thread (can sleep!)
 static irqreturn_t irq_thread_fn(int irq, void *dev_id) {
-    struct my_device *dev = dev_id;
+🔧     struct my_device *dev = dev_id;
     
     // Safe to sleep, allocate memory, etc.
     mutex_lock(&dev->lock);
@@ -316,7 +322,7 @@ watch -n 1 'head -20 /proc/interrupts'
 
 ### Quick Reference: Which Mechanism When?
 
-| Requirement | Best Choice | Fallback |
+| Requirement | 🟢 🟢 Best Choice | Fallback |
 |-------------|-------------|----------|
 | Blocking I/O needed | Threaded IRQ | Workqueue |
 | Memory allocation needed | Workqueue | Threaded IRQ |
@@ -392,3 +398,15 @@ static void cleanup_work_func(struct work_struct *work) {
 - **Workqueue API**: `include/linux/workqueue.h`
 
 Happy deferring! 🚀
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

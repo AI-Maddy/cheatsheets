@@ -9,14 +9,14 @@ ARM DSP Cheatsheet (2026)
 
 ---
 
-**Keywords Overview**: SIMD, NEON, Helium (MVE), fixed-point arithmetic, q-format, MAC operations, FFT/IFFT, FIR/IIR filtering, window functions, spectral analysis, parallel processing, instruction-level parallelism, cycle optimization.
+⭐ **Keywords Overview**: SIMD, NEON, Helium (MVE), fixed-point arithmetic, q-format, MAC operations, FFT/IFFT, FIR/IIR filtering, window functions, spectral analysis, parallel processing, instruction-level parallelism, cycle optimization.
 
 ---
 
 Core Data Types & Fixed-Point Arithmetic
 =========================================
 
-CMSIS-DSP Fixed-Point Representation
+⚙️ CMSIS-DSP Fixed-Point Representation
 ------------------------------------
 
 ARM uses **Q-format** (Q n.m) for fixed-point representation: the integer portion and fractional portion split.
@@ -37,9 +37,9 @@ ARM uses **Q-format** (Q n.m) for fixed-point representation: the integer portio
 | f64_t (double) | 64-bit | IEEE 754         | ±2.23e-308 to ±1.8e308     | ~15 significant     |
 +----------------+--------+------------------+----------------------------+---------------------+
 
-**Keywords**: Fixed-point saturation, rounding modes, overflow handling, scale factor selection, dynamic range preservation.
+⭐ **Keywords**: Fixed-point saturation, rounding modes, overflow handling, scale factor selection, dynamic range preservation.
 
-Fixed-Point Best Practices
+Fixed-Point 🟢 🟢 Best Practices
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - **Saturation**: Prevent overflow via `arm_scale_q15()` with saturation enabled
@@ -49,7 +49,7 @@ Fixed-Point Best Practices
 
 ---
 
-Cortex-M DSP Hardware Instructions
+🔧 Cortex-M DSP Hardware Instructions
 ==================================
 
 Processor Support Matrix
@@ -69,19 +69,19 @@ Processor Support Matrix
 | Helium (MVE)      | —      | —      | —      | —      | —      | ✓      | ✓      |
 +-------------------+--------+--------+--------+--------+--------+--------+--------+
 
-**Keywords**: Cortex-M4F, Cortex-M7, Cortex-M33F, Cortex-M55, Cortex-M85, floating-point unit (FPU), DSP extensions.
+⭐ **Keywords**: Cortex-M4F, Cortex-M7, Cortex-M33F, Cortex-M55, Cortex-M85, floating-point unit (FPU), DSP extensions.
 
-SIMD Instructions (Single Instruction Multiple Data)
+💡 SIMD Instructions (Single Instruction Multiple Data)
 -----------------------------------------------------
 
 **16-bit Parallel Operations**
 
 - **SADD16**: Two 16-bit signed additions in parallel
   - `result[31:16] = Rn[31:16] + Rm[31:16]`; `result[15:0] = Rn[15:0] + Rm[15:0]`
-  - **Use Case**: Vector addition, element-wise operations on 16-bit data
+⚙️   - **Use Case**: Vector addition, element-wise operations on 16-bit data
   
 - **SSUB16**: Two 16-bit signed subtractions in parallel
-  - **Use Case**: Difference computation, delta encoding
+⚙️   - **Use Case**: Difference computation, delta encoding
   
 - **SASX** / **SASXS**: Add/Subtract eXchange (asymmetric operations)
   - Top half adds, bottom half subtracts (with optional saturation)
@@ -91,9 +91,9 @@ SIMD Instructions (Single Instruction Multiple Data)
 
 - **SADD8**: Four 8-bit signed additions
 - **SSUB8**: Four 8-bit signed subtractions
-- **Keywords**: Byte-level parallelism, SIMD lane utilization
+⭐ - **Keywords**: Byte-level parallelism, SIMD lane utilization
 
-MAC (Multiply-Accumulate) Instructions
+💡 MAC (Multiply-Accumulate) Instructions
 ---------------------------------------
 
 **Single MAC (32-bit result)**
@@ -124,18 +124,18 @@ MAC (Multiply-Accumulate) Instructions
   - Returns high 32 bits of 64-bit result with rounding
   - **Use Case**: Scaling without explicit right-shift
 
-**Keywords**: Instruction pipelining, latency hiding, dual-issue, instruction-level parallelism (ILP), MAC throughput.
+⭐ **Keywords**: Instruction pipelining, latency hiding, dual-issue, instruction-level parallelism (ILP), MAC throughput.
 
 ---
 
-CMSIS-DSP Library Functions
+📚 CMSIS-DSP Library Functions
 ============================
 
 **Include Header**: `#include "arm_math.h"`
 
 **Initialization**: `arm_math_status` enums for validation
 
-Basic Vector Operations
+⚙️ Basic Vector Operations
 ------------------------
 
 .. code-block:: c
@@ -163,7 +163,7 @@ Basic Vector Operations
     void arm_mult_f32(const float32_t *pSrcA, const float32_t *pSrcB, 
                       float32_t *pDst, uint32_t blockSize);
 
-**Keywords**: Vectorization, data parallelism, block-based processing, streaming operations.
+⭐ **Keywords**: Vectorization, data parallelism, block-based processing, streaming operations.
 
 Linear Filtering (FIR)
 -----------------------
@@ -191,7 +191,7 @@ Linear Filtering (FIR)
 
 **State Buffer Requirement**: `blockSize + numTaps - 1` samples
 
-**Keywords**: Impulse response, convolution, tap coefficients, delay-line, ringbuffer, linear-phase filtering.
+⭐ **Keywords**: Impulse response, convolution, tap coefficients, delay-line, ringbuffer, linear-phase filtering.
 
 IIR Filtering (Cascaded Biquad)
 --------------------------------
@@ -211,9 +211,9 @@ IIR Filtering (Cascaded Biquad)
         const arm_biquad_casc_df2T_instance_q31 *S,
         q31_t *pSrc, q31_t *pDst, uint32_t blockSize);
 
-**Keywords**: Feedback, poles/zeros, stability (|poles| < 1), cascade design, DF2-T topology (superior numerical stability), peaking filter, shelf filter.
+⭐ **Keywords**: Feedback, poles/zeros, stability (|poles| < 1), cascade design, DF2-T topology (superior numerical stability), peaking filter, shelf filter.
 
-Fast Fourier Transform (FFT)
+⚡ Fast Fourier Transform (FFT)
 -----------------------------
 
 .. code-block:: c
@@ -244,9 +244,9 @@ Fast Fourier Transform (FFT)
 - Twiddle factors: ~2 × fftLen × 4 bytes (float32)
 - Bit-reversal table: fftLen × 2 bytes
 
-**Keywords**: Radix-2 Cooley-Tukey algorithm, frequency domain, spectral analysis, power spectral density (PSD), zero-padding, windowing.
+⭐ **Keywords**: Radix-2 Cooley-Tukey algorithm, frequency domain, spectral analysis, power spectral density (PSD), zero-padding, windowing.
 
-Window Functions
+📚 Window Functions
 -----------------
 
 Windowing reduces spectral leakage before FFT:
@@ -262,7 +262,7 @@ Windowing reduces spectral leakage before FFT:
     // Blackman Window: Excellent sidelobe suppression
     void arm_blackman_f32(float32_t *pDst, uint32_t blockSize);
 
-**Keywords**: Spectral leakage, main-lobe width, sidelobe attenuation, scalloping loss, window overlap (COLA).
+⭐ **Keywords**: Spectral leakage, main-lobe width, sidelobe attenuation, scalloping loss, window overlap (COLA).
 
 Statistics & Analysis
 -----------------------
@@ -291,9 +291,9 @@ Statistics & Analysis
     void arm_min_f32(const float32_t *pSrc, uint32_t blockSize, 
                      float32_t *pResult, uint32_t *pIndex);
 
-**Keywords**: Variance, energy estimation, peak detection, signal-to-noise ratio (SNR), crest factor.
+⭐ **Keywords**: Variance, energy estimation, peak detection, signal-to-noise ratio (SNR), crest factor.
 
-Matrix Operations
+⚙️ Matrix Operations
 ------------------
 
 .. code-block:: c
@@ -311,14 +311,14 @@ Matrix Operations
     void arm_mat_inverse_f32(const arm_matrix_instance_f32 *pSrc,
                              arm_matrix_instance_f32 *pDst);
 
-**Keywords**: Linear algebra, LU decomposition, Cholesky factorization, rank estimation, condition number.
+⭐ **Keywords**: Linear algebra, LU decomposition, Cholesky factorization, rank estimation, condition number.
 
 ---
 
-Optimization Techniques
+⚡ Optimization Techniques
 =======================
 
-Compiler & Preprocessor Optimizations
+⚡ Compiler & Preprocessor Optimizations
 -------------------------------------
 
 Enable these macros in project defines or before including `arm_math.h`:
@@ -335,9 +335,9 @@ Enable these macros in project defines or before including `arm_math.h`:
 - `ARM_MATH_LOOPUNROLL`: 15-30% speedup on loops
 - `ARM_MATH_HELIUM`: 2-8× speedup on M55/M85 (vector-length agnostic)
 
-**Keywords**: Loop unrolling, compiler optimization flags, pragma directives, inline assembly, intrinsics.
+⭐ **Keywords**: Loop unrolling, compiler optimization flags, pragma directives, inline assembly, intrinsics.
 
-Hardware Optimization Strategies
+⚡ Hardware Optimization Strategies
 --------------------------------
 
 **1. Maximize MAC Throughput**
@@ -363,9 +363,9 @@ Hardware Optimization Strategies
 - Functions like `arm_add_f32()` auto-vectorize with `ARM_MATH_HELIUM`
 - Automatic register packing for 2-4 parallel lanes
 
-**Keywords**: Memory access patterns, instruction cache (I-cache), data cache (D-cache), tightly-coupled memory (TCM), cache line optimization, false sharing.
+⭐ **Keywords**: Memory access patterns, instruction cache (I-cache), data cache (D-cache), tightly-coupled memory (TCM), cache line optimization, false sharing.
 
-Real-Time Performance Considerations
+⚡ Real-Time Performance Considerations
 -------------------------------------
 
 +------------------------------+----------+-----------+-------------+
@@ -381,7 +381,7 @@ Real-Time Performance Considerations
 **Estimation Formula**: 
 Cycle Count ≈ (Operations × Processor Cycles/Op) / Clock Frequency (MHz)
 
-**Keywords**: Latency budgeting, deterministic timing, interrupt latency, worst-case execution time (WCET), profiling.
+⭐ **Keywords**: Latency budgeting, deterministic timing, interrupt latency, worst-case execution time (WCET), profiling.
 
 ---
 
@@ -390,7 +390,7 @@ NEON SIMD (Cortex-A & Limited M-Profile)
 
 **Availability**: Cortex-A series (ARMv7-A), optional on M55/M85
 
-NEON Register Architecture
+🏗️ NEON Register Architecture
 ---------------------------
 
 - **D-registers**: 64-bit (16 registers D0-D15)
@@ -407,23 +407,23 @@ NEON Register Architecture
     float32x4_t c = vaddq_f32(a, b);   // 4 parallel adds
     vst1q_f32(pDst, c);                // Store result
 
-**Keywords**: Intrinsic functions, NEON intrinsics, lane operations, permutation, quad-precision (128-bit).
+⭐ **Keywords**: Intrinsic functions, NEON intrinsics, lane operations, permutation, quad-precision (128-bit).
 
 ---
 
-Helium Vector Extension (M-Profile Vector Extension - MVE)
+⚙️ Helium Vector Extension (M-Profile Vector Extension - MVE)
 ==========================================================
 
 **Available**: Cortex-M55, Cortex-M85 (ARMv8.1-M)
 
-**Key Advantages Over Traditional NEON**:
+⭐ **Key Advantages Over Traditional NEON**:
 
 - **VLO (Variable-Length)**: Automatic adaptation to vector length (up to 128-bit)
 - **Predication**: Per-lane masking for efficient data-dependent code
 - **Performance**: Up to 2× faster than NEON on equivalent operations
 - **Automatic Vectorization**: CMSIS-DSP functions auto-vectorize with `ARM_MATH_HELIUM`
 
-Helium Example (Auto-Vectorized by CMSIS-DSP)
+💻 Helium Example (Auto-Vectorized by CMSIS-DSP)
 -----------------------------------------------
 
 .. code-block:: c
@@ -435,21 +435,21 @@ Helium Example (Auto-Vectorized by CMSIS-DSP)
     float32_t srcA[256], srcB[256], dst[256];
     arm_add_f32(srcA, srcB, dst, 256);  // Auto-vectorized: 4 floats/cycle
 
-**Keywords**: MVE intrinsics, `__mve_pred_only_`, predicated operations, gather/scatter, transposition.
+⭐ **Keywords**: MVE intrinsics, `__mve_pred_only_`, predicated operations, gather/scatter, transposition.
 
 ---
 
-Common Patterns & Applications
+📡 Common Patterns & Applications
 ==============================
 
-Audio Processing Pipeline
+⚙️ Audio Processing Pipeline
 --------------------------
 
 .. code-block:: c
 
     // 1. Input: Acquire samples (I2S/SAI interface)
     // 2. Pre-emphasis (FIR high-pass): y[n] = x[n] - 0.97×x[n-1]
-    arm_fir_f32(&fir_pre, pInputBuffer, pBufferTemp, blockSize);
+⚙️     arm_fir_f32(&fir_pre, pInputBuffer, pBufferTemp, blockSize);
     
     // 3. Window (Hann): Reduce spectral leakage
     arm_mult_f32(pBufferTemp, pWindow, pBufferTemp, blockSize);
@@ -461,7 +461,7 @@ Audio Processing Pipeline
     arm_cmplx_mag_f32(pBufferTemp, pSpectrum, fftSize/2);
     arm_power_f32(pSpectrum, fftSize/2, &pEnergy);
 
-**Keywords**: Pre-processing, framing, STFT (Short-Time Fourier Transform), mel-scale spectrogram.
+⭐ **Keywords**: Pre-processing, framing, STFT (Short-Time Fourier Transform), mel-scale spectrogram.
 
 Control System (PID with Fixed-Point)
 --------------------------------------
@@ -469,10 +469,10 @@ Control System (PID with Fixed-Point)
 .. code-block:: c
 
     // Scaled error (Q15)
-    q15_t error = (q15_t)((setpoint - measurement) >> 8);
+🔴     q15_t error = (q15_t)((setpoint - measurement) >> 8);
     
     // Proportional term
-    q31_t p_term = (q31_t)error * kp;  // Implicit scaling
+🔴     q31_t p_term = (q31_t)error * kp;  // Implicit scaling
     
     // Integral accumulation (with anti-windup)
     if (integral < MAX_INTEGRAL) {
@@ -482,11 +482,11 @@ Control System (PID with Fixed-Point)
     // Output (scaled back to 16-bit)
     q15_t output = (q15_t)((p_term + integral) >> 16);
 
-**Keywords**: Anti-windup, integrator saturation, PI loop, servo control, realtime constraints.
+⭐ **Keywords**: Anti-windup, integrator saturation, PI loop, servo control, realtime constraints.
 
 ---
 
-Debugging & Profiling
+🐛 Debugging & Profiling
 =======================
 
 Common Pitfalls
@@ -504,7 +504,7 @@ Common Pitfalls
 4. **Memory Fragmentation**: Large state buffers (FIR) → stack overflow
    - *Solution*: Allocate state buffers in CCM or static memory
 
-Profiling Tools
+🐛 Profiling Tools
 ----------------
 
 - **Cortex-M Cycle Counter (CYCCNT)**: Measure CPU cycles
@@ -520,11 +520,11 @@ Profiling Tools
 - **Compiler Flags**: `-O3 -march=armv7e-m -mfpu=fpv4-sp-d16`
 - **Disassembly Analysis**: Verify SMLAD/SIMD instruction usage
 
-**Keywords**: Performance counters, wall-clock time, instruction distribution, cache misses, profiler overhead.
+⭐ **Keywords**: Performance counters, wall-clock time, instruction distribution, cache misses, profiler overhead.
 
 ---
 
-Reference: Data Type Conversion Quick Reference
+📚 Reference: Data Type Conversion Quick Reference
 ===============================================
 
 .. code-block:: c
@@ -543,7 +543,7 @@ Reference: Data Type Conversion Quick Reference
 
 ---
 
-Essential References
+📚 ⭐ 📚 Essential References
 ====================
 
 - **CMSIS-DSP v1.14+ Documentation**: https://www.keil.com/pack/doc/CMSIS/DSP/html/
@@ -555,3 +555,19 @@ Essential References
 ---
 
 **Last Updated**: January 2026 | **Compatibility**: ARM Cortex-M0-M85, CMSIS-DSP v1.14+
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

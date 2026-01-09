@@ -1,17 +1,17 @@
 ================================================================================
-🐍 Python for Embedded Linux & ADAS – Practical Cheatsheet (2025–2026)
+🐧 🐍 Python for Embedded Linux & ADAS – Practical Cheatsheet (2025–2026)
 ================================================================================
 
 **Tailored for real-world automotive embedded development**
 
-*Focus: High-performance, safety-critical ADAS (Advanced Driver Assistance Systems)*
+⭐ *Focus: High-performance, safety-critical ADAS (Advanced Driver Assistance Systems)*
 
 .. contents:: 📑 Quick Navigation
    :depth: 2
    :local:
 
 
-Supported Versions & Landscape
+⚙️ Supported Versions & Landscape
 ================================================================================
 
 📊 **Version Usage in Automotive (2025–2026):**
@@ -19,9 +19,9 @@ Supported Versions & Landscape
 ==================  ===============================  =====================================
 **Version**         **ADAS/Automotive Usage**        **Notes**
 ==================  ===============================  =====================================
-🟢 Python 3.9+      Most common in NEW projects      Fast, stable, good library support
+🟢 Python 3.9+      Most common in NEW projects      Fast, stable, 🟢 🟢 good library support
 🟡 Python 3.8–3.6   Legacy ECUs, some OEM stacks     Still alive in production systems
-🔴 Python 2.7       DEAD (end-of-life 2020)          Do not use – will fail
+🔴 Python 2.7       DEAD (end-of-life 2020)          🟢 🟢 Do not use – will fail
 ==================  ===============================  =====================================
 
 **Typical Embedded Linux ADAS Environment:**
@@ -33,10 +33,10 @@ Supported Versions & Landscape
 - Limited RAM (512 MB – 2 GB) and storage
 
 
-1️⃣ Core Patterns (Used Every Day in ADAS)
+🚗 1️⃣ Core Patterns (Used Every Day in ADAS)
 ================================================================================
 
-🔧 **Fast Binary Parsing (CAN, SOME/IP, Radar, Ethernet)** ⭐⭐⭐
+⚡ 🔧 **Fast Binary Parsing (CAN, SOME/IP, Radar, Ethernet)** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Protocol data comes as raw bytes – need to unpack efficiently for real-time
@@ -45,21 +45,21 @@ Supported Versions & Landscape
 
    from struct import unpack, pack, unpack_from
    
-   # 🟢 GOOD: Extract CAN message (8-byte payload)
+   # 🟢 🟢 🟢 GOOD: Extract CAN message (8-byte payload)
    # Format: little-endian, 1 byte + float32 + 2 shorts
-   event_id, distance, radar_id, algo_ver = unpack('<BfHH', can_data[:10])
+📡    event_id, distance, radar_id, algo_ver = unpack('<BfHH', can_data[:10])
    
    # 🟢 BETTER: Zero-copy style (no full buffer unpacking)
-   # Avoid: unpack(whole_buffer) – too slow!
+   # 🔴 🔴 Avoid: unpack(whole_buffer) – too slow!
    distance, = unpack_from('<f', buffer, offset=4)  # Just reads offset
    
    # 🟢 Packing for SOME/IP payload
-   payload = pack('!IHH', service_id, method_id, length)  # big-endian (network)
+🌐    payload = pack('!IHH', service_id, method_id, length)  # big-endian (network)
    
    **Typical use in ADAS:** CAN message handler unpacking 100 msg types/sec
 
 
-🔧 **Memoryview for Zero-Copy Operations** ⭐⭐⭐
+💾 🔧 **Memoryview for Zero-Copy Operations** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Large sensor buffers (radar cubes, point clouds) cause GC pressure, latency spikes
@@ -67,21 +67,21 @@ Supported Versions & Landscape
 .. code-block:: python
 
    # 🟢 Create zero-copy view into large buffer
-   mv = memoryview(raw_buffer)
+💾    mv = memoryview(raw_buffer)
    
    header = mv[:16]                    # No copy! Just pointer arithmetic
-   payload = mv[16:16+length]          # Slice without allocation
+⚙️    payload = mv[16:16+length]          # Slice without allocation
    
    # 🟢 Modify in-place
    mv[0] = 0xFF                        # Direct write to original buffer
    
-   # 🔴 AVOID: Creating copies
-   # BAD: header = raw_buffer[:16]     # Allocates new bytes object!
+   # 🔴 🔴 🔴 AVOID: Creating copies
+   # 🔴 🔴 BAD: header = raw_buffer[:16]     # Allocates new bytes object!
    
    **Why matters:** In real-time loop, GC pause = missed deadline
 
 
-🔧 **IntEnum for Safe Protocol Values** ⭐⭐
+🛡️ 🔧 **IntEnum for Safe Protocol Values** ⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Magic numbers → unreadable, error-prone protocol code
@@ -91,7 +91,7 @@ Supported Versions & Landscape
    from enum import IntEnum, auto
    
    class ADASEvent(IntEnum):
-       """Safety-critical event codes"""
+⭐        """Safety-critical event codes"""
        FRONT_COLLISION_WARN    = 0x01
        LANE_DEPARTURE          = 0x02
        AEB_TRIGGER             = 0x10      # Emergency braking
@@ -102,13 +102,13 @@ Supported Versions & Landscape
        try:
            return ADASEvent(event_code).name  # ValueError if invalid → safe!
        except ValueError:
-           return f"Unknown({event_code})"
+💻            return f"Unknown({event_code})"
    
-   # 🔴 AVOID: Raw numbers
-   # BAD: if event_id == 0x10: ...  # What does 0x10 mean?
+   # 🔴 🔴 🔴 AVOID: Raw numbers
+   # 🔴 🔴 BAD: if event_id == 0x10: ...  # What does 0x10 mean?
 
 
-🔧 **Singleton Pattern for Global Config** ⭐⭐⭐
+🏗️ 🔧 **Singleton Pattern for Global Config** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Configuration loaded once, used everywhere (thread-safe)
@@ -127,19 +127,19 @@ Supported Versions & Landscape
        
        def _load_from_file(self):
            with open("/etc/adas/config.yaml") as f:
-               self.data = yaml.safe_load(f)
+🛡️                self.data = yaml.safe_load(f)
    
    # Everywhere in code:
-   config = Config()  # Same instance always ✅
-   focal_length = config.data['camera']['fx']
+   config = Config()  # Same instance always 🟢 🟢 ✅
+📡    focal_length = config.data['camera']['fx']
    
    **Use in ADAS:** Load calibration once at startup, access 1000s of times
 
 
-2️⃣ Performance-Critical Patterns
+⚡ ⭐ ⚡ 2️⃣ Performance-Critical Patterns
 ================================================================================
 
-⚡ **Array Instead of List (Huge Memory Saving)** ⭐⭐⭐
+💾 ⚡ **Array Instead of List (Huge Memory Saving)** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Processing millions of sensor samples – list overhead kills performance
@@ -148,11 +148,11 @@ Supported Versions & Landscape
 
    from array import array
    
-   # 🔴 List approach (bad for embedded)
-   radar_samples = [0] * 8192          # ~40KB+ overhead (Python objects)
+   # 🔴 List approach (🔴 🔴 bad for embedded)
+📡    radar_samples = [0] * 8192          # ~40KB+ overhead (Python objects)
    
-   # 🟢 Array approach (good!)
-   radar_samples = array('B', [0] * 8192)  # ~8KB only! 5x smaller
+   # 🟢 Array approach (🟢 🟢 good!)
+📡    radar_samples = array('B', [0] * 8192)  # ~8KB only! 5x smaller
    
    # Type codes:
    # 'B' = unsigned char (0–255)
@@ -161,31 +161,31 @@ Supported Versions & Landscape
    # 'd' = double (8-byte IEEE)
    
    **Memory impact:** 1000 arrays × 8192 bytes
-   - List: ~320 MB  ❌
-   - Array: ~65 MB  ✅
+   - List: ~320 MB  🔴 🔴 ❌
+   - Array: ~65 MB  🟢 🟢 ✅
 
 
-⚡ **Deque for Ring Buffers (Very Common in ADAS)** ⭐⭐⭐
+🚗 ⚡ **Deque for Ring Buffers (Very Common in ADAS)** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Keep last N detected objects, CAN frames, predictions (FIFO)
 
 .. code-block:: python
 
-   from collections import deque
+⚙️    from collections import deque
    
    # 🟢 Ring buffer: auto-drop oldest when full
-   latest_objects = deque(maxlen=50)     # Keep last 50 objects
+🟢 ✅ 🟢 🟢 ✅    latest_objects = deque(maxlen=50)     # Keep last 50 objects
    
    # 🟢 Add new object (old one auto-dropped if full)
-   latest_objects.append(new_object)
+🟢 ✅ 🟢 🟢 ✅    latest_objects.append(new_object)
    
    # 🟢 Fast iteration (for prediction fusion)
    for obj in latest_objects:
-       fuse_with_prediction(obj)
+⚙️        fuse_with_prediction(obj)
    
-   # 🔴 AVOID: Manual list management
-   # BAD: if len(objects) > 50: objects.pop(0)
+   # 🔴 🔴 🔴 AVOID: Manual list management
+   # 🔴 🔴 BAD: if len(objects) > 50: objects.pop(0)
 
 
 ⚡ **__slots__ for Memory Optimization** ⭐⭐⭐
@@ -195,14 +195,14 @@ Supported Versions & Landscape
 
 .. code-block:: python
 
-   # 🔴 Without __slots__ (bad – each object has __dict__)
+   # 🔴 Without __slots__ (🔴 🔴 bad – each object has __dict__)
    class DetectedObject:
        def __init__(self, id, class_id, x, y, z, conf):
            self.id = id
            self.class_id = class_id
            # ... creates __dict__ for each instance!
    
-   # 🟢 With __slots__ (good – 40–70% memory reduction!)
+   # 🟢 With __slots__ (🟢 🟢 good – 40–70% memory reduction!)
    class DetectedObject:
        __slots__ = ['id', 'class_id', 'x', 'y', 'z', 'conf', 'age', 'velocity']
        
@@ -216,13 +216,13 @@ Supported Versions & Landscape
            self.age = 1
            self.velocity = 0.0
    
-   **Memory comparison (100k objects):**
+💾    **Memory comparison (100k objects):**
    
-   Without __slots__: ~500 bytes/object × 100k = 50 MB  ❌
-   With __slots__:    ~150 bytes/object × 100k = 15 MB  ✅
+   Without __slots__: ~500 bytes/object × 100k = 50 MB  🔴 🔴 ❌
+   With __slots__:    ~150 bytes/object × 100k = 15 MB  🟢 🟢 ✅
 
 
-3️⃣ ADAS / Automotive Domain Snippets
+🚗 3️⃣ ADAS / Automotive Domain Snippets
 ================================================================================
 
 🚗 **Timestamp Handling (Nanoseconds → Human-Readable)** ⭐⭐
@@ -237,14 +237,14 @@ Supported Versions & Landscape
    def ns_to_str(ns: int) -> str:
        """Convert nanoseconds since epoch → ISO-8601 string"""
        dt = datetime.fromtimestamp(ns / 1_000_000_000)
-       return dt.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # ms precision
+⚙️        return dt.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # ms precision
    
    # Usage
    timestamp_ns = 1704067200_000_000_000
    print(ns_to_str(timestamp_ns))  # 2024-01-01 00:00:00.000
 
 
-🚗 **CRC32 for Payload Validation (Ethernet, SOME/IP)** ⭐⭐⭐
+🌐 🚗 **CRC32 for Payload Validation (Ethernet, SOME/IP)** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Validate packet integrity (CRC required in safety protocols)
@@ -265,7 +265,7 @@ Supported Versions & Landscape
        log_error("CRC mismatch – corrupted frame")
 
 
-🚗 **YAML Configuration Loading** ⭐⭐⭐
+⚙️ 🚗 **YAML Configuration Loading** ⭐⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Calibration, parameters stored in YAML – load once, use everywhere
@@ -278,19 +278,19 @@ Supported Versions & Landscape
    def load_calibration(calib_path: str) -> dict:
        """Load camera/radar calibration from YAML"""
        with Path(calib_path).open() as f:
-           return yaml.safe_load(f)  # ALWAYS use safe_load!
+🛡️            return yaml.safe_load(f)  # ALWAYS use safe_load!
    
    # Usage
-   calib = load_calibration("/etc/adas/calib_front.yaml")
+🚗    calib = load_calibration("/etc/adas/calib_front.yaml")
    
    focal_length = calib['camera']['intrinsics']['fx']
    baseline = calib['stereo']['baseline_m']
-   radar_fov = calib['radar']['vertical_fov_deg']
+📡    radar_fov = calib['radar']['vertical_fov_deg']
    
    **Safety note:** yaml.load() can execute arbitrary Python – always safe_load!
 
 
-🚗 **Thread-Safe Counter (Fusion, Logging)** ⭐⭐
+🛡️ 🚗 **Thread-Safe Counter (Fusion, Logging)** ⭐⭐
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** Multiple threads incrementing shared counter (frame counter, object ID)
@@ -316,20 +316,20 @@ Supported Versions & Landscape
    
    # Usage
    object_id_counter = SafeCounter(start=1000)
-   new_obj_id = object_id_counter.increment()  # Thread-safe! ✅
+   new_obj_id = object_id_counter.increment()  # Thread-safe! 🟢 🟢 ✅
 
 
-4️⃣ Embedded Linux + Python Best Practices
+💡 4️⃣ Embedded Linux + Python 🟢 🟢 Best Practices
 ================================================================================
 
-**✅ DO This** | **❌ DON'T Do This**
+**🟢 🟢 ✅ 🟢 🟢 DO This** | **🔴 🔴 ❌ 🔴 🔴 DON'T 🟢 🟢 Do This**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. table::
    :align: center
 
    +-----------------------------+-------------------------------------+
-   | ✅ **DO This**              | ❌ **DON'T Do This**                |
+   | 🟢 🟢 ✅ **🟢 🟢 DO This**              | 🔴 🔴 ❌ **🔴 🔴 DON'T 🟢 🟢 Do This**                |
    +=============================+=====================================+
    | pathlib.Path                | os.path.join(...)                   |
    +-----------------------------+-------------------------------------+
@@ -355,14 +355,14 @@ Supported Versions & Landscape
 **Performance Impact:** Choosing wrong pattern = 2–10x slowdown in tight loops
 
 
-5️⃣ Module Reference (Most Used in ADAS)
+📚 5️⃣ Module Reference (Most Used in ADAS)
 ================================================================================
 
 **Core Binary/Protocol:**
 
 🟢 **struct** ⭐⭐⭐
    Pack/unpack CAN, SOME/IP, Ethernet, radar, lidar frames
-   *Most critical module for automotive protocol work*
+⭐    *Most critical module for automotive protocol work*
 
 🟢 **collections** ⭐⭐⭐
    deque for ring buffers (objects, predictions, CAN history)
@@ -388,7 +388,7 @@ Supported Versions & Landscape
    Nanosecond timestamps → human-readable
 
 🟢 **logging** ⭐⭐
-   Structured logging for safety-critical systems
+⭐    Structured logging for safety-critical systems
 
 **Concurrency:**
 
@@ -475,17 +475,17 @@ Supported Versions & Landscape
    most_common_class = Counter(class_ids).most_common(1)[0]
 
 
-Advanced Patterns (2025+ Trend)
+🏗️ Advanced Patterns (2025+ Trend)
 ================================================================================
 
-🔮 **asyncio for High-Performance Pipelines**
+⚡ 🔮 **asyncio for High-Performance Pipelines**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Trend in 2025:** Replacing threading with asyncio for better performance
 
 .. code-block:: python
 
-   import asyncio
+⚙️    import asyncio
    
    async def process_sensor_data():
        """High-perf async sensor pipeline"""
@@ -499,20 +499,20 @@ Advanced Patterns (2025+ Trend)
            
            # Fuse all data
            result = fuse(can_data, lidar_data, camera_data)
-           await send_output_async(result)
+⚙️            await send_output_async(result)
    
    # Run async pipeline
    asyncio.run(process_sensor_data())
 
 
-🔮 **Type Hints for Safety-Critical Code**
+💻 ⭐ 💻 🔮 **Type Hints for Safety-Critical Code**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Best practice:** Use typing for self-documenting, IDE-checkable code
+**🟢 🟢 Best practice:** Use typing for self-documenting, IDE-checkable code
 
 .. code-block:: python
 
-   from typing import Optional, List, Tuple
+⚙️    from typing import Optional, List, Tuple
    
    class Detector:
        def detect(self, frame: bytes) -> List[DetectedObject]:
@@ -528,11 +528,11 @@ Advanced Patterns (2025+ Trend)
            pass
 
 
-Key Takeaways
+⭐ Key Takeaways
 ================================================================================
 
 ⭐ **Binary Protocol Work** (70% of ADAS Python):
-   Use **struct**, **memoryview**, avoid **list** for raw data
+   Use **struct**, **memoryview**, 🔴 🔴 avoid **list** for raw data
 
 ⭐ **Memory Optimization** (embedded constraint):
    Use **__slots__**, **array**, **deque** instead of generic containers
@@ -550,7 +550,7 @@ Key Takeaways
    Profile first, optimize after → struct > list, memoryview > copies
 
 
-Common Real-World ADAS Tasks
+🚗 Common Real-World ADAS Tasks
 ================================================================================
 
 **1️⃣ Parse CAN Message (0x123, 8 bytes, contains distance + confidence):**
@@ -577,7 +577,7 @@ Common Real-World ADAS Tasks
 
 .. code-block:: python
 
-   from collections import deque
+⚙️    from collections import deque
    
    class Obj:
        __slots__ = ['id', 'x', 'y', 'z', 'conf']
@@ -600,14 +600,14 @@ Common Real-World ADAS Tasks
 
 .. code-block:: python
 
-   from collections import Counter
+⚙️    from collections import Counter
    
    class_dist = Counter(obj.class_id for obj in detected_objects)
    for class_id, count in class_dist.most_common():
        print(f"Class {class_id}: {count} objects")
 
 
-Debugging & Profiling Tips
+🐛 Debugging & Profiling Tips
 ================================================================================
 
 🐛 **Memory Leak Suspect? (Embedded systems very sensitive)**
@@ -615,7 +615,7 @@ Debugging & Profiling Tips
 .. code-block:: bash
 
    # Profile memory usage
-   python -m memory_profiler my_script.py
+💾    python -m memory_profiler my_script.py
    
    # or simple approach
    import tracemalloc
@@ -642,8 +642,16 @@ Debugging & Profiling Tips
 
 ================================================================================
 
-**Happy coding in the safety-critical fast lane!** 🚗💨⚡
+⭐ **Happy coding in the safety-critical fast lane!** 🚗💨⚡
 
-*References: Automotive Python best practices, PEP 8, embedded Linux constraints*
+*References: Automotive Python 🟢 🟢 best practices, PEP 8, embedded Linux constraints*
 
 Last updated: January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

@@ -1,5 +1,5 @@
 Here is a concise, expanded **AUTOSAR Classic Platform – BSW Cheat Sheet** (R25-11 / early 2026).
-This enhanced version adds keywords, ComStack flows, configuration tooling, security/diagnostics notes, and a short comparison with AUTOSAR Adaptive.
+⭐ This enhanced version adds keywords, ComStack flows, configuration tooling, security/diagnostics notes, and a short comparison with AUTOSAR Adaptive.
 
 .. contents:: Table of Contents
 	:local:
@@ -9,13 +9,13 @@ This enhanced version adds keywords, ComStack flows, configuration tooling, secu
 AUTOSAR Classic Platform — BSW
 =================================
 
-Overview
+📖 Overview
 --------
 
 AUTOSAR Classic provides a layered, configurable Basic Software (BSW) stack and a standardized Runtime Environment (RTE) that decouples application SW Components (SWC) from hardware.
-This cheat sheet focuses on the BSW layer (services, ECU abstraction, MCAL, complex drivers) and adds practical keywords and integration notes useful for developers and integrators.
+⭐ This cheat sheet focuses on the BSW layer (services, ECU abstraction, MCAL, complex drivers) and adds practical keywords and integration notes useful for developers and integrators.
 
-Architecture Layers
+🏗️ Architecture Layers
 -------------------
 
 - **Application Layer** — SW Components (SWC), runnable entities, ports. Implement vehicle features.
@@ -29,10 +29,10 @@ BSW Layer Structure (top → bottom)
 - Microcontroller Abstraction Layer (MCAL: Dio, Adc, Gpt, Mcu, Fls)
 - Complex Drivers (special HW, vendor-specific)
 
-Core Keywords & Glossary
+⭐ Core Keywords & Glossary
 ------------------------
 
-This quick glossary lists common AUTOSAR Classic keywords, short definition and typical usage.
+⭐ This quick glossary lists common AUTOSAR Classic keywords, short definition and typical usage.
 
 - **AUTOSAR** — AUTomotive Open System ARchitecture standard for automotive software interoperability.
 - **BSW (Basic Software)** — Standardized services & drivers between RTE and hardware.
@@ -50,7 +50,7 @@ This quick glossary lists common AUTOSAR Classic keywords, short definition and 
 - **CanTp / LinTp / FrTp** — Transport Protocol modules for segmentation/reassembly (UDS diagnostic transport).
 - **DoIP / SOME/IP** — Ethernet-based transport/diagnostics (DoIP for diagnostics, SOME/IP for service-oriented communication).
 - **SecOC** — Secure Onboard Communication: message authentication and freshness for CAN/Ethernet.
-- **CryIf / Csm / KeyM** — Crypto Interface, Crypto Service Manager, Key Manager for centralized crypto usage.
+⭐ - **CryIf / Csm / KeyM** — Crypto Interface, Crypto Service Manager, Key Manager for centralized crypto usage.
 - **Dem** — Diagnostic Event Manager: fault logging, event aging, status.
 - **Dcm** — Diagnostic Communication Manager: UDS protocol handling (0x10, 0x22, 0x2E, 0x19, 0x31, 0x34, etc.).
 - **NvM** — NVRAM Manager: manages non-volatile data (EA/FEE/FLS backends).
@@ -78,7 +78,7 @@ Transport & Routing notes:
 - **SOME/IP** uses service discovery and serialization; configuration differs from signal-based COM.
 - **SecOC** often augments the Com/PduR path by inserting authentication fields and freshness counters.
 
-Configuration & Tooling
+⚙️ Configuration & Tooling
 -----------------------
 
 Common vendor tooling and recommended practices:
@@ -88,7 +88,7 @@ Common vendor tooling and recommended practices:
 - **Artop / Arctic Studio / AUTOSAR Builder** — ARXML manipulation, RTE generation helpers.
 - **ARXML management** — Keep SWC descriptions, ECU extracts, and BSW configs in separate, versioned artifacts.
 
-Best practices:
+🟢 🟢 Best practices:
 
 - Use CI to validate ARXML generation and RTE codegen.
 - Maintain separate configurations for development, test, and production (feature flags, DET vs DEM behaviors).
@@ -99,21 +99,21 @@ Diagnostics, Boot & Update Flow
 
 - **Startup**: BootROM → FBL → EcuM init (Mcu, Gpt, Wdg) → OS start → BswM orchestrates mode entry.
 - **UDS Diagnostics**: Tester ↔ Dcm (UDS) ↔ Dem logs → NvM stores persistent data; transport via CanTp/DoIP.
-- **FBL / OTA**: Secure boot verification via CryIf + KeyM, FLS/Ea/Fee used by bootloader to write images.
+⭐ - **FBL / OTA**: Secure boot verification via CryIf + KeyM, FLS/Ea/Fee used by bootloader to write images.
 
-Security & Crypto
+🔐 Security & Crypto
 -----------------
 
-- **Secure Boot**: Verify boot images using Csm/CryIf; manage keys with KeyM.
+⭐ - **Secure Boot**: Verify boot images using Csm/CryIf; manage keys with KeyM.
 - **In-vehicle message security**: SecOC provides MACs and freshness counters (sequence counters). Ensure monotonic counters persist via NvM.
 - **Crypto acceleration**: Use CryptoDrv for HW offload; fall back to software library where needed.
 
-Classic vs Adaptive — short comparison
+⚖️ Classic vs Adaptive — short comparison
 -------------------------------------
 
 - **Classic**: statically configured, deterministic, RTE-per-ECU, optimized for embedded controllers.
 - **Adaptive**: dynamic, service-oriented (SOME/IP), POSIX-like, suited for high-performance domain controllers.
-- Hybrid systems typically use Classic for safety-critical ECUs and Adaptive for compute-heavy functions; gateways map between them.
+⭐ - Hybrid systems typically use Classic for safety-critical ECUs and Adaptive for compute-heavy functions; gateways map between them.
 
 Quick Reference — Most-used BSW modules (2026)
 
@@ -121,9 +121,9 @@ Quick Reference — Most-used BSW modules (2026)
 - Communication: `Com`, `PduR`, `CanIf`, `EthIf`, `SoAd`, `CanTp`, `DoIP`.
 - Diagnostics: `Dem`, `Dcm`, `Fbl`.
 - Memory: `NvM`, `MemIf`, `Fls`, `Ea`, `Fee`.
-- Security: `SecOC`, `CryIf`, `Csm`, `KeyM`.
+⭐ - Security: `SecOC`, `CryIf`, `Csm`, `KeyM`.
 
-References & Standards
+📚 References & Standards
 ----------------------
 
 - AUTOSAR Classic module specs (4.x / R25-11)
@@ -138,3 +138,19 @@ If you want, I can:
 - add an ARXML signal & PDU example showing Com → PduR → CanIf routing,
 - create a minimal integration checklist for ECU acceptance testing, or
 - generate a PlantUML diagram showing the ComStack flow.
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

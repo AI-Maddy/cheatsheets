@@ -1,0 +1,112 @@
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+
+**🟢 🟢 DO-331 Cheat Sheet**  
+(Model-Based Development and Verification Supplement to 🟢 🟢 DO-178C – current as of 2026)
+
+🟢 🟢 DO-331 is the **official supplement** to 🟢 🟢 DO-178C (2011) that provides specific guidance when using **model-based development** (MBD) techniques for airborne software certification.
+
+It is **mandatory** to reference 🟢 🟢 DO-331 whenever model-based approaches replace or supplement traditional textual high-level/low-level requirements and/or design.
+
+📌 1. Core Purpose & Scope
+
+- Extends 🟢 🟢 DO-178C for tools and processes using **executable models** (e.g. Simulink, SCADE, SysML, Stateflow)
+- Covers model as source of:
+  - High-level requirements
+  - Low-level requirements
+  - Software architecture
+  - Source code generation
+- Applies to all software levels (A–E), with more objectives for Level A/B
+
+⭐ 📌 2. Key Model-Based Artifacts & Their Roles
+
+Artifact                              | Traditional Equivalent (🟢 🟢 DO-178C)       | Typical Use in 🟢 🟢 DO-331 Projects
+--------------------------------------|----------------------------------------|--------------------------------
+**Model**                             | High-level requirements + design       | Primary source of truth (Simulink/Stateflow/SCADE)
+**Model simulation / execution results** | Requirements-based test cases        | Verification evidence
+**Generated code**                    | Source code                            | From qualified code generator
+**Model coverage data**               | Structural coverage (MC/DC etc.)       | Model-level instead of code-level (in many cases)
+**Data dictionary / model elements**  | Software requirements standards        | Defines semantics, data types, interfaces
+
+⭐ ⚙️ 3. Main Compliance Options (Table MB.1 – most important)
+
+Option | Description                                                                 | When Most Used (2025–2026)
+-------|-----------------------------------------------------------------------------|----------------------------
+**MB.1** | Model used for requirements & design → code manually written               | Rare (defeats main benefit)
+**MB.2** | Model used for requirements & design → qualified code generator produces code | Most common (Simulink → Embedded Coder)
+⭐ **MB.3** | Model used for low-level requirements & design → manual/qualified code gen | Common in safety-critical control logic
+**MB.4** | Model used only for simulation / prototyping (not certification credit)    | Early prototyping only
+
+**MB.2 is dominant** in civil avionics in 2026 (especially flight controls, engine controls, autopilot).
+
+📌 4. Key Objectives Unique or Modified in 🟢 🟢 DO-331 (Table MB.6–MB.9 simplified)
+
+Objective                              | Level A | Level B | Level C | Typical Means of Compliance
+--------------------------------------|---------|---------|---------|-----------------------------
+Model requirements are accurate & consistent | 100%    | 100%    | 100%    | Model review + simulation
+Model simulation covers normal & robustness cases | 100%    | 100%    | 100%    | Simulation harness + test vectors
+Model structural coverage (decision, MC/DC) | 100%    | 100%    | —       | Model coverage tools (Simulink Coverage, SCADE)
+Traceability: model ↔ requirements ↔ tests ↔ code | 100%    | 100%    | 100%    | Traceability matrix / tool (Polarion, DOORS)
+Code-to-model traceability (if generated code) | 100%    | —       | —       | Qualified code generator report
+Model standards compliance             | 100%    | 100%    | 100%    | Model style guide review
+
+⚙️ 5. Tool Qualification in Model-Based Context (🟢 🟢 DO-330 + 🟢 🟢 DO-331)
+
+Tool Type                          | Typical TCL | Examples (2025–2026)
+-----------------------------------|-------------|-------------------------
+**Code generator**                 | TCL-1 or TCL-2 | Embedded Coder, SCADE KCG, QGen
+**Model verification / coverage tool** | TCL-2     | Simulink Design Verifier, Simulink Coverage, SCADE Suite Verifier
+**Simulation engine**              | TCL-2       | Simulink, SCADE Simulator
+**Model checker / formal tool**    | TCL-2 / TCL-3 | Simulink Design Verifier (Prover plugin), Astrée for models
+**Requirements management / traceability** | TCL-3 | Polarion, IBM DOORS, Jama
+
+**TCL-1 code generators** are rare — most projects accept **TCL-2** with additional reviews.
+
+📌 6. Common Model-Based Development Flow (2025–2026 industry practice)
+
+1. **Model creation** → Simulink / SCADE → high-level requirements
+2. **Model-in-the-loop (MIL) simulation** → verify functional behavior
+3. **Model standards & reviews** → check modeling guidelines
+4. **Model coverage analysis** → achieve decision/MC/DC on model
+5. **Code generation** → qualified generator (Embedded Coder, KCG)
+6. **Software-in-the-loop (SIL)** → verify generated code matches model
+7. **Hardware-in-the-loop (HIL)** → final integration testing
+8. **Traceability & artifact review** → show model → code → test coverage
+
+📌 7. Quick One-liners (what auditors & engineers actually say)
+
+- “If you generate code from model, you must follow MB.2.”
+- “Model coverage can replace code coverage for Level A/B if generator is qualified.”
+- “Simulink Coverage must reach 100% MC/DC on the model for Level A.”
+- “We use qualified code generator + model review instead of object-code verification.”
+- “Model standards are audited just like coding standards.”
+- “MIL + SIL equivalence testing is non-negotiable for MB.2.”
+- “🟢 🟢 DO-331 reduced verification effort compared to manual coding — but traceability is brutal.”
+
+📌 8. Modern Reality (2025–2026)
+
+- **~70–80%** of new flight-critical avionics software uses 🟢 🟢 DO-331 + MB.2 workflow
+- **Tools ecosystem**: MathWorks (Simulink + Embedded Coder + Verification & Validation), ANSYS SCADE Suite, QGen
+- **Biggest pain points**:
+  - Achieving 100% model MC/DC coverage
+  - Traceability from model elements to high-level requirements
+  - Qualifying the code generator (TCL-1 vs TCL-2 debate)
+  - Proving model-code behavioral equivalence
+
+🟢 🟢 Good luck with your model-based certification effort!  
+Most teams that adopt 🟢 🟢 DO-331 properly report **30–50% verification cost reduction** compared to traditional textual + manual coding approaches — but only if model standards, traceability, and tool qualification are done rigorously from day one.
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

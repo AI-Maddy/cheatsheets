@@ -1,3 +1,9 @@
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+
 Here is a practical, ADAS-focused **cheatsheet for JPEG, MPEG video codecs + common feature extraction methods**  
 (oriented toward embedded automotive perception engineers — 2025/2026 reality)
 
@@ -14,10 +20,10 @@ Raw Bayer ───►  Debayer/DPC  ───►  JPEG/MJPEG   ───►  Fe
                                  or H.264/H.265 (MPEG) for recording/streaming
 
 ════════════════════════════════════════════════════════════════════════════════
-1. JPEG (Still Image Compression) – Most Important in ADAS Cameras 2025–2026
+⭐ 1. JPEG (Still Image Compression) – Most Important in ADAS Cameras 2025–2026
 ════════════════════════════════════════════════════════════════════════════════
 
-Key JPEG modes used in ADAS cameras:
+⭐ Key JPEG modes used in ADAS cameras:
 
 Mode                  Chroma subsampling   Quality range   Typical bitrate   Use-case in ADAS
 ────────────────────  ───────────────────  ──────────────  ─────────────────  ────────────────────────────────
@@ -26,7 +32,7 @@ JPEG 4:2:2            4:2:2                75–90%          180–600 kB/frame 
 MJPEG (Motion JPEG)   4:2:0 or 4:2:2       75–90%          5–25 Mbps         Live view debug / low-latency stream
 JPEG-XL (emerging)    adaptive             60–85%          40–60% smaller    Future replacement (2026+ adoption slow)
 
-Important quality sweet-spots in ADAS (empirical 2024–2026):
+⭐ Important quality sweet-spots in ADAS (empirical 2024–2026):
 
 Target                     Recommended Q   Approx. size (2MP)   Remarks
 ─────────────────────────  ──────────────  ───────────────────  ────────────────────────────────────────
@@ -48,11 +54,11 @@ H.266/VVC        4K/8K                1–4 Mbps               90–300     high
 
 ADAS sweet-spots 2025–2026:
 
-Use-case                        Codec     Resolution   Bitrate     GOP   Keyframe interval   Remarks
+⭐ Use-case                        Codec     Resolution   Bitrate     GOP   Keyframe interval   Remarks
 ──────────────────────────────  ────────  ───────────  ──────────  ─────  ──────────────────  ────────────────────────────────────────
-Cabin DMS / driver monitoring   H.264     720p–1080p   2–5 Mbps    30–60  1–2 sec             Latency critical
+⭐ Cabin DMS / driver monitoring   H.264     720p–1080p   2–5 Mbps    30–60  1–2 sec             Latency critical
 Surround / AVM recording        H.265     1080p        6–10 Mbps   60–90  2–4 sec             Storage is expensive → HEVC wins
-Event / accident clip (upload)  H.264     1080p        8–15 Mbps   15–30  0.5–1 sec           Fast seek + good quality
+Event / accident clip (upload)  H.264     1080p        8–15 Mbps   15–30  0.5–1 sec           Fast seek + 🟢 🟢 good quality
 V2X camera sharing (live)      H.264     720p         1.5–4 Mbps  15–30  <100ms              Ultra low latency priority
 
 ════════════════════════════════════════════════════════════════════════════════
@@ -63,27 +69,27 @@ Method              Speed (embedded)   Robustness   Main ADAS Use-case          
 ──────────────────  ────────────────   ───────────  ──────────────────────────────────────────  ─────────────  ───────────────
 Harris / Shi-Tomasi Very fast          Medium       Corner detection for visual odometry         Yes            OpenCV
 FAST / AGAST        Extremely fast     Medium       Feature points for SLAM / mono VO            Yes            OpenCV / libviso2
-ORB                 Fast               Good         Rotation + scale robust, binary descriptor   Yes (very much) OpenCV
-BRISK               Fast               Good         Alternative to ORB, scale+rotation           Yes            OpenCV
+ORB                 Fast               🟢 🟢 Good         Rotation + scale robust, binary descriptor   Yes (very much) OpenCV
+BRISK               Fast               🟢 🟢 Good         Alternative to ORB, scale+rotation           Yes            OpenCV
 SIFT (patent-free)  Slow               Excellent    Reference / ground truth, few fps cases      Rarely         OpenCV contrib
-SURF                Medium             Very good    When ORB fails (older codebases)             Rarely         OpenCV contrib
-AKAZE               Medium             Very good    Nonlinear scale-space, good in low-texture   Sometimes      OpenCV
+SURF                Medium             Very 🟢 🟢 good    When ORB fails (older codebases)             Rarely         OpenCV contrib
+AKAZE               Medium             Very 🟢 🟢 good    Nonlinear scale-space, 🟢 🟢 good in low-texture   Sometimes      OpenCV
 SuperPoint          Medium–Fast (GPU)  Excellent    Learned detector + descriptor                Increasing     PyTorch / ONNX
-R2D2 / Key.Net      Fast (GPU)         Excellent    Modern learned keypoints + descriptors       Rising         Research → prod slowly
+⭐ R2D2 / Key.Net      Fast (GPU)         Excellent    Modern learned keypoints + descriptors       Rising         Research → prod slowly
 
 ════════════════════════════════════════════════════════════════════════════════
 4. Quick Decision Tree – What to Use in 2026 ADAS Project?
 ════════════════════════════════════════════════════════════════════════════════
 
-Need keypoints / features?
+⭐ Need keypoints / features?
 
 ├── Classical method required (certification, deterministic, no GPU)?
 │   ├── Need fastest possible detector?          → FAST / AGAST
 │   ├── Need binary + rotation+scale robust?     → ORB (default choice 2024–2026)
-│   └── Need best classical quality?             → AKAZE or BRISK
+│   └── Need 🟢 🟢 best classical quality?             → AKAZE or BRISK
 │
 └── Can use learned methods (most new projects)?
-    ├── Have GPU / NPU / good DSP?               → SuperPoint + SuperGlue / LightGlue
+    ├── Have GPU / NPU / 🟢 🟢 good DSP?               → SuperPoint + SuperGlue / LightGlue
     └── CPU only, strict real-time?              → ORB or FAST + handcrafted matcher
         └─→ still very hard to beat ORB in ~10–15 ms budget on Cortex-A7x
 
@@ -113,3 +119,15 @@ def jpeg_quality_score(img_orig, img_comp):
 
 Happy ADAS perception coding! 📸🚗
 ```
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026

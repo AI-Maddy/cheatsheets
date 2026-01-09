@@ -1,3 +1,9 @@
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+
 **cheatsheet for Linux Interrupt Handling** (kernel ~6.12 / early 2026 era)
 
 ### 0. Interrupt Fundamentals
@@ -19,7 +25,7 @@ An asynchronous signal that temporarily suspends normal program execution and tr
 - **RISC-V**: PLIC (Platform-Level Interrupt Controller)
 - **Legacy**: 8259 PIC (rarely used now)
 
-**Critical Constraints in Interrupt Context:**
+⭐ **Critical Constraints in Interrupt Context:**
 
 - No sleeping (no ``mutex_lock()``, ``msleep()``, I/O wait, user memory copy)
 - Limited stack (8 KB typical on x86-64, IRQ stack separate)
@@ -118,9 +124,9 @@ Return from Interrupt (IRET/RFE):
 
 ### 4. Main Bottom-Half Mechanisms – Modern Recommendation (2025–2026)
 
-| Mechanism              | Context               | Can sleep / Alloc mem | Concurrency (same instance) | Priority / Latency | Allocation    | Modern status & Best Practice (2025+)                  |
+| Mechanism              | Context               | Can sleep / Alloc mem | Concurrency (same instance) | Priority / Latency | Allocation    | Modern status & 🟢 🟢 Best Practice (2025+)                  |
 |------------------------|-----------------------|-----------------------|------------------------------|--------------------|---------------|--------------------------------------------------------|
-| **Softirq**            | Interrupt             | ✗                     | Multiple per CPU OK          | Highest            | Static (32)   | **Only for core subsystems** (NET_RX/TX, RCU, TIMER, BLOCK, SCHED, HRTIMER) – **avoid new ones** |
+| **Softirq**            | Interrupt             | ✗                     | Multiple per CPU OK          | Highest            | Static (32)   | **Only for core subsystems** (NET_RX/TX, RCU, TIMER, BLOCK, SCHED, HRTIMER) – **🔴 🔴 avoid new ones** |
 | **Tasklet**            | Interrupt             | ✗                     | **Serialized** (1 CPU only)  | High               | Dynamic       | **Legacy** – being replaced by **workqueue BH** or threaded IRQ |
 | **Workqueue (system/unbound)** | Process (kworker threads) | ✓                     | Multiple CPUs OK             | Medium             | Dynamic       | **Most common choice for new code** – flexible & safe |
 | **Workqueue BH context** | Interrupt (special)   | ✗                     | Serialized                   | High               | Dynamic       | **Modern tasklet replacement** (queue_work_on/system_bh_wq) |
@@ -132,7 +138,7 @@ Return from Interrupt (IRET/RFE):
 ```
 Need to defer work from IRQ handler?
 
-├── **Extremely performance/latency critical** (high-freq, core subsys)?
+⭐ ├── **Extremely performance/latency critical** (high-freq, core subsys)?
 │   └── → **Softirq** (very rare for new code – upstream hates new ones)
 │
 ├── **Cannot sleep, no memory allocation, no blocking calls**?
@@ -163,7 +169,7 @@ int request_irq(unsigned int irq, irq_handler_t handler,
 - Call ``free_irq(irq, dev)`` to cleanup
 - Example: ``request_irq(platform_irq, my_handler, IRQF_SHARED, "mydev", dev)``
 
-**request_threaded_irq() – Modern Best Practice**
+**request_threaded_irq() – Modern 🟢 🟢 Best Practice**
 
 ```c
 int request_threaded_irq(unsigned int irq,
@@ -199,11 +205,11 @@ int request_irq(irq, handler2, IRQF_SHARED, "dev2", dev2);  // Same IRQ
 disable_irq(irq);      // Also waits for in-flight handlers (blocking)
 enable_irq(irq);       // Re-enable
 
-disable_irq_nosync(irq);  // Don't wait (use in interrupt context)
+disable_irq_nosync(irq);  // 🔴 🔴 Don't wait (use in interrupt context)
 
-// Disable all IRQs (entire system – AVOID!)
+// Disable all IRQs (entire system – 🔴 🔴 AVOID!)
 local_irq_save(flags);
-// ... critical section ...
+⭐ // ... critical section ...
 local_irq_restore(flags);
 
 // Disable IRQ on local CPU
@@ -225,23 +231,23 @@ irq_set_affinity(irq, cpumask);
 ### 6. Quick Code Patterns (most used in modern kernels)
 
 ```c
-// 1. Modern best practice – Threaded IRQ (STRONGLY PREFERRED)
+// 1. Modern 🟢 🟢 best practice – Threaded IRQ (STRONGLY PREFERRED)
 static irqreturn_t my_irq_top(int irq, void *dev_id) {
-    struct my_device *dev = dev_id;
+🔧     struct my_device *dev = dev_id;
     
     // Very quick: check if our interrupt, ack hardware
     if (!(readl(dev->reg_status) & DEVICE_READY))
-        return IRQ_NONE;  // Not our interrupt (shared line scenario)
+⚙️         return IRQ_NONE;  // Not our interrupt (shared line scenario)
     
     // Clear interrupt flag on device
-    writel(DEVICE_IRQ_CLR, dev->reg_ctrl);
+🔧     writel(DEVICE_IRQ_CLR, dev->reg_ctrl);
     
     // Return to wake thread handler
     return IRQ_WAKE_THREAD;
 }
 
 static irqreturn_t my_irq_thread(int irq, void *dev_id) {
-    struct my_device *dev = dev_id;
+🔧     struct my_device *dev = dev_id;
     
     // All the real work here – can sleep, allocate, call blocking functions
     mutex_lock(&dev->lock);
@@ -250,7 +256,7 @@ static irqreturn_t my_irq_thread(int irq, void *dev_id) {
     mutex_unlock(&dev->lock);
     
     // Re-enable device IRQ if needed
-    writel(DEVICE_IRQ_EN, dev->reg_ctrl);
+🔧     writel(DEVICE_IRQ_EN, dev->reg_ctrl);
     
     return IRQ_HANDLED;
 }
@@ -263,7 +269,7 @@ free_irq(dev->irq, dev);
 
 // 2. Classic + still common – request_irq + workqueue
 static irqreturn_t my_fast_handler(int irq, void *dev) {
-    struct my_device *d = dev;
+🔧     struct my_device *d = dev;
     
     if (!device_has_data(d))
         return IRQ_NONE;
@@ -287,7 +293,7 @@ request_irq(dev->irq, my_fast_handler, 0, "my-device", dev);
 free_irq(dev->irq, dev);
 flush_work(&dev->work);
 
-// 3. Tasklet (legacy but still everywhere – avoid for new code)
+// 3. Tasklet (legacy but still everywhere – 🔴 🔴 avoid for new code)
 static void my_tasklet_func(unsigned long dev_ptr) {
     struct my_device *dev = (void *)dev_ptr;
     // Cannot sleep, but can access device data
@@ -303,7 +309,7 @@ static irqreturn_t my_handler(int irq, void *dev_id) {
 
 // 4. Disable IRQ in handler (for level-triggered or slow ACK)
 static irqreturn_t slow_ack_handler(int irq, void *dev_id) {
-    struct my_device *dev = dev_id;
+🔧     struct my_device *dev = dev_id;
     
     if (!device_has_data(dev))
         return IRQ_NONE;
@@ -318,7 +324,7 @@ static irqreturn_t slow_ack_handler(int irq, void *dev_id) {
 }
 
 static void enable_work_func(struct work_struct *work) {
-    struct my_device *dev = container_of(work, struct my_device, enable_work);
+🔧     struct my_device *dev = container_of(work, struct my_device, enable_work);
     
     // Process data (can sleep)
     process_data(dev);
@@ -404,7 +410,7 @@ cat /sys/kernel/debug/tracing/trace_pipe | head -30
 cyclictest -m -n -h 200 -l 100000
 
 # Find which CPUs handle which interrupts
-for i in /proc/irq/*/; do
+for i in /proc/irq/*/; 🟢 🟢 do
     echo "IRQ $i:"
     cat "$i/smp_affinity_list"
 done
@@ -507,7 +513,7 @@ t=100µs–∞: Bottom-half executes (asynchronously)
 | **Shared IRQ conflict** | Both handlers called, one spurious | Return IRQ_NONE if not your interrupt, use IRQF_SHARED |
 | **Threaded IRQ not running** | Data not processed | Check ps for irq thread, ensure IRQF_ONESHOT for level-triggered, check thread priority |
 | **Memory allocation in IRQ** | Kernel crash/panic | Allocate in setup, not in handler; use GFP_ATOMIC if necessary (risky) |
-| **Lock contention** | Spinlock held during sleep | Don't sleep in top-half, use threaded IRQ or workqueue for blocking ops |
+| **Lock contention** | Spinlock held during sleep | 🔴 🔴 Don't sleep in top-half, use threaded IRQ or workqueue for blocking ops |
 
 ### 12. Architecture-Specific Considerations
 
@@ -515,7 +521,7 @@ t=100µs–∞: Bottom-half executes (asynchronously)
 - Vector-based (256 possible interrupts)
 - MSI/MSI-X for PCI devices
 - LAPIC per CPU for local interrupts
-- EOI (End-of-Interrupt) handling critical for level-triggered
+⭐ - EOI (End-of-Interrupt) handling critical for level-triggered
 
 **ARM (GIC):**
 - SPIs (0–1019) shared, PPIs (0–15) private per CPU
@@ -563,7 +569,7 @@ irqaffinity=0
   - Safest, can sleep, most maintainable
   - Strongly preferred by upstream maintainers
   
-- **Performance-critical paths** → Softirq (rarely, profiling required)
+⭐ - **Performance-critical paths** → Softirq (rarely, profiling required)
   - Only for core subsystems (NET, RCU, TIMER, BLOCK)
   - New softirqs almost never accepted
   
@@ -574,6 +580,18 @@ irqaffinity=0
 - **Tuning** → Affinity, isolation, real-time kernel (RT_PREEMPT)
 
 **Quick Motto 2026:**  
-"**Thread it or queue it** – avoid tasklets & new softirqs whenever possible."
+"**Thread it or queue it** – 🔴 🔴 avoid tasklets & new softirqs whenever possible."
 
 Happy interrupt debugging! ⚡
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
+
+================================================================================
+
+**Last updated:** January 2026
