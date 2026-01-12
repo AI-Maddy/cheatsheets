@@ -1,8 +1,7 @@
-=====================================
-ARM DSP Cheatsheet (2026)
-=====================================
+🎵 **ARM DSP Cheatsheet (2026)**
+================================
 
-**2026 Guide**: Comprehensive coverage of ARM CMSIS-DSP library, Cortex-M DSP hardware instructions (SIMD/NEON), and optimization strategies for embedded signal processing on ARM processors.
+**2026 Guide**: 🚀 Comprehensive coverage of ARM CMSIS-DSP library, Cortex-M DSP hardware instructions (SIMD/NEON), and optimization strategies for embedded signal processing on ARM processors. Perfect for audio, sensor processing, ML inference! 🧠
 
 .. contents:: Table of Contents
    :depth: 3
@@ -13,8 +12,8 @@ ARM DSP Cheatsheet (2026)
 
 ---
 
-Core Data Types & Fixed-Point Arithmetic
-=========================================
+⚙️ **Core Data Types & Fixed-Point Arithmetic**
+================================================
 
 ⚙️ CMSIS-DSP Fixed-Point Representation
 ------------------------------------
@@ -49,11 +48,11 @@ Fixed-Point 🟢 🟢 Best Practices
 
 ---
 
-🔧 Cortex-M DSP Hardware Instructions
-==================================
+🔧 **Cortex-M DSP Hardware Instructions** (The Real Performance!)
+================================================================
 
-Processor Support Matrix
-------------------------
+📊 **Processor Support Matrix** (Who has what?)
+-----------------------------------------------
 
 +-------------------+--------+--------+--------+--------+--------+--------+--------+
 | Instruction Set   | M0     | M3     | M4     | M7     | M33    | M55    | M85    |
@@ -71,8 +70,8 @@ Processor Support Matrix
 
 ⭐ **Keywords**: Cortex-M4F, Cortex-M7, Cortex-M33F, Cortex-M55, Cortex-M85, floating-point unit (FPU), DSP extensions.
 
-💡 SIMD Instructions (Single Instruction Multiple Data)
------------------------------------------------------
+⚡ **SIMD Instructions** (Single Instruction Multiple Data) - Parallel Magic!
+--------------------------------------------------------------------------
 
 **16-bit Parallel Operations**
 
@@ -93,8 +92,8 @@ Processor Support Matrix
 - **SSUB8**: Four 8-bit signed subtractions
 ⭐ - **Keywords**: Byte-level parallelism, SIMD lane utilization
 
-💡 MAC (Multiply-Accumulate) Instructions
----------------------------------------
+⚡ **MAC** (Multiply-Accumulate) Instructions - The Heartbeat of DSP!
+------------------------------------------------------------------
 
 **Single MAC (32-bit result)**
 
@@ -128,15 +127,15 @@ Processor Support Matrix
 
 ---
 
-📚 CMSIS-DSP Library Functions
-============================
+📚 **CMSIS-DSP Library Functions** (The Toolkit!)
+================================================
 
 **Include Header**: `#include "arm_math.h"`
 
 **Initialization**: `arm_math_status` enums for validation
 
-⚙️ Basic Vector Operations
-------------------------
+⚙️ **Basic Vector Operations** (The Building Blocks)
+--------------------------------------------------
 
 .. code-block:: c
 
@@ -165,8 +164,8 @@ Processor Support Matrix
 
 ⭐ **Keywords**: Vectorization, data parallelism, block-based processing, streaming operations.
 
-Linear Filtering (FIR)
------------------------
+🎯 **Linear Filtering (FIR)** - Finite Impulse Response
+------------------------------------------------------
 
 .. code-block:: c
 
@@ -193,8 +192,8 @@ Linear Filtering (FIR)
 
 ⭐ **Keywords**: Impulse response, convolution, tap coefficients, delay-line, ringbuffer, linear-phase filtering.
 
-IIR Filtering (Cascaded Biquad)
---------------------------------
+🔁 **IIR Filtering** (Cascaded Biquad) - Infinite Impulse Response
+------------------------------------------------------------------
 
 .. code-block:: c
 
@@ -213,8 +212,8 @@ IIR Filtering (Cascaded Biquad)
 
 ⭐ **Keywords**: Feedback, poles/zeros, stability (|poles| < 1), cascade design, DF2-T topology (superior numerical stability), peaking filter, shelf filter.
 
-⚡ Fast Fourier Transform (FFT)
------------------------------
+🔋 **Fast Fourier Transform (FFT)** - Frequency Domain Magic!
+----------------------------------------------------------
 
 .. code-block:: c
 
@@ -246,8 +245,8 @@ IIR Filtering (Cascaded Biquad)
 
 ⭐ **Keywords**: Radix-2 Cooley-Tukey algorithm, frequency domain, spectral analysis, power spectral density (PSD), zero-padding, windowing.
 
-📚 Window Functions
------------------
+🪟 **Window Functions** (Reduce Spectral Leakage!)
+-------------------------------------------------
 
 Windowing reduces spectral leakage before FFT:
 
@@ -264,8 +263,8 @@ Windowing reduces spectral leakage before FFT:
 
 ⭐ **Keywords**: Spectral leakage, main-lobe width, sidelobe attenuation, scalloping loss, window overlap (COLA).
 
-Statistics & Analysis
------------------------
+📊 **Statistics & Analysis** (Know Your Data!)
+---------------------------------------------
 
 .. code-block:: c
 
@@ -293,8 +292,8 @@ Statistics & Analysis
 
 ⭐ **Keywords**: Variance, energy estimation, peak detection, signal-to-noise ratio (SNR), crest factor.
 
-⚙️ Matrix Operations
-------------------
+🔢 **Matrix Operations** (Linear Algebra on Embedded!)
+-----------------------------------------------------
 
 .. code-block:: c
 
@@ -315,11 +314,11 @@ Statistics & Analysis
 
 ---
 
-⚡ Optimization Techniques
-=======================
+⚡ **Optimization Techniques** (Make It FAST!)
+============================================
 
-⚡ Compiler & Preprocessor Optimizations
--------------------------------------
+💻 **Compiler & Preprocessor Optimizations** (Unlock Performance!)
+-----------------------------------------------------------------
 
 Enable these macros in project defines or before including `arm_math.h`:
 
@@ -337,8 +336,8 @@ Enable these macros in project defines or before including `arm_math.h`:
 
 ⭐ **Keywords**: Loop unrolling, compiler optimization flags, pragma directives, inline assembly, intrinsics.
 
-⚡ Hardware Optimization Strategies
---------------------------------
+🚀 **Hardware Optimization Strategies** (CPU-Level Tricks!)
+---------------------------------------------------------
 
 **1. Maximize MAC Throughput**
 
@@ -365,8 +364,8 @@ Enable these macros in project defines or before including `arm_math.h`:
 
 ⭐ **Keywords**: Memory access patterns, instruction cache (I-cache), data cache (D-cache), tightly-coupled memory (TCM), cache line optimization, false sharing.
 
-⚡ Real-Time Performance Considerations
--------------------------------------
+⏱️ **Real-Time Performance Considerations** (Timing Budgets!)
+------------------------------------------------------------
 
 +------------------------------+----------+-----------+-------------+
 | Task                         | Cortex-M4| Cortex-M7 | Cortex-M55  |
@@ -385,13 +384,13 @@ Cycle Count ≈ (Operations × Processor Cycles/Op) / Clock Frequency (MHz)
 
 ---
 
-NEON SIMD (Cortex-A & Limited M-Profile)
-========================================
+🎯 **NEON SIMD** (Cortex-A & Limited M-Profile) - Parallel Vectors!
+==================================================================
 
 **Availability**: Cortex-A series (ARMv7-A), optional on M55/M85
 
-🏗️ NEON Register Architecture
----------------------------
+🏗️ **NEON Register Architecture** (128-bit Parallelism!)
+------------------------------------------------------
 
 - **D-registers**: 64-bit (16 registers D0-D15)
 - **Q-registers**: 128-bit (8 registers Q0-Q7, alias D-regs)
@@ -571,3 +570,35 @@ Common Pitfalls
 ================================================================================
 
 **Last updated:** January 2026
+
+✨ **TL;DR Cheatsheet** (The 30-Second Version!)
+================================================
+
+✅ **Fixed-Point**: Q-format encoding; Q15 = [-1, +0.9999], 1 LSB ≈ 0.00003
+✅ **SIMD**: SADD16, SSUB16 (2 ops/cycle); SMLAD (2 MACs/cycle)
+✅ **MAC**: MLA, SMLAD, SMMLA, SMLAL (64-bit)
+✅ **FIR**: Convolution, linear-phase, state buffer = blockSize + numTaps - 1
+✅ **IIR**: Feedback loop, cascade biquads (DF2-T), poles must be |p| < 1
+✅ **FFT**: Radix-2, twiddle factors, bit-reversal permutation
+✅ **Windows**: Hann/Hamming (spectral leakage), Blackman (best sidelobe)
+✅ **Optimize**: Loop unroll, MAC throughput, memory bandwidth, SIMD width
+✅ **Helium**: M55/M85 MVE, 2× NEON speed, auto-vectorizes CMSIS-DSP
+✅ **Profile**: Use CYCCNT, disassembly, -O3 optimization
+
+---
+
+🚀 **Common Gotchas** (Don't Get Bitten!)
+========================================
+
+| Issue                      | Root Cause                | Fix                         |
+|----------------------------|-------------------------|-----------------------------|
+| Overflow in fixed-point    | Scale factor too small  | Use `arm_scale_q15(...)`   |
+| Spectral leakage in FFT    | No windowing            | Apply Hann/Hamming window  |
+| IIR filter blows up        | Poles outside unit circle| Design with |poles| < 1    |
+| Slow FIR performance       | Cache misses             | Use coefficients in ITCM   |
+| Helium not activating      | Missing `#define`       | Add `#define ARM_MATH_HELIUM`|
+
+---
+
+**Last updated:** 2026-01-12 | **CMSIS-DSP v1.14+**
+

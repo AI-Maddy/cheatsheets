@@ -1,5 +1,5 @@
 =====================================
-ARM ISP (Image Signal Processor) Cheatsheet (2026)
+📷 **ARM ISP** (Image Signal Processor) Cheatsheet (2026)
 =====================================
 
 **2026 Guide**: Comprehensive coverage of ARM Image Signal Processing architectures, ISP pipelines, color processing, and optimization techniques for embedded vision on ARM platforms.
@@ -13,11 +13,11 @@ ARM ISP (Image Signal Processor) Cheatsheet (2026)
 
 ---
 
-📖 ARM ISP Architecture Overview
-=============================
+📖 **ARM ISP Architecture Overview** (The Pipeline!)
+=================================================
 
-ISP Processing Stages (Typical Pipeline)
-----------------------------------------
+🔄 **ISP Processing Stages** (From Sensor to Output!)
+---------------------------------------------------
 
 The ARM ISP follows a sequential processing pipeline from RAW sensor data to output RGB frames:
 
@@ -37,11 +37,11 @@ The ARM ISP follows a sequential processing pipeline from RAW sensor data to out
 
 ---
 
-📚 Core ISP Components & Functions
-===============================
+📚 **Core ISP Components & Functions** (Building Blocks!)
+=======================================================
 
-📡 Sensor Interface
-----------------
+📡 **Sensor Interface** (Input Formats!)
+--------------------------------------
 
 **Supported Formats**:
 
@@ -63,8 +63,8 @@ The ARM ISP follows a sequential processing pipeline from RAW sensor data to out
 
 ⭐ **Keywords**: Bayer pattern, CFA (Color Filter Array), pixel format, data rate (Mbps), MIPI CSI-2, I3C interface.
 
-⚙️ Black Level Correction (BLC)
------------------------------
+⚙️ **Black Level Correction** (BLC) - Remove Dark Offset!
+------------------------------------------------------
 
 Removes dark offset from sensor output:
 
@@ -77,8 +77,8 @@ Removes dark offset from sensor output:
 **Purpose**: Correct fixed pattern noise, improve dynamic range
 ⭐ **Keywords**: Dark frame subtraction, pedestal removal, offset correction, linearization.
 
-⚙️ Lens Shading Correction (LSC)
------------------------------
+⚙️ **Lens Shading Correction** (LSC) - Fix Vignetting!
+---------------------------------------------------
 
 Corrects uneven illumination (vignetting) across the image:
 
@@ -93,8 +93,8 @@ Corrects uneven illumination (vignetting) across the image:
 **Storage**: ~1-4 KB for typical gain map
 ⭐ **Keywords**: Vignetting correction, illumination correction, gain map, spatial interpolation, LSC calibration.
 
-White Balance (WB)
-------------------
+🎨 **White Balance** (WB) - Neutral Colors!
+------------------------------------------
 
 Adjusts color channel gains to achieve neutral colors under different lighting:
 
@@ -118,8 +118,8 @@ Adjusts color channel gains to achieve neutral colors under different lighting:
 
 ⭐ **Keywords**: Color temperature (Kelvin), white point, AWB algorithm, color constancy, Planckian locus, AWB convergence.
 
-⚙️ Demosaicing (CFA Interpolation)
---------------------------------
+🎨 **Demosaicing** (CFA Interpolation) - Bayer to RGB!
+---------------------------------------------------
 
 Interpolates missing color channels from Bayer pattern to produce full RGB:
 
@@ -671,3 +671,51 @@ ARM Compiler & Libraries
 ================================================================================
 
 **Last updated:** January 2026
+
+✨ **ISP Pipeline TL;DR** (30-Second Summary!)
+=============================================
+
+✅ **RAW Input**: Bayer RGGB/GRBG/GBRG from sensor
+✅ **Black Level**: Subtract dark offset (fix pedestal)
+✅ **Lens Shading**: Apply gain map (fix vignetting)
+✅ **White Balance**: Scale R/G/B channels (neutral colors)
+✅ **Demosaicing**: Bayer → RGB (edge-directed or HQ)
+✅ **Color Correction**: Transform to sRGB/AdobeRGB
+✅ **Gamma Correction**: Apply tone curve (perceptual uniformity)
+✅ **Noise Reduction**: Spatial (bilateral) + temporal (frame averaging)
+✅ **Edge Enhancement**: Sharpening (unsharp mask or high-pass)
+✅ **Tone Mapping**: Compress HDR to LDR range
+✅ **Output**: YUV 4:2:0 or RGB (ready for display/encoding)
+
+---
+
+🚀 **Common ISP Bottlenecks** (What Slows Things Down?)
+======================================================
+
+| Stage          | Bottleneck                  | Solution                       |
+|----------------|----------------------------|--------------------------------|
+| Demosaicing    | Slow edge detection        | Use HQ or EDAC with vector ops |
+| Denoising      | Bilateral filter overhead  | Use optimized OpenCV/CMSIS-CV  |
+| Sharpening     | Multiple convolutions      | Fuse with other stages         |
+| Color correct  | Matrix multiplication      | Pre-compute with fixed-point   |
+| Tone mapping   | LUT lookups               | Cache-optimize LUT placement   |
+
+---
+
+📱 **Real-World ISP Implementations** (Industry Examples!)
+==========================================================
+
+**Mobile SoC ISP**:
+- Qualcomm Hexagon (Snapdragon)
+- Apple ProISP (A-series)
+- Samsung ISP (Exynos)
+
+**Embedded Vision**:
+- ARM Mali/Immortalis with ISP co-processor
+- TI DRA7x (Cortex-A15 + IVA-HD)
+- NVIDIA Tegra (Cortex-A57 + ISP)
+
+---
+
+**Last updated:** 2026-01-12 | **ARM ISP Architecture**
+

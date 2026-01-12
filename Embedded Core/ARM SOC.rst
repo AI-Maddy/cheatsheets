@@ -4,9 +4,12 @@
    :local:
 
 
-**cheatsheet for ARM SoCs** (System-on-Chip) commonly used in embedded systems, mobile devices, automotive, IoT, servers, and industrial applications (status early 2026).
+**🏗️ Cheatsheet for ARM SoCs** (System-on-Chip 2026!) - Embedded to Servers!
 
-📌 1. Current Main ARM Cortex Families (2026)
+This guide covers ARM Cortex families commonly used in embedded systems, mobile devices, automotive, IoT, servers, and industrial applications (status early 2026).
+
+📌 **1. Current Main ARM Cortex Families** (2026 Lineup!)
+---------------------------------------------------------
 
 | Family / Architecture     | Core Examples (2025–2026)             | Target Markets / Typical Use Cases                          | Max Clock (typical) | Process Node (typical) | Big.LITTLE / DynamIQ Support |
 |----------------------------|----------------------------------------|-------------------------------------------------------------|----------------------|--------------------------|-------------------------------|
@@ -17,7 +20,8 @@
 | **Cortex-M series**        | M7, M33, M55, M85, M7+                | Microcontrollers, low-power IoT, sensors                    | 100–800 MHz          | 22–40 nm                 | No                            |
 | **Neoverse**               | N1, N2, V1, V2, E1, N3, V3            | Servers, HPC, networking, edge cloud                        | 2.5–3.8 GHz          | 5–7 nm                   | Yes (multi-chip)              |
 
-📌 2. Major ARM SoC Vendors & Popular Chips (2026)
+🏭 **2. Major ARM SoC Vendors & Popular Chips** (2026 Market!)
+---------------------------------------------------------
 
 ⭐ | Vendor / Silicon Company       | Key SoC Families (2025–2026)                        | Cortex Cores (typical)       | Target Markets                          | Notable Features / Strengths |
 |--------------------------------|-----------------------------------------------------|-------------------------------|-----------------------------------------|--------------------------------|
@@ -32,7 +36,8 @@
 | **Broadcom**                   | BCM2712 (Raspberry Pi 5)                            | Cortex-A76                    | SBC, hobbyist                           | Raspberry Pi ecosystem |
 | **Ampere**                     | AmpereOne, Altra                                    | Neoverse N1/N2                | Cloud, edge servers                     | High core count (up to 192) |
 
-⭐ 📌 3. Key ARM SoC Features in 2026
+⭐ **3. Key ARM SoC Features in 2026** (Tech Deep-Dive!)
+----------------------------------------------------
 
 | Feature / Block               | Typical Implementation (2025–2026)                     | Benefit / Use Case                              |
 |-------------------------------|--------------------------------------------------------|-------------------------------------------------|
@@ -44,7 +49,8 @@
 ⭐ | **Secure Enclave / HSM**      | ARM TrustZone, PSA Certified RoT, DICE                 | Secure boot, key storage, attestation           |
 | **USB & PCIe**                | USB 3.2 Gen 2, PCIe 4.0/5.0 lanes                      | High-speed peripherals, storage                 |
 
-📌 4. Common Development & Bring-up Tools for ARM SoCs
+� **4. Common Development & Bring-up Tools** (Toolkit!)
+------------------------------------------------------
 
 | Tool / Environment            | Primary Use Case                              | Typical SoCs / Vendors                     | Notes |
 |-------------------------------|-----------------------------------------------|--------------------------------------------|-------|
@@ -57,7 +63,8 @@
 | **Segger J-Link / Ozone**     | Debugging, flashing                           | Most embedded ARM                           | Cost-effective |
 | **NXP MCUXpresso**            | i.MX / LPC development                        | NXP i.MX, RT series                         | Vendor-specific IDE |
 
-📚 5. Quick Reference – Popular ARM SoC Families (2026)
+📚 **5. Quick Reference** – Popular ARM SoC Families (2026!)
+----------------------------------------------------------
 
 | SoC Family / Series      | Cortex Cores (big.LITTLE)      | NPU / GPU                     | Typical Applications                  | Secure Boot Mechanism |
 |---------------------------|--------------------------------|-------------------------------|----------------------------------------|-----------------------|
@@ -67,7 +74,8 @@
 | TI Jacinto 7/8            | A72 + R5F                     | C7x DSP + vision accelerators | ADAS, infotainment                     | HABv4 / custom        |
 | Rockchip RK3588           | 4×A76 + 4×A55                 | 6 TOPS NPU, Mali-G610         | SBC, edge AI, industrial               | HABv4                 |
 
-📌 Quick Mnemonics & Rules of Thumb
+� **Quick Mnemonics & Rules of Thumb** (Remember These!)
+---------------------------------------------------------
 
 - **New high-end** → Cortex-X + A720 + A520 + big NPU  
 - **Automotive safety** → Cortex-R52 lock-step + ASIL-B/D qualified peripherals  
@@ -76,16 +84,10 @@
 - **Bring-up pain** → DDR timing, clock tree, power domains, pinctrl, ATF/OP-TEE integration  
 - **Linux support** → mainline kernel 6.6–6.12 has 🟢 🟢 good support for i.MX93, RK3588, Snapdragon 8 Gen 3
 
-🟢 🟢 Good luck with your ARM SoC bring-up or selection!
+**✅ Good luck with your ARM SoC bring-up or selection! May your DDR timing be stable and your kernels boot quickly! 🚀**
+
+---
+
+**Last updated:** January 2026 | **ARM SoC Guide 2026**
 
 ================================================================================
-
-**Last updated:** January 2026
-
-================================================================================
-
-**Last updated:** January 2026
-
-================================================================================
-
-**Last updated:** January 2026

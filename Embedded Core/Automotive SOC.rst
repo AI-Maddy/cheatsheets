@@ -4,9 +4,12 @@
    :local:
 
 
-**cheatsheet for ARM-based Automotive SoCs** (2025–2026 status), focused on the most relevant families, features, safety capabilities, and ecosystem used in production vehicles (ADAS, infotainment, zonal controllers, central compute, gateways, domain controllers).
+**🚗 Cheatsheet for ARM-based Automotive SoCs** (2025–2026!)
 
-⭐ 🚗 1. Key ARM Automotive SoC Families (2026 Production)
+This guide focuses on the most relevant families, features, safety capabilities, and ecosystem used in production vehicles (ADAS, infotainment, zonal controllers, central compute, gateways, domain controllers).
+
+⭐ **1. Key ARM Automotive SoC Families** (2026 Production!)
+---------------------------------------------------------
 
 | Vendor / SoC Family              | Main Cortex Cores (big.LITTLE)       | Safety Cores (lock-step) | NPU / Vision Accelerators | Max Automotive Ethernet | Typical ASIL Target | Main Applications (2026) |
 |----------------------------------|--------------------------------------|---------------------------|----------------------------|--------------------------|---------------------|---------------------------|
@@ -21,7 +24,8 @@
 | **NVIDIA DRIVE Orin**            | 12× Cortex-A78AE                    | —                         | 254 TOPS DLA + GPU         | 10 Gbps + TSN            | ASIL-B/D            | High-end L2+/L3/L4 ADAS |
 | **MediaTek Auto**                | Cortex-A78AE / A55                  | Cortex-R52                | APU (10–30 TOPS)           | 10 Gbps                  | ASIL-B/D            | Emerging in mid-range vehicles |
 
-⭐ 🛡️ 2. Key Safety & Automotive Features in ARM Automotive SoCs
+🛡️ **2. Key Safety & Automotive Features** (ASIL Compliance!)
+-----------------------------------------------------------
 
 | Feature / Block                  | Purpose / Capability                                      | Typical SoC Support (2026)          | ASIL Rating Support |
 |----------------------------------|-----------------------------------------------------------|-------------------------------------|---------------------|
@@ -33,7 +37,8 @@
 ⭐ | **IOMMU / SMMU**                 | Memory isolation for mixed-criticality                    | Most ARMv8-A automotive SoCs        | ASIL-B/D            |
 ⭐ | **ECC on RAM / Cache**           | Error correction for safety-critical memory               | Almost all automotive-grade         | ASIL-B/D            |
 
-📡 3. Common ARM Automotive SoC Software Stacks (2026)
+📡 **3. Common ARM Automotive SoC Software Stacks** (2026 Ecosystem!)
+-------------------------------------------------------------------
 
 | Stack / Platform               | RTOS / OS Base                     | AUTOSAR Support                  | Safety Certification Level | Typical OEM / Tier-1 Users |
 |--------------------------------|------------------------------------|----------------------------------|-----------------------------|----------------------------|
@@ -44,7 +49,8 @@
 | **Android Automotive OS**      | Android (Linux base)               | Adaptive bridge possible         | QM–ASIL B                   | Infotainment / cockpit     |
 ⭐ | **Green Hills INTEGRITY**      | INTEGRITY-178                      | Classic + Adaptive support       | ASIL-D / DAL A              | High-end safety-critical   |
 
-📚 4. Quick Reference – Popular ARM Automotive SoCs (2026)
+📚 **4. Quick Reference** – Popular ARM Automotive SoCs (2026!)
+--------------------------------------------------------------
 
 | SoC Family                     | Cores (big.LITTLE)             | NPU / TOPS           | Ethernet / TSN | Safety (ASIL) | Main OEM / Tier-1 Adoption |
 |--------------------------------|--------------------------------|----------------------|----------------|---------------|----------------------------|
@@ -54,7 +60,8 @@
 | Renesas R-Car V4H / Gen5       | 4× A78AE + 4× A55              | 16–30 TOPS           | 10 Gbps + TSN  | ASIL-D        | Japanese & European OEMs   |
 | NVIDIA DRIVE Orin              | 12× A78AE                      | 254 TOPS (DLA+GPU)   | 10 Gbps + TSN  | ASIL-D        | High-end L2+/L3/L4         |
 
-📌 5. Quick Mnemonics & Rules of Thumb (2026)
+� **5. Quick Mnemonics & Rules of Thumb** (Remember These!)
+----------------------------------------------------------
 
 - **ASIL-D** → lock-step Cortex-R52/R5F + HSM + ECC RAM + TSN Ethernet  
 - **Central compute / HPC** → Qualcomm SA8xxx / Renesas R-Car Gen5 / NVIDIA Orin  
@@ -65,16 +72,10 @@
 - **Secure boot** → HAB/AHAB (NXP), PSA Certified RoT, TrustZone + measured boot  
 - **NPU / vision** → 8–50 TOPS typical for L2+/L3, 100–250 TOPS for L4  
 
-🟢 🟢 Good luck with your ARM automotive SoC selection, bring-up, or integration work!
+**✅ Good luck with your ARM automotive SoC selection, bring-up, or integration work! May your kernels boot fast and your ASIL certifications be swift! 🚀**
+
+---
+
+**Last updated:** January 2026 | **ARM Automotive SoC Guide 2026**
 
 ================================================================================
-
-**Last updated:** January 2026
-
-================================================================================
-
-**Last updated:** January 2026
-
-================================================================================
-
-**Last updated:** January 2026

@@ -261,3 +261,22 @@ As of 2026, **Edge AI** dominates for real-time responsiveness, reduced latency,
 ================================================================================
 
 **Last updated:** January 2026
+
+✨ **TL;DR: Computer Vision Cheatsheet** (30-Second Review!)
+==========================================================
+
+✅ **Classification**: EfficientNet-v3, ViT, ConvNeXt → 80-90% accuracy
+✅ **Detection**: YOLO26 (real-time), EfficientDet (balanced), Faster R-CNN (accurate)
+✅ **Segmentation**: UNet (medical), DeepLab (semantic), Mask R-CNN (instance)
+✅ **Pose**: COCO Keypoints, MediaPipe (lightweight), OpenPose (accurate)
+✅ **Optical Flow**: RAFT, PWCNet for motion estimation
+✅ **3D**: PointNet++ (point clouds), SLAM (structure-from-motion)
+✅ **Quantization**: INT8 post-training (8-10% accuracy drop), QAT (< 1%)
+✅ **Distillation**: Knowledge transfer → 30% model size reduction
+✅ **Hardware**: GPU (RTX 4090: 2080 TOPs), NPU (Snapdragon: 30 TOPS), TPU (128-200 TOPS)
+✅ **Deployment**: ONNX, TensorFlow Lite, PyTorch Mobile
+
+---
+
+**Last updated:** 2026-01-12 | **Modern Computer Vision**
+
