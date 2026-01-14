@@ -40,6 +40,100 @@ Multi-transmitter, time-division, 2 Mbps shared bus—predecessor to AFDX, now l
   • **Synchronization:** All devices locked to common clock (external timing source)
   • **Deterministic Scheduling:** Pre-assigned time slots per transmitter
 
+💡 **Memory Aid**: **ARINC 629 = 6-2-9 = 6 transmitters possible, 2 Mbps, 9 times faster than 429!** 📡⏱️
+
+🧠 **Memory Palace**: Picture a **TRAFFIC LIGHT INTERSECTION** 🚦 with 3 lanes (transmitters). 
+Each lane gets GREEN LIGHT for exactly 0.3 seconds (time slot) in rotation. 🚗🚕🚙 Car #1 goes 0.0-0.3s, 
+Car #2 goes 0.3-0.6s, Car #3 goes 0.6-0.9s, then MASTER CLOCK resets ⏰ at 1.0s. 
+No collisions possible because slots are RIGID! Unlike ARINC 429 (one-way broadcast), 
+this is like organized turn-taking at intersection. That's ARINC 629: time-division = no conflicts!
+
+⚡ ARINC 629 Time-Division Multiplexed (TDM) Frame Structure
+───────────────────────────────────────────────────────────────────────────────
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ 1 kHz Master Frame (1.0 ms period, 3 TX slots + sync)                        │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  TIME AXIS:                                                                   │
+│  0.0 ms    0.3 ms    0.6 ms    0.9 ms    1.0 ms                              │
+│  ├─────────┬─────────┬─────────┬─────────┤                              │
+│  │  TX1    │  TX2    │  TX3    │ SYNC   │                              │
+│  │  Slot   │  Slot   │  Slot   │ Pulse  │ → Frame repeats             │
+│  │ 300 µs  │ 300 µs  │ 300 µs  │ 100 µs │                              │
+│                                                                               │
+│  TX1 SLOT (0.0 - 0.3 ms) - AIR DATA COMPUTER:                                │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │ 📡 TX1 Transmits:                                                       │  │
+│  │                                                                        │  │
+│  │ Word 1: [Label 024] [Altitude: 35,000 ft] [SSM: 11 = valid]           │  │
+│  │ Word 2: [Label 036] [Airspeed: 250 knots] [SSM: 11 = valid]           │  │
+│  │ Word 3: [Label 012] [V/Speed: +500 fpm] [SSM: 11 = valid]             │  │
+│  │ Word 4: [Label 042] [Static Pressure: 29.92 inHg] [SSM: 11]           │  │
+│  │ Word 5: [Label 051] [Total Air Temp: -15°C] [SSM: 11]                  │  │
+│  │ Word 6: [Label 065] [Angle of Attack: 3°] [SSM: 11]                   │  │
+│  │                                                                        │  │
+│  │ Total: 6 words transmitted in 300 µs slot                              │  │
+│  │ Word rate: 20,000 words/sec during TX1 slot                           │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  TX2 SLOT (0.3 - 0.6 ms) - INERTIAL REFERENCE SYSTEM:                        │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │ 🧭 TX2 Transmits:                                                       │  │
+│  │                                                                        │  │
+│  │ Word 1: [Label 100] [True Heading: 270°] [SSM: 11 = valid]            │  │
+│  │ Word 2: [Label 110] [Roll: +5°] [SSM: 11 = valid]                      │  │
+│  │ Word 3: [Label 120] [Pitch: +2°] [SSM: 11 = valid]                     │  │
+│  │ Word 4: [Label 130] [Latitude: 37.7°N] [SSM: 11]                       │  │
+│  │ Word 5: [Label 135] [Longitude: 122.4°W] [SSM: 11]                    │  │
+│  │ Word 6: [Label 142] [Ground Speed: 450 knots] [SSM: 11]               │  │
+│  │                                                                        │  │
+│  │ Total: 6 words transmitted in 300 µs slot                              │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  TX3 SLOT (0.6 - 0.9 ms) - FLIGHT CONTROL COMPUTER:                          │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │ ✈️ TX3 Transmits:                                                        │  │
+│  │                                                                        │  │
+│  │ Word 1: [Label 200] [Elevator Position: -2°] [SSM: 11 = valid]        │  │
+│  │ Word 2: [Label 210] [Aileron Left: +5°] [SSM: 11 = valid]             │  │
+│  │ Word 3: [Label 215] [Aileron Right: -5°] [SSM: 11 = valid]            │  │
+│  │ Word 4: [Label 220] [Rudder Position: 0°] [SSM: 11]                   │  │
+│  │ Word 5: [Label 230] [Flaps Extended: 10°] [SSM: 11]                   │  │
+│  │ Word 6: [Label 240] [Trim Position: 0°] [SSM: 11]                     │  │
+│  │                                                                        │  │
+│  │ Total: 6 words transmitted in 300 µs slot                              │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  SYNC PULSE (0.9 - 1.0 ms) - MASTER CLOCK RESET:                             │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │ ⏰ Master Clock Broadcast:                                                │  │
+│  │                                                                        │  │
+│  │ • Synchronization pulse sent by IRS or dedicated clock module        │  │
+│  │ • ALL devices reset their local frame timers to 0.0 ms                │  │
+│  │ • Ensures TX1/TX2/TX3 slots remain aligned (no drift)                │  │
+│  │ • Frame repeats at exactly 1.0 ms intervals (1 kHz frame rate)       │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  ALL RECEIVERS (Passive Listening):                                           │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │ 📻 Cockpit Display, Autopilot, Flight Data Recorder, etc.             │  │
+│  │                                                                        │  │
+│  │ • Listen to ALL slots (TX1, TX2, TX3 simultaneously)                   │  │
+│  │ • Filter labels of interest (e.g., Display wants Labels 024, 036)     │  │
+│  │ • Update internal data buffers as new words arrive                    │  │
+│  │ • Validate data (parity, SSM bits) before using                       │  │
+│  │ • NEVER transmit (only designated TX1/TX2/TX3 transmit)               │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  KEY INSIGHTS:                                                                │
+│  🚦 Time-Division Multiplexing: Fixed time slots prevent collisions            │
+│  🚦 Master clock synchronization: All devices phase-locked (no timing drift)   │
+│  🚦 Multiple transmitters: Unlike ARINC 429's single TX, 629 allows 3 TX       │
+│  🚦 Deterministic latency: Each TX knows exactly when its slot arrives        │
+│  🚦 Total bandwidth: 6,250 words/sec (18 words/frame × 1000 frames/sec)      │
+│                                                                               │
+└───────────────────────────────────────────────────────────────────────────────┘
+
 ---
 
 **🏛️ Historical Context & Evolution**
