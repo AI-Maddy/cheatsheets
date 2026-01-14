@@ -1,0 +1,774 @@
+🎯 **TECHNICAL LEADERSHIP — Architecture Governance & Mentorship**
+═══════════════════════════════════════════════════════════════════
+
+**Context:** Leading technical teams in aerospace software development
+**Focus:** Architecture decisions, mentorship, stakeholder communication
+**Standards:** IEEE 1471, ISO/IEC 42010, SAFe Technical Leadership
+
+════════════════════════════════════════════════════════════════════
+
+.. contents:: 📑 Quick Navigation
+   :depth: 2
+   :local:
+
+════════════════════════════════════════════════════════════════════
+
+🎯 **TL;DR — TECHNICAL LEADERSHIP IN 60 SECONDS**
+──────────────────────────────────────────────────
+
+**RACI Matrix (Decision Framework):**
+
+::
+
+    R - Responsible  → Does the work
+    A - Accountable  → Ultimate decision authority (only ONE per task)
+    C - Consulted    → Input before decision
+    I - Informed     → Notified after decision
+
+
+**Architecture Review Board (ARB):**
+
++----------------------+------------------+-------------------------+
+| **Role**             | **Frequency**    | **Focus**               |
++======================+==================+=========================+
+| Chief Architect      | Weekly           | Strategic alignment     |
++----------------------+------------------+-------------------------+
+| Domain Architects    | Weekly           | Domain-specific reviews |
++----------------------+------------------+-------------------------+
+| Security Lead        | Per design       | Threat analysis         |
++----------------------+------------------+-------------------------+
+| DO-178C Lead         | Per design       | Safety compliance       |
++----------------------+------------------+-------------------------+
+
+**Communication Formula:**
+
+::
+
+    Technical Detail ────→ Business Value
+    
+    "We'll implement ARINC 653 partitioning"
+             ↓
+    "Prevents one app crash from affecting flight-critical systems,
+     reducing certification risk by isolating changes"
+
+════════════════════════════════════════════════════════════════════
+
+📖 **1. ARCHITECTURE GOVERNANCE**
+═════════════════════════════════
+
+**1.1 Architecture Review Board (ARB)**
+---------------------------------------
+
+**Purpose:** Ensure architectural consistency, standards compliance
+
+**Structure:**
+
+::
+
+    ┌─────────────────────────────────────────────┐
+    │         Chief Architect (Chair)              │
+    │     "Final decision on disputes"             │
+    └────────────────┬────────────────────────────┘
+                     │
+         ┌───────────┼───────────┬────────────┐
+         │           │           │            │
+    ┌────┴────┐ ┌────┴────┐ ┌───┴─────┐ ┌────┴─────┐
+    │Avionics │ │   IFE   │ │Security │ │ Safety   │
+    │Architect│ │Architect│ │  Lead   │ │ Engineer │
+    └─────────┘ └─────────┘ └─────────┘ └──────────┘
+
+**Meeting Cadence:**
+
+- **Weekly:** Standing architecture review (1 hour)
+- **Ad-hoc:** Major design reviews (2-4 hours)
+- **Quarterly:** Architecture roadmap planning
+
+**Review Checklist:**
+
+- ✅ Aligns with reference architecture
+- ✅ Meets safety requirements (DO-178C DAL)
+- ✅ Complies with security standards (ED-203A SAL)
+- ✅ Satisfies performance requirements
+- ✅ Considers maintainability and extensibility
+- ✅ Documents trade-offs (ADR)
+
+**1.2 Architecture Decision Records (ADR)**
+-------------------------------------------
+
+**Format:**
+
+.. code-block:: markdown
+
+    # ADR-042: Adopt ARINC 653 Partitioning for IMA
+    
+    **Status:** Accepted
+    **Date:** 2026-01-14
+    **Deciders:** Chief Architect, Avionics Architect, Safety Engineer
+    
+    ## Context
+    
+    We need to integrate third-party apps (e.g., airline custom software)
+    into our Integrated Modular Avionics (IMA) platform without
+    compromising flight-critical functions.
+    
+    ## Decision
+    
+    We will implement ARINC 653 time and space partitioning using
+    Wind River VxWorks 653.
+    
+    ## Rationale
+    
+    - **Safety:** Prevents fault propagation between partitions
+    - **Certification:** Reduces DO-178C effort (change isolation)
+    - **Flexibility:** Airlines can add custom apps without recertification
+    - **Industry standard:** Proven in A380, 787, A350
+    
+    ## Consequences
+    
+    **Positive:**
+    - Isolated failure domains
+    - Faster development cycles (parallel teams)
+    - Lower certification cost for changes
+    
+    **Negative:**
+    - Learning curve for APEX API
+    - Partition configuration complexity
+    - Slight performance overhead (~5%)
+    
+    ## Alternatives Considered
+    
+    1. **Monolithic OS:** Rejected (no fault isolation)
+    2. **Containers (Docker):** Rejected (not DO-178C certifiable)
+    3. **Separate hardware:** Rejected (weight/cost)
+    
+    ## Related ADRs
+    
+    - ADR-038: Selection of Wind River VxWorks
+    - ADR-041: DO-178C DAL A certification approach
+
+**Storage:** Git repository (`docs/architecture/decisions/`)
+
+**1.3 Decision-Making Framework**
+---------------------------------
+
+**Consensus Building:**
+
+1. **Proposal** - Author presents design
+2. **Q&A** - Clarifying questions
+3. **Discussion** - Concerns and alternatives
+4. **Vote** - Thumbs up/down/sideways
+5. **Decide** - Chief Architect breaks ties
+
+**Trade-off Analysis Template:**
+
++-------------------+--------------+--------------+--------------+
+| **Criteria**      | **Option A** | **Option B** | **Option C** |
++===================+==============+==============+==============+
+| Safety            | High (9/10)  | Medium (6)   | High (8)     |
++-------------------+--------------+--------------+--------------+
+| Cost              | High ($2M)   | Low ($500K)  | Med ($1M)    |
++-------------------+--------------+--------------+--------------+
+| Schedule          | 18 months    | 6 months     | 12 months    |
++-------------------+--------------+--------------+--------------+
+| Maintainability   | Medium (6)   | Low (4)      | High (9)     |
++-------------------+--------------+--------------+--------------+
+| **TOTAL SCORE**   | **32**       | **20**       | **34** ✓     |
++-------------------+--------------+--------------+--------------+
+
+**Weighted Scoring:**
+
+::
+
+    Score = (Safety × 3) + (Cost × 2) + (Schedule × 2) + (Maintainability × 1)
+    
+    Option C wins: (8×3) + (7×2) + (7×2) + (9×1) = 61
+
+════════════════════════════════════════════════════════════════════
+
+📖 **2. TECHNICAL MENTORSHIP**
+═══════════════════════════════
+
+**2.1 1-on-1 Coaching Strategies**
+----------------------------------
+
+**Meeting Structure (Biweekly, 30 minutes):**
+
+1. **Career Goals** (5 min) - "Where do you want to be in 2 years?"
+2. **Current Challenges** (10 min) - Blockers, frustrations
+3. **Learning Plan** (10 min) - Skills to develop
+4. **Action Items** (5 min) - Specific next steps
+
+**Mentorship Levels:**
+
++------------------+-------------------------+------------------------+
+| **Level**        | **Focus**               | **Activities**         |
++==================+=========================+========================+
+| Junior Engineer  | Foundational skills     | Code reviews, pairing  |
++------------------+-------------------------+------------------------+
+| Mid-level        | Domain expertise        | Design reviews, talks  |
++------------------+-------------------------+------------------------+
+| Senior Engineer  | Leadership skills       | Mentoring others, ADRs |
++------------------+-------------------------+------------------------+
+| Staff/Principal  | Strategic influence     | Architecture, roadmap  |
++------------------+-------------------------+------------------------+
+
+**2.2 Knowledge Transfer Methods**
+----------------------------------
+
+**Lunch & Learn Sessions (Monthly):**
+
+- **Format:** 30-minute presentation + 15-minute Q&A
+- **Topics:** New technologies, lessons learned, case studies
+- **Example:** "How We Reduced IFE Boot Time from 90s to 15s"
+
+**Documentation:**
+
+- **Architecture Decision Records (ADRs)** - Why decisions were made
+- **Design Documents** - System architecture diagrams
+- **Runbooks** - Step-by-step operational procedures
+- **Onboarding Guides** - New hire ramp-up (first 90 days)
+
+**Code Reviews as Teaching:**
+
+.. code-block:: diff
+
+    // Instead of:
+    - "Use std::unique_ptr here"
+    
+    // Do this:
+    + "Consider std::unique_ptr to ensure automatic cleanup and
+    +  prevent memory leaks. Since this object has exclusive ownership
+    +  and we're not sharing it, unique_ptr is safer than shared_ptr.
+    +  See C++ Core Guidelines R.20"
+
+**Pair Programming:**
+
+- **Driver/Navigator** - One types, one thinks strategically
+- **Strong-style pairing** - "For an idea to go from your head to the computer, it must go through someone else's hands"
+- **Rotation:** Switch roles every 30 minutes
+
+**2.3 Career Development Planning**
+-----------------------------------
+
+**Individual Development Plan (IDP) Template:**
+
+.. code-block:: yaml
+
+    Engineer: Jane Smith
+    Current Level: Senior Software Engineer
+    Target Level: Staff Engineer
+    Timeline: 18 months
+    
+    Technical Skills:
+      - Master ARINC 653 partitioning (Q1 2026)
+      - Obtain DO-178C training certification (Q2 2026)
+      - Contribute to open-source avionics project (Q3 2026)
+    
+    Leadership Skills:
+      - Mentor 2 junior engineers (ongoing)
+      - Present at Avionics Conference (Q4 2026)
+      - Lead cross-team architecture initiative (Q2-Q4)
+    
+    Visibility:
+      - Write 3 internal tech blog posts
+      - Lead ARB design review for IFE 2.0
+      - Present quarterly architecture updates to CTO
+    
+    Success Criteria:
+      - Recognized as domain expert in avionics networking
+      - Trusted to make architecture decisions independently
+      - Invited to speak at external conferences
+
+════════════════════════════════════════════════════════════════════
+
+📖 **3. STAKEHOLDER COMMUNICATION**
+════════════════════════════════════
+
+**3.1 Translating Technical → Business Value**
+----------------------------------------------
+
+**Framework: "So What?"**
+
+Keep asking "So what?" until you reach business impact
+
+**Example:**
+
+::
+
+    Technical: "We're implementing TLS 1.3"
+         ↓ So what?
+    Benefit: "Faster encryption handshake"
+         ↓ So what?
+    Impact: "IFE loads 2 seconds faster"
+         ↓ So what?
+    Value: "Improved passenger satisfaction → Higher NPS scores → 
+            Repeat bookings → $5M annual revenue increase"
+
+**Translation Table:**
+
++----------------------------+-------------------------------------+
+| **Technical Term**         | **Business Translation**            |
++============================+=====================================+
+| ARINC 653 partitioning     | Reduced certification cost ($2M)    |
++----------------------------+-------------------------------------+
+| Microservices              | Faster feature delivery (50% ↓)    |
++----------------------------+-------------------------------------+
+| CI/CD pipeline             | Fewer production bugs (80% ↓)      |
++----------------------------+-------------------------------------+
+| Load balancing             | 99.99% uptime guarantee             |
++----------------------------+-------------------------------------+
+| Code refactoring           | Lower maintenance cost (30% ↓)     |
++----------------------------+-------------------------------------+
+
+**3.2 Executive Presentations**
+-------------------------------
+
+**Structure (15 minutes max):**
+
+1. **Problem Statement** (2 min) - What's broken?
+2. **Proposed Solution** (3 min) - How we'll fix it
+3. **Business Impact** (5 min) - $$$ and strategic value
+4. **Risk Analysis** (3 min) - What could go wrong
+5. **Ask** (2 min) - What you need (budget, headcount)
+
+**Slide Template:**
+
+.. code-block:: text
+
+    Slide 1: Title + Executive Summary (1 sentence)
+    Slide 2: Problem (metrics showing pain)
+    Slide 3: Solution (architecture diagram)
+    Slide 4: ROI (cost savings, revenue increase)
+    Slide 5: Timeline (Gantt chart)
+    Slide 6: Risks (mitigation strategies)
+    Slide 7: Ask (specific decision needed)
+
+**Golden Rule:** One idea per slide, use visuals over text
+
+**3.3 Cross-Functional Collaboration**
+--------------------------------------
+
+**RACI Matrix Example (IFE Update Project):**
+
++------------------------+------+------+------+------+------+
+| **Task**               | **SW**|**QA**|**PM**|**CE**|**AR**|
++========================+======+======+======+======+======+
+| Requirements           | C    | C    | **A**| R    | I    |
++------------------------+------+------+------+------+------+
+| Architecture Design    | **A**| I    | C    | C    | R    |
++------------------------+------+------+------+------+------+
+| Implementation         | R    | I    | **A**| I    | I    |
++------------------------+------+------+------+------+------+
+| Testing                | C    | R    | **A**| I    | I    |
++------------------------+------+------+------+------+------+
+| Certification          | C    | C    | I    | R    | **A**|
++------------------------+------+------+------+------+------+
+
+Legend: SW=Software, QA=Quality, PM=Project Mgr, CE=Cert Engineer, AR=Architect
+
+**Key:** Only ONE "A" (Accountable) per row
+
+════════════════════════════════════════════════════════════════════
+
+📖 **4. RISK MANAGEMENT**
+═════════════════════════
+
+**4.1 Technical Risk Identification**
+-------------------------------------
+
+**Risk Register Template:**
+
++-----+------------------+------+--------+--------+------------+
+| **ID**| **Risk**       |**Prob**|**Impact**|**Score**|**Mitigation**|
++=====+==================+======+========+========+============+
+| R-01| DO-178C delays   | 60%  | High   | **12** | Hire consultant|
++-----+------------------+------+--------+--------+------------+
+| R-02| ARINC 664 bugs   | 40%  | Med    | **6**  | Early testing  |
++-----+------------------+------+--------+--------+------------+
+| R-03| Key person loss  | 30%  | High   | **9**  | Cross-training |
++-----+------------------+------+--------+--------+------------+
+| R-04| Supplier delays  | 50%  | Med    | **7.5**| Dual-source    |
++-----+------------------+------+--------+--------+------------+
+
+**Risk Score = Probability × Impact (1-5 scale each)**
+
+**Priority:**
+
+- **CRITICAL** (≥10): Weekly monitoring
+- **HIGH** (7-9): Biweekly monitoring
+- **MEDIUM** (4-6): Monthly monitoring
+- **LOW** (<4): Quarterly monitoring
+
+**4.2 Risk Mitigation Strategies**
+----------------------------------
+
+**The 4 T's of Risk Management:**
+
+1. **Transfer** - Insurance, outsource to vendor
+2. **Tolerate** - Accept risk (document why)
+3. **Treat** - Implement controls to reduce
+4. **Terminate** - Avoid activity entirely
+
+**Example: Supplier Bankruptcy Risk**
+
+- **Transfer:** Escrow source code with third party
+- **Tolerate:** Low probability (supplier is Fortune 500)
+- **Treat:** Dual-source critical components
+- **Terminate:** Build in-house (too expensive)
+
+**Decision:** Transfer + Treat (escrow + dual-source)
+
+**4.3 Schedule Risk Management**
+--------------------------------
+
+**Critical Path Method (CPM):**
+
+::
+
+    Task A (3 weeks) ──→ Task C (2 weeks) ──→ Task E (1 week)
+                                                     ↓
+    Task B (4 weeks) ──→ Task D (3 weeks) ──────────┘
+    
+    Critical Path: B → D → E = 8 weeks (longest path)
+
+**Buffer Management (Critical Chain):**
+
+- Remove individual task buffers (padding)
+- Add project buffer at end (50% of critical path)
+- Monitor buffer consumption weekly
+
+**Example:**
+
+- Critical path: 20 weeks
+- Project buffer: 10 weeks (50%)
+- Total timeline: 30 weeks
+- Red flag: >50% buffer consumed at 25% progress
+
+════════════════════════════════════════════════════════════════════
+
+📖 **5. LEADING ARCHITECTURE REVIEWS**
+═══════════════════════════════════════
+
+**5.1 Design Review Process**
+-----------------------------
+
+**Pre-Review (1 week before):**
+
+1. Author submits design doc (Google Doc/Confluence)
+2. Reviewers read and comment asynchronously
+3. Author addresses comments before meeting
+
+**Review Meeting (2 hours):**
+
+1. **Context** (5 min) - Problem statement
+2. **Proposed Design** (15 min) - Architecture walkthrough
+3. **Q&A** (30 min) - Clarifying questions
+4. **Concerns** (30 min) - Risks, alternatives
+5. **Decision** (30 min) - Approve/Revise/Reject
+6. **Action Items** (10 min) - Next steps
+
+**Post-Review:**
+
+- Author updates ADR with decision
+- Action items assigned in Jira
+- Follow-up review scheduled (if needed)
+
+**5.2 Review Checklist**
+------------------------
+
+**Functional Requirements:**
+
+- [ ] Meets all user stories
+- [ ] Handles edge cases
+- [ ] Error handling defined
+
+**Non-Functional Requirements:**
+
+- [ ] Performance targets (latency, throughput)
+- [ ] Scalability (expected load)
+- [ ] Availability (uptime SLA)
+- [ ] Security (threat model)
+
+**Safety & Certification:**
+
+- [ ] DO-178C DAL level identified
+- [ ] Safety analysis complete (FHA, PSSA)
+- [ ] Traceability to requirements
+
+**Maintainability:**
+
+- [ ] Code is testable (unit, integration)
+- [ ] Monitoring/observability
+- [ ] Documentation complete
+
+**5.3 Giving Constructive Feedback**
+------------------------------------
+
+**Bad Feedback:**
+
+::
+
+    ❌ "This design is terrible"
+    ❌ "You don't understand ARINC 653"
+    ❌ "We tried this before and it failed"
+
+**Good Feedback (SBI Model):**
+
+::
+
+    ✅ Situation: "In the IFE partition design..."
+    ✅ Behavior: "...the shared memory region isn't protected..."
+    ✅ Impact: "...which violates ARINC 653 space partitioning 
+               and could fail DO-178C certification"
+    
+    ✅ Suggestion: "Consider using sampling ports for inter-partition
+                    communication instead"
+
+**Feedback Principles:**
+
+- Be specific (cite line numbers, diagrams)
+- Focus on the design, not the person
+- Offer alternatives, not just criticism
+- Ask questions ("Have you considered...?")
+
+════════════════════════════════════════════════════════════════════
+
+📝 **6. EXAM QUESTIONS**
+═════════════════════════
+
+**Q1:** You're leading an ARB review. Two architects disagree on using 
+microservices vs monolith for IFE. How do you resolve this?
+
+**A1:**
+
+**Process:**
+
+1. **Clarify Positions** - Each presents their case (10 min each)
+2. **Define Criteria** - What matters most? (performance, maintainability, cost)
+3. **Trade-off Analysis** - Score each option against criteria
+4. **Seek Consensus** - "Can we agree on Option A if we address concern X?"
+5. **Decide** - If no consensus, Chief Architect makes final call
+
+**Example Resolution:**
+
+- **Agreed criteria:** Fast feature delivery (weight=3), Cost (weight=2)
+- **Microservices:** Feature delivery=9, Cost=5 → Score: 37
+- **Monolith:** Feature delivery=6, Cost=9 → Score: 36
+- **Decision:** Microservices (document cost mitigation plan in ADR)
+
+**Key:** Use data, not opinions. Document rationale in ADR.
+
+────────────────────────────────────────────────────────────────────
+
+**Q2:** A junior engineer asks you to review their code. You notice 
+significant issues. How do you provide feedback without discouraging them?
+
+**A2:**
+
+**Sandwich Method (WITH CARE - focus on growth):**
+
+**1. Start with Positives:**
+
+"Great work on the error handling—catching those edge cases early shows good 
+defensive programming."
+
+**2. Address Issues Constructively:**
+
+"I noticed the buffer size is fixed at 256 bytes (line 42). In avionics, 
+we need to handle variable-length messages. Let's explore std::vector or 
+dynamic allocation with bounds checking."
+
+**3. Offer Guidance:**
+
+"Here's an example from our CAN driver (link). Want to pair program on this 
+tomorrow at 2 PM? We can walk through the pattern together."
+
+**4. Encourage Questions:**
+
+"Buffers in safety-critical code can be tricky. Any questions on sizing or 
+overflow protection?"
+
+**Key:** Make it a learning moment, not a criticism session.
+
+────────────────────────────────────────────────────────────────────
+
+**Q3:** Stakeholders ask why the architecture refactoring will take 6 months. 
+Translate this to business value.
+
+**A3:**
+
+**Translation:**
+
+**Technical Explanation:**
+
+"We're decomposing the monolithic IFE application into microservices using 
+Docker and Kubernetes, implementing API gateways, service discovery, and 
+distributed tracing."
+
+**Business Translation:**
+
+"This refactoring enables:
+
+1. **Faster Features** - New apps deploy in hours (not months)
+   - **Value:** Beat competitors to market with personalization features
+   
+2. **Higher Uptime** - One service failure doesn't crash entire IFE
+   - **Value:** 99.95% → 99.99% uptime = $500K annual savings in SLA penalties
+   
+3. **Cost Savings** - Independent scaling (only scale what's needed)
+   - **Value:** 30% reduction in cloud costs = $2M over 3 years
+   
+4. **Airline Customization** - Airlines can add custom apps without affecting core
+   - **Value:** Premium feature = $50/aircraft/month × 500 aircraft = $300K annually
+
+**ROI:** $3.8M savings over 3 years vs $1.2M investment = 217% ROI"
+
+────────────────────────────────────────────────────────────────────
+
+**Q4:** Create a RACI matrix for a DO-178C certification project involving 
+software engineers, QA, certification engineer, and program manager.
+
+**A4:**
+
++----------------------------+------+------+------+------+
+| **Task**                   | **SW**|**QA**|**CE**|**PM**|
++============================+======+======+======+======+
+| Software Requirements      | R    | C    | C    | **A**|
++----------------------------+------+------+------+------+
+| Software Design (LLR/HLR)  | R    | I    | C    | **A**|
++----------------------------+------+------+------+------+
+| Code Implementation        | R    | I    | I    | **A**|
++----------------------------+------+------+------+------+
+| Unit Testing               | R    | C    | I    | **A**|
++----------------------------+------+------+------+------+
+| Integration Testing        | C    | R    | I    | **A**|
++----------------------------+------+------+------+------+
+| MC/DC Coverage Analysis    | C    | R    | C    | **A**|
++----------------------------+------+------+------+------+
+| Traceability Matrix        | C    | C    | R    | **A**|
++----------------------------+------+------+------+------+
+| Tool Qualification (TQL)   | I    | C    | R    | **A**|
++----------------------------+------+------+------+------+
+| DER Audits                 | C    | C    | R    | **A**|
++----------------------------+------+------+------+------+
+| PSAC/SAS Document Prep     | C    | C    | R    | **A**|
++----------------------------+------+------+------+------+
+
+**Legend:**
+
+- SW = Software Engineers
+- QA = Quality Assurance
+- CE = Certification Engineer (DER liaison)
+- PM = Program Manager
+
+**Key Insights:**
+
+- PM is **Accountable** for ALL tasks (single point of authority)
+- CE is **Responsible** for certification deliverables
+- QA is **Responsible** for test execution and coverage
+- SW is **Responsible** for development artifacts
+
+────────────────────────────────────────────────────────────────────
+
+**Q5:** You're mentoring a mid-level engineer who wants to become a Staff 
+Engineer. Create a 12-month development plan.
+
+**A5:**
+
+**12-Month Individual Development Plan (IDP):**
+
+**Q1 (Jan-Mar): Domain Expertise**
+
+- [ ] Complete ARINC 653 training (2-day course)
+- [ ] Shadow Chief Architect in ARB meetings (weekly)
+- [ ] Read 3 aviation architecture books (references below)
+- [ ] Present "ARINC 653 Deep Dive" at Lunch & Learn
+
+**Q2 (Apr-Jun): Technical Leadership**
+
+- [ ] Lead design for IFE Authentication Service (end-to-end)
+- [ ] Mentor 1 junior engineer (biweekly 1-on-1s)
+- [ ] Write 2 ADRs for major decisions
+- [ ] Present design review to ARB
+
+**Q3 (Jul-Sep): Visibility & Influence**
+
+- [ ] Write 2 internal blog posts (Medium/company blog)
+- [ ] Submit talk to Avionics Conference (proposal by July 1)
+- [ ] Lead cross-team initiative (e.g., API standardization)
+- [ ] Get feedback from 3 peers on leadership style
+
+**Q4 (Oct-Dec): Strategic Thinking**
+
+- [ ] Author 6-month architecture roadmap for IFE domain
+- [ ] Present to VP Engineering
+- [ ] Obtain AWS Solutions Architect certification
+- [ ] Conduct 360 review (peers, manager, reports)
+
+**Success Metrics:**
+
+- ✅ Independently leads major architecture initiatives
+- ✅ Recognized as go-to expert for IFE architecture
+- ✅ Presents at external conference
+- ✅ Receives "exceeds expectations" rating
+- ✅ Promoted to Staff Engineer (December review)
+
+**Resources:**
+
+- Book: "Software Architecture for Embedded Systems" by Robert Oshana
+- Course: DO-178C Training (AFuzion, Rapita)
+- Mentor: Chief Architect (monthly coffee chats)
+
+════════════════════════════════════════════════════════════════════
+
+✅ **COMPLETION CHECKLIST**
+────────────────────────────
+
+- [ ] Establish Architecture Review Board with clear charter
+- [ ] Document architecture decisions using ADR template
+- [ ] Create RACI matrix for all major projects
+- [ ] Conduct biweekly 1-on-1s with all direct reports
+- [ ] Develop Individual Development Plans (IDPs) for team
+- [ ] Host monthly Lunch & Learn sessions
+- [ ] Practice translating technical → business value
+- [ ] Maintain risk register with quarterly updates
+- [ ] Lead design reviews with structured agenda
+- [ ] Give constructive feedback using SBI model
+- [ ] Write quarterly architecture blog posts
+- [ ] Present to executives (practice with peers first)
+- [ ] Cross-train team (no single point of knowledge)
+- [ ] Celebrate team wins publicly
+
+════════════════════════════════════════════════════════════════════
+
+🌟 **KEY TAKEAWAYS**
+════════════════════
+
+1️⃣ **Architecture governance prevents chaos** → ARB, ADRs, and RACI 
+matrices ensure consistent decisions across teams
+
+2️⃣ **Document your decisions** → Future engineers (including future you) 
+need to understand WHY, not just WHAT
+
+3️⃣ **Mentorship is multiplication** → 1-on-1s, IDPs, and knowledge transfer 
+scale your impact beyond your own code
+
+4️⃣ **Translate to business value** → Keep asking "So what?" until you 
+reach revenue/cost/risk impact
+
+5️⃣ **Use data for decisions** → Trade-off analysis and weighted scoring 
+remove emotion from architecture debates
+
+6️⃣ **Feedback is a gift** → SBI model (Situation-Behavior-Impact) makes 
+criticism constructive
+
+7️⃣ **Manage risks proactively** → Risk register + mitigation plans prevent 
+surprises
+
+════════════════════════════════════════════════════════════════════
+
+**Document Status:** ✅ **TECHNICAL LEADERSHIP COMPLETE**
+**Created:** January 14, 2026
+**Coverage:** Governance, Mentorship, Communication, Risk, Reviews
+
+════════════════════════════════════════════════════════════════════
