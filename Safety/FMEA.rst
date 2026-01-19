@@ -1147,7 +1147,6 @@ Using AIAG-VDA 2019 AP table:
 
 **Document Version:** 1.0  
 **Last Updated:** January 16, 2026  
-**Author:** GitHub Copilot (Claude Sonnet 4.5)  
 **Standards:** ISO 26262:2018, IEC 61508:2010, AIAG-VDA FMEA 2019, MIL-STD-1629A
 
 ================================================================================

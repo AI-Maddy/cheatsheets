@@ -1,0 +1,237 @@
+================================================================================
+LINUX SECURITY CHEATSHEETS - PROJECT PLAN
+================================================================================
+
+Source: Mastering Linux Security And Hardening by Donald A. Tevault
+Pages: 652
+Target Directory: /home/maddy/projects/cheatsheets/Linux/Security/
+
+================================================================================
+BOOK STRUCTURE (14 Chapters, 3 Sections)
+================================================================================
+
+SECTION 1: Setting up a Secure Linux System
+  Chapter 1: Running Linux in a Virtual Environment
+  Chapter 2: Securing User Accounts
+  Chapter 3: Securing Your Server with a Firewall - Part 1
+  Chapter 4: Securing Your Server with a Firewall - Part 2
+  Chapter 5: Encryption Technologies
+  Chapter 6: SSH Hardening
+
+SECTION 2: Mastering File and Directory Access Control
+  Chapter 7: Mastering Discretionary Access Control
+  Chapter 8: Access Control Lists and Shared Directory Management
+
+SECTION 3: Advanced System Hardening Techniques
+  Chapter 9: Implementing Mandatory Access Control with SELinux and AppArmor
+  Chapter 10: Kernel Hardening and Process Isolation
+  Chapter 11: Scanning, Auditing, and Hardening
+  Chapter 12: Logging and Log Security
+  Chapter 13: Vulnerability Scanning and Intrusion Detection
+  Chapter 14: Security Tips and Tricks for the Busy Bee
+
+================================================================================
+CHEATSHEETS TO CREATE (15 FILES)
+================================================================================
+
+1. Linux_Security_Basics.rst
+   - Security landscape overview
+   - Virtual environment security
+   - Security principles and best practices
+   - Threat models
+
+2. User_Account_Security.rst
+   - User and group management
+   - Password policies
+   - sudo configuration and sudoers
+   - PAM (Pluggable Authentication Modules)
+   - Account lockout policies
+   - Root account protection
+
+3. Firewall_iptables.rst
+   - iptables fundamentals
+   - Tables and chains
+   - Rule syntax and examples
+   - NAT and port forwarding
+   - Logging
+   - Common firewall configurations
+
+4. Firewall_nftables_firewalld.rst
+   - nftables (iptables replacement)
+   - firewalld configuration
+   - Zones and services
+   - Rich rules
+   - Direct rules
+   - Migration from iptables
+
+5. Encryption_Technologies.rst
+   - LUKS disk encryption
+   - GPG/PGP encryption
+   - File encryption (ecryptfs)
+   - Encrypted filesystems
+   - Encrypted swap
+   - Certificate management
+   - TLS/SSL fundamentals
+
+6. SSH_Hardening.rst
+   - SSH server configuration
+   - Key-based authentication
+   - Disabling password authentication
+   - SSH tunneling and port forwarding
+   - SSH certificate authentication
+   - Two-factor authentication (2FA)
+   - Fail2ban configuration
+   - SSH best practices
+
+7. File_Permissions_DAC.rst
+   - Linux file permissions (rwx)
+   - chmod, chown, chgrp
+   - SUID, SGID, Sticky bit
+   - umask configuration
+   - File attributes (chattr, lsattr)
+   - Default permissions
+
+8. Access_Control_Lists.rst
+   - ACL fundamentals
+   - getfacl and setfacl
+   - Default ACLs
+   - ACL inheritance
+   - Shared directory management
+   - ACL backup and restore
+
+9. SELinux_Security.rst
+   - SELinux fundamentals
+   - SELinux modes (enforcing, permissive, disabled)
+   - Security contexts
+   - SELinux policies
+   - Boolean settings
+   - File contexts and labels
+   - Troubleshooting SELinux
+   - SELinux tools (semanage, restorecon, audit2allow)
+
+10. AppArmor_Security.rst
+    - AppArmor fundamentals
+    - AppArmor profiles
+    - Profile modes (enforce, complain)
+    - Creating custom profiles
+    - AppArmor tools
+    - Troubleshooting AppArmor
+
+11. Kernel_Hardening.rst
+    - Kernel parameters (sysctl)
+    - /proc/sys/kernel/ settings
+    - Network stack hardening
+    - Process isolation
+    - Namespaces and cgroups
+    - Kernel module management
+    - Secure boot
+    - Kernel live patching
+
+12. System_Auditing_Scanning.rst
+    - auditd configuration
+    - Audit rules
+    - ClamAV antivirus
+    - Rootkit detection (rkhunter, chkrootkit)
+    - System hardening (Lynis)
+    - File integrity monitoring (AIDE, Tripwire)
+    - Security benchmarks (CIS)
+
+13. Logging_Log_Security.rst
+    - rsyslog configuration
+    - journald (systemd logging)
+    - Log rotation (logrotate)
+    - Remote logging
+    - Log analysis
+    - Log security and integrity
+    - Centralized logging
+
+14. Vulnerability_Intrusion_Detection.rst
+    - Vulnerability scanning (OpenVAS, Nessus)
+    - Port scanning (nmap)
+    - IDS/IPS (Snort, Suricata)
+    - HIDS (OSSEC, Wazuh)
+    - Intrusion detection strategies
+    - Security monitoring
+
+15. Security_Quick_Reference.rst
+    - Quick security checklist
+    - Common security commands
+    - Emergency response procedures
+    - Security tools reference
+    - Compliance frameworks
+    - Security hardening checklist
+
+================================================================================
+TASK BREAKDOWN (30 Smaller Tasks)
+================================================================================
+
+PHASE 1: Foundation (Tasks 1-6)
+-------------------------------
+Task 1:  Create Security directory structure
+Task 2:  Extract Chapter 1 content → Linux_Security_Basics.rst (TL;DR)
+Task 3:  Extract Chapter 2 content → User_Account_Security.rst (Part 1)
+Task 4:  Complete User_Account_Security.rst (Part 2 - PAM, sudo)
+Task 5:  Extract Chapter 3 content → Firewall_iptables.rst (Part 1)
+Task 6:  Complete Firewall_iptables.rst (Part 2 - examples)
+
+PHASE 2: Firewall & Encryption (Tasks 7-12)
+--------------------------------------------
+Task 7:  Extract Chapter 4 content → Firewall_nftables_firewalld.rst (Part 1)
+Task 8:  Complete Firewall_nftables_firewalld.rst (Part 2 - zones, rules)
+Task 9:  Extract Chapter 5 content → Encryption_Technologies.rst (Part 1 - LUKS)
+Task 10: Complete Encryption_Technologies.rst (Part 2 - GPG, TLS)
+Task 11: Extract Chapter 6 content → SSH_Hardening.rst (Part 1)
+Task 12: Complete SSH_Hardening.rst (Part 2 - 2FA, fail2ban)
+
+PHASE 3: Access Control (Tasks 13-18)
+--------------------------------------
+Task 13: Extract Chapter 7 content → File_Permissions_DAC.rst (Part 1)
+Task 14: Complete File_Permissions_DAC.rst (Part 2 - SUID, attributes)
+Task 15: Extract Chapter 8 content → Access_Control_Lists.rst (Part 1)
+Task 16: Complete Access_Control_Lists.rst (Part 2 - defaults, shared dirs)
+Task 17: Extract Chapter 9 content → SELinux_Security.rst (Part 1)
+Task 18: Complete SELinux_Security.rst (Part 2 - contexts, troubleshooting)
+
+PHASE 4: Advanced Hardening (Tasks 19-24)
+------------------------------------------
+Task 19: Extract Chapter 9 content → AppArmor_Security.rst
+Task 20: Extract Chapter 10 content → Kernel_Hardening.rst (Part 1)
+Task 21: Complete Kernel_Hardening.rst (Part 2 - namespaces, modules)
+Task 22: Extract Chapter 11 content → System_Auditing_Scanning.rst (Part 1)
+Task 23: Complete System_Auditing_Scanning.rst (Part 2 - AIDE, Lynis)
+Task 24: Extract Chapter 12 content → Logging_Log_Security.rst
+
+PHASE 5: Detection & Reference (Tasks 25-30)
+---------------------------------------------
+Task 25: Extract Chapter 13 content → Vulnerability_Intrusion_Detection.rst (Part 1)
+Task 26: Complete Vulnerability_Intrusion_Detection.rst (Part 2 - IDS/IPS)
+Task 27: Extract Chapter 14 content → Security_Quick_Reference.rst (Part 1)
+Task 28: Complete Security_Quick_Reference.rst (Part 2 - checklists)
+Task 29: Create comprehensive security command reference table
+Task 30: Final validation and cross-referencing
+
+================================================================================
+EXECUTION STRATEGY
+================================================================================
+
+Approach: Sequential execution with parallel content extraction where possible
+Format: reStructuredText (.rst) for consistency
+Style: Command-focused cheatsheets with practical examples
+
+Each cheatsheet will include:
+1. TL;DR section with quick commands
+2. Detailed explanations
+3. Working examples
+4. Common use cases
+5. Troubleshooting tips
+6. Security best practices
+7. Cross-references to related cheatsheets
+
+Estimated total content: 8,000-10,000 lines across 15 files
+
+================================================================================
+STARTING EXECUTION
+================================================================================
+
+Status: Ready to begin
+First task: Create directory structure and start with Linux_Security_Basics.rst

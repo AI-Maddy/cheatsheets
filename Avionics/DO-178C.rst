@@ -1,0 +1,59 @@
+**DO-178C** (full title: *Software Considerations in Airborne Systems and Equipment Certification*, also known as ED-12C in Europe) is the primary standard published by **RTCA** (in collaboration with EUROCAE) for the development and certification of safety-critical software in civil airborne systems. It is recognized by authorities like the FAA (via AC 20-115D), EASA, and Transport Canada as an acceptable (though not the only) means of compliance for software aspects of airworthiness certification.
+
+The document is **objective-based** rather than prescriptive: it defines high-level **objectives** (goals to achieve), activities to support them, and life cycle data (artifacts/evidence) to demonstrate compliance. The rigor scales with the **Design Assurance Level (DAL)**, from Level A (catastrophic failure condition, highest rigor) to Level E (no safety effect, minimal/no objectives).
+
+DO-178C is structured into **12 main sections**, plus **Annex A** (key tables of objectives by process and DAL), **Annex B** (acronyms), **Annex C** (terms/definitions), and supporting supplements.
+
+### Main Sections of DO-178C
+
+1. **Introduction**  
+   Purpose, scope, how to use the document, relationship to system safety, and overview of the software life cycle processes.
+
+2. **System Aspects Relating to Software Development**  
+   Explains how software fits into the overall system (per ARP4754A/4761), including safety assessment to determine software level (DAL A–E), allocation of requirements, and system/software integration considerations.
+
+3. **Software Life Cycle**  
+   Describes the conceptual software life cycle processes (planning, development, verification, configuration management, quality assurance, certification liaison) and possible models (e.g., waterfall, iterative).
+
+4. **Software Planning Process**  
+   Defines objectives for creating plans (e.g., Plan for Software Aspects of Certification — PSAC, Software Development Plan, Verification Plan, Configuration Management Plan, Quality Assurance Plan). Objectives focus on ensuring plans are complete, coordinated, and satisfy higher-level requirements.
+
+5. **Software Development Processes**  
+   Covers requirements (high-level and low-level/derived), software architecture/design, and coding/implementation. Objectives ensure traceability, verifiability, and compliance with standards.
+
+6. **Software Verification Process**  
+   The largest/most detailed section. Objectives cover reviews/analyses of requirements, design, code; testing (requirements-based, structural coverage like MC/DC for Level A); integration testing; hardware/software integration; and traceability. Includes structural coverage criteria that increase with DAL (e.g., statement coverage for Level C, MC/DC for Level A).
+
+7. **Software Configuration Management Process**  
+   Objectives for problem reporting, change control, baseline establishment, archiving, and release of software/configuration items.
+
+8. **Software Quality Assurance Process**  
+   Objectives to ensure processes are followed, discrepancies are resolved, and transition criteria are met (independent audits/reviews).
+
+9. **Software Configuration Management Process** (wait, duplicate numbering in some summaries; actually continues with assurance aspects).
+
+   (Note: Sections 7–9 are integral processes supporting the core ones.)
+
+10. **Software Certification Liaison Process**  
+    Objectives for communication with certification authorities, including submission of compliance data (e.g., PSAC, Software Accomplishment Summary — SAS).
+
+11. **Software Life Cycle Data**  
+    Describes required/optional data items (e.g., PSAC, SAS, source code, test results, traceability matrices) and their control categories (CC1/CC2 for configuration control).
+
+12. **Software Life Cycle Data** (additional details on data protection, retention).
+
+**Annex A** — Tables A-1 to A-9 summarize **objectives** by process (planning, development, verification, etc.), showing which apply to each DAL (A–D; Level E has none) and which require **independence** (verification by someone other than the developer).
+
+- Total objectives: ~71 across processes (exact count varies by table; e.g., verification has the most).
+- Higher DALs have more objectives + independence requirements (e.g., Level A requires MC/DC structural coverage, extensive independence).
+
+### Key Supporting/Supplemental Documents (Modular Approach in DO-178C)
+- **DO-330** — Tool Qualification Considerations (TQL-1 to TQL-5 for development/verification tools).
+- **DO-331** — Model-Based Development and Verification Supplement.
+- **DO-332** — Object-Oriented Technology and Related Techniques Supplement.
+- **DO-333** — Formal Methods Supplement.
+- **DO-248C** — Supporting Information (FAQs, rationales for objectives).
+
+DO-178C emphasizes evidence of compliance through artifacts, traceability (requirements → design → code → tests), and independence where needed. It does **not** guarantee safety alone—system-level safety analyses (e.g., FHA, FTA per ARP4761) determine the DAL and overall risk.
+
+If you'd like details on a specific section (e.g., verification objectives), DAL differences, or how it relates to avionics like ARINC 653 partitioning, let me know!

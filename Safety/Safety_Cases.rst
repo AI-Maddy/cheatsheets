@@ -1268,7 +1268,6 @@ D. Context (Rounded Rectangle)
 
 **Document Version:** 1.0  
 **Last Updated:** January 16, 2026  
-**Author:** GitHub Copilot (Claude Sonnet 4.5)  
 **Standards:** ISO 26262:2018, EN 50129:2018, DEF STAN 00-56, OMG SACM 2.0
 
 ================================================================================
