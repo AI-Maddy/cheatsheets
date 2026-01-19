@@ -1,6 +1,7 @@
 # Safety Engineering Cheatsheets - Expansion & Improvement Tracking
 
 ## Current Status (January 15, 2026)
+
 - **Total Files:** 25 RST files in Safety/ folder
 - **Recent Additions:** RAMS (Reliability, Availability, Maintainability, Safety) series complete
 - **Quality:** Comprehensive coverage, exam-ready, code examples
@@ -8,6 +9,7 @@
 ## Recently Created RAMS Series (4 files) ✅
 
 ### 1. **Dependability_Engineering.rst** (38KB, ~880 lines)
+
 **Priority for Enhancement:** Medium
 **Extension Topics:**
 - [ ] Add security as fifth attribute (RAMS-S → full coverage)
@@ -17,6 +19,7 @@
 - [ ] Automotive ASIL decomposition examples
 
 ### 2. **Reliability_Engineering.rst** (34KB, ~820 lines)
+
 **Priority for Enhancement:** Medium
 **Extension Topics:**
 - [ ] Add more prediction methods (FIDES, RIAC 217Plus)
@@ -27,6 +30,7 @@
 - [ ] Mission reliability profiles (phased missions)
 
 ### 3. **Availability_Engineering.rst** (32KB, ~750 lines)
+
 **Priority for Enhancement:** Medium
 **Extension Topics:**
 - [ ] Add network availability (SDN, NFV architectures)
@@ -37,6 +41,7 @@
 - [ ] Disaster recovery architectures (RPO/RTO tradeoffs)
 
 ### 4. **Maintainability_Engineering.rst** (32KB, ~750 lines) ✅ JUST CREATED
+
 **Priority for Enhancement:** Low (comprehensive as-is)
 **Extension Topics:**
 - [ ] Add prognostics and health management (PHM)
@@ -48,6 +53,7 @@
 ## Next High-Priority Files to Create
 
 ### 5. **Rust_for_Safety_Critical.rst** (TARGET: ~800 lines) ⏳ IN PROGRESS
+
 **Urgency:** HIGH (2026 emerging technology, workspace audit recommendation)
 **Coverage:**
 - Memory safety without garbage collection
@@ -60,6 +66,7 @@
 - Formal verification (Prusti, Kani, MIRAI)
 
 ### 6. **Cyber_Physical_Systems_Safety.rst** (TARGET: ~800 lines)
+
 **Urgency:** HIGH (convergence of IT/OT security and safety)
 **Coverage:**
 - CPS architecture (sensors, actuators, controllers, networks)
@@ -71,6 +78,7 @@
 - Medical devices: FDA cybersecurity + IEC 60601 safety
 
 ### 7. **Model_Based_Safety_Assessment.rst** (TARGET: ~750 lines)
+
 **Urgency:** MEDIUM
 **Coverage:**
 - System modeling languages (SysML, AADL)
@@ -82,6 +90,7 @@
 - Case study: Automotive braking system MBSA
 
 ### 8. **Human_Factors_Safety.rst** (TARGET: ~800 lines)
+
 **Urgency:** MEDIUM
 **Coverage:**
 - Human error taxonomy (slips, lapses, mistakes, violations)
@@ -198,6 +207,7 @@
 - Cross-reference validator (ensure all links work)
 
 ## Document Status
+
 **Last Updated:** January 15, 2026  
 **Maintainer:** GitHub Copilot (Claude Sonnet 4.5)  
 **Next Review:** February 2026 (after Rust and CPS cheatsheets)

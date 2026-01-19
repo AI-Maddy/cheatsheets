@@ -4,7 +4,7 @@
 
 ## 📁 Directory Organization
 
-```
+```text
 Linux/Kernel/
 ├── Professional Linux Kernel Architecture.pdf  (Reference book)
 ├── README.md  (This file)
@@ -37,12 +37,12 @@ Linux/Kernel/
     ├── Network/          (3 files)
     ├── Build/            (7 files)
     └── Debug/            (5 files)
-```
+```text
 
 ## 📖 Book Chapter Coverage
 
 | Chapter | Topic                              | Consolidated Cheatsheet              | Status |
-|---------|------------------------------------|------------------------------------- |--------|
+| --------- | ------------------------------------ |------------------------------------- | -------- |
 | 1       | Introduction                       | (Covered in all)                     | ✓      |
 | 2       | Process Management & Scheduling    | Linux_Process_Scheduling_Complete    | ✓      |
 | 3       | Memory Management                  | Linux_Memory_Management_Complete     | ✓      |
@@ -66,6 +66,7 @@ Linux/Kernel/
 ## 🎯 Quality Standards
 
 Each consolidated cheatsheet includes:
+
 - **1,200-2,100 lines** comprehensive coverage
 - **TL;DR section** with quick reference tables
 - **Detailed technical sections** with diagrams
