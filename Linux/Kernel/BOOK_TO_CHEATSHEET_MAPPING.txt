@@ -1,0 +1,121 @@
+================================================================================
+Professional Linux Kernel Architecture - Chapter to Cheatsheet Mapping
+================================================================================
+Last Updated: January 18, 2026
+Purpose: Cross-reference between book chapters and cheatsheet documentation
+
+================================================================================
+CHAPTER-TO-CHEATSHEET QUICK REFERENCE
+================================================================================
+
+Chapter 1: Introduction and Overview (p.1-34)
+   → Covered in: Multiple cheatsheets (foundational concepts distributed)
+   → Primary: Linux_Kernel_Master_Index.rst (Section 1: Overview)
+   → Status: ✅ COMPLETE
+
+Chapter 2: Process Management and Scheduling (p.35-132)
+   → Covered in: Linux_Process_Scheduling_Complete.rst (1,401 lines)
+   → Sections: Process lifecycle, task_struct, CFS, RT scheduling, SMP
+   → Status: ✅ COMPLETE
+
+Chapter 3: Memory Management (p.133-288)
+   → Covered in: Linux_Memory_Management_Complete.rst (1,341 lines)
+   → Sections: Physical memory, zones, buddy allocator, slab, NUMA
+   → Status: ✅ COMPLETE
+
+Chapter 4: Virtual Process Memory (p.289-346)
+   → Covered in: Linux_Memory_Management_Complete.rst (Section 3-4)
+   → Sections: Virtual memory, page tables, TLB, demand paging
+   → Status: ✅ COMPLETE
+
+Chapter 5: Locking and Interprocess Communication (p.347-390)
+   → Covered in: Linux_Interrupts_Concurrency_Complete.rst (Section 3-4)
+   → Sections: Spinlocks, mutexes, semaphores, RCU, atomic operations
+   → Status: ✅ COMPLETE
+
+Chapter 6: Device Drivers (p.391-472)
+   → Covered in: Linux_Device_Drivers_Complete.rst (1,133 lines)
+   → Sections: Driver model, kobject, sysfs, platform drivers, DMA
+   → Status: ✅ COMPLETE
+
+Chapter 7: Modules (p.473-518)
+   → Covered in: Linux_Device_Drivers_Complete.rst (Section 7)
+   → Sections: Module loading, symbols, dependencies, initialization
+   → Status: ✅ COMPLETE
+
+Chapter 8: The Virtual Filesystem (p.519-582)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 1)
+   → Sections: VFS layer, inode, dentry, file, super_block operations
+   → Status: ✅ COMPLETE
+
+Chapter 9: The Extended Filesystem Family (p.583-642)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 2)
+   → Sections: ext4, journaling, extents, block allocation
+   → Status: ✅ COMPLETE
+
+Chapter 10: Filesystems without Persistent Storage (p.643-706)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 3)
+   → Sections: tmpfs, procfs, sysfs, ramfs
+   → Status: ✅ COMPLETE
+
+Chapter 11: Extended Attributes and Access Control Lists (p.707-732)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 4)
+   → Sections: xattr, ACLs, security labels, setfacl/getfacl
+   → Status: ✅ COMPLETE
+
+Chapter 12: Networks (p.733-818)
+   → Covered in: Linux_Networking_Complete.rst (1,367 lines)
+   → Sections: Network stack, sockets, sk_buff, netfilter, tc
+   → Status: ✅ COMPLETE
+
+Chapter 13: System Calls (p.819-846)
+   → Covered in: Linux_System_Calls_Complete.rst (2,102 lines)
+   → Sections: Syscall entry, SYSCALL_DEFINE, tracing, eBPF
+   → Status: ✅ COMPLETE
+
+Chapter 14: Kernel Activities (p.847-892)
+   → Covered in: Linux_Interrupts_Concurrency_Complete.rst (Section 1-2)
+   → Sections: Interrupts, softirqs, tasklets, workqueues
+   → Status: ✅ COMPLETE
+
+Chapter 15: Time Management (p.893-948)
+   → Covered in: Linux_Time_Management_Complete.rst (1,739 lines)
+   → Sections: jiffies, timers, hrtimers, clocksources, tickless
+   → Status: ✅ COMPLETE
+
+Chapter 16: Page and Buffer Cache (p.949-988)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 4.1)
+   → Sections: Page cache, buffer cache, readahead, writeback
+   → Status: ✅ COMPLETE
+
+Chapter 17: Data Synchronization (p.989-1022)
+   → Covered in: Linux_VFS_Filesystems_Complete.rst (Section 2.2)
+   → Sections: fsync, sync, O_SYNC, journaling modes
+   → Status: ✅ COMPLETE
+
+Chapter 18: Page Reclaim and Swapping (p.1023-1096)
+   → Covered in: Linux_Memory_Management_Complete.rst (Section 8)
+   → Sections: LRU, kswapd, OOM killer, swapping
+   → Status: ✅ COMPLETE
+
+Chapter 19: Auditing (p.1097-1140)
+   → Covered in: Linux_Debug_Security_Complete.rst (Section 5)
+   → Sections: Audit framework, auditd, audit rules, LSM
+   → Status: ✅ COMPLETE
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+Book Chapters: 19
+Chapters Covered: 19
+Coverage: 100%
+
+Total Cheatsheets: 15
+Total Lines: 24,426
+Book Pages Covered: 1,140+
+
+All 19 chapters from "Professional Linux Kernel Architecture" are fully
+documented across the 15 comprehensive cheatsheets.
+
+================================================================================
