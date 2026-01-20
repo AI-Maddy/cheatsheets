@@ -146,8 +146,8 @@ TL;DR — Quick Reference
 
    Front View (looking into connector):
    
-            ╔═══════════════════════════╗
-            ║   ●  ●  ●  ●  ●  ●  ●    ║  Row A (7 pins, Size 22)
+            ┌───────────────────────────┐
+            │   ●  ●  ●  ●  ●  ●  ●    │  Row A (7 pins, Size 22)
             ║  ●  ●  ●  ●  ●  ●  ●  ●  ║  Row B (8 pins, Size 22)
             ║   ●  ●  ●  ●  ●  ●  ●    ║  Row C (7 pins, Size 22)
             ║  ◉  ◉  ●  ●  ●  ●  ◉  ◉  ║  Row D (2× Size 20, 4× Size 22, 2× Size 20)

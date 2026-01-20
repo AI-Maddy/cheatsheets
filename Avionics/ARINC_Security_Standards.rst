@@ -726,17 +726,16 @@ ARINC 842 defines processes for managing security throughout aircraft operationa
        def send_alert(self, vuln):
            """Alert security team for critical vulnerabilities"""
            print(f"""
-   ╔════════════════════════════════════════════════════════╗
-   ║  CRITICAL VULNERABILITY ALERT                          ║
-   ╠════════════════════════════════════════════════════════╣
-   ║  CVE ID:       {vuln['cve_id']}                        ║
-   ║  Software:     {vuln['software']}                      ║
-   ║  CVSS Score:   {vuln['cvss_score']} (CRITICAL)         ║
-   ║  Deadline:     {vuln['deadline'].strftime('%Y-%m-%d')} ║
-   ║                                                        ║
-   ║  ACTION REQUIRED: Develop and distribute patch         ║
-   ╚════════════════════════════════════════════════════════╝
-           """)
+   ┌────────────────────────────────────────────────────────┐
+   │  CRITICAL VULNERABILITY ALERT                          │
+   ├────────────────────────────────────────────────────────┤
+   │  CVE ID:       {vuln['cve_id']}                        │
+   │  Software:     {vuln['software']}                      │
+   │  CVSS Score:   {vuln['cvss_score']} (CRITICAL)         │
+   │  Deadline:     {vuln['deadline'].strftime('%Y-%m-%d')} │
+   │                                                        │
+   │  ACTION REQUIRED: Develop and distribute patch         │
+   └────────────────────────────────────────────────────────┘
        
        def generate_compliance_report(self):
            """Generate report for regulatory submission"""

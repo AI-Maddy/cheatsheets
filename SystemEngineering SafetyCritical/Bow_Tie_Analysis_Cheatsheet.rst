@@ -94,11 +94,11 @@
          Threats           HAZARD        Consequences
            (fan out)     (narrow point)    (fan out)
     
-    ─────┐             ╔═════╗             ┌─────
-    ─────┤             ║     ║             ├─────
-    ─────┤═════════════║ HAZ ║═════════════┤─────
-    ─────┤             ║     ║             ├─────
-    ─────┘             ╚═════╝             └─────
+    ─────┐             ┌─────┐             ┌─────
+    ─────┤             │     │             ├─────
+    ─────┤═════════════│ HAZ │═════════════┤─────
+    ─────┤             │     │             ├─────
+    ─────┘             └─────┘             └─────
     
      LEFT SIDE          CENTER          RIGHT SIDE
      (Prevention)     (Hazard Event)   (Mitigation)

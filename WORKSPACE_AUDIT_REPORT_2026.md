@@ -115,13 +115,13 @@
    - Complete FPGA example (flight control)
    - Fills critical gap from Keywords.rst
 
-2. ✅ **IEC_62304_Medical_Device_Software.rst** (~900 lines)
+1. ✅ **IEC_62304_Medical_Device_Software.rst** (~900 lines)
    - Coverage: Medical device software lifecycle
    - Safety classes A/B/C, SOUP management, risk integration
    - Insulin pump example with complete lifecycle
    - Essential for medical device domain
 
-3. ⚠️ **Railway Standards (EN 50128/50129)** — Identified as needed
+1. ⚠️ **Railway Standards (EN 50128/50129)** — Identified as needed
    - Mentioned extensively in Keywords.rst
    - Railway signaling and software standards
    - **Action:** High priority for next phase
@@ -272,6 +272,7 @@
 ## New Files Created During Audit
 
 ### 1. DO-254_Hardware_Design_Assurance.rst
+
 **Location:** `/home/maddy/projects/cheatsheets/Safety/`  
 **Size:** ~850 lines  
 **Purpose:** Avionics hardware certification (FPGAs, ASICs)
@@ -293,6 +294,7 @@
 ---
 
 ### 2. IEC_62304_Medical_Device_Software.rst
+
 **Location:** `/home/maddy/projects/cheatsheets/Safety/`  
 **Size:** ~900 lines  
 **Purpose:** Medical device software lifecycle
@@ -314,6 +316,7 @@
 ---
 
 ### 3. OTA_Updates_Cheatsheet.rst
+
 **Location:** `/home/maddy/projects/cheatsheets/Avionics/AircraftArchitect/`  
 **Status:** ✅ Recently created (per terminal context)
 
@@ -326,7 +329,7 @@
 ### Files by Domain
 
 | Domain | Files | % of Total | Status |
-|:-------|------:|-----------:|:-------|
+| :------- | ------: | -----------: | :------- |
 | Avionics | 91 | 35% | ✅ Excellent |
 | Linux | 54 | 21% | ✅ Comprehensive |
 | Media_Networking | 39 | 15% | ✅ Complete |
@@ -340,7 +343,7 @@
 ### Keyword Files (6 total)
 
 | File | Lines | Quality | Coverage |
-|:-----|------:|:--------|:---------|
+| :----- | ------: | :-------- | :--------- |
 | SystemEngineering SafetyCritical/Keywords.rst | 512 | ⭐⭐⭐⭐⭐ | 78% (35/45 topics) |
 | Avionics/Keywords.rst | 297 | ⭐⭐⭐⭐⭐ | Complete bus protocols |
 | Automotive/Keywords ADAS.rst | ~200 | ⭐⭐⭐⭐⭐ | 95% ADAS terms (2026) |
@@ -361,20 +364,20 @@
    - Industry-current (2025-2026 terminology)
    - Multi-domain expertise (avionics, automotive, medical, industrial)
 
-2. **Excellent Structure:**
+1. **Excellent Structure:**
    - TL;DR sections (30-second reviews)
    - Code examples (Python, C, VHDL, C++)
    - Real-world case studies
    - Exam questions with answers
    - Completion checklists
 
-3. **Safety-Critical Focus:**
+1. **Safety-Critical Focus:**
    - Standards compliance (ISO 26262, DO-178C, DO-254, IEC 61508, IEC 62304)
    - Hazard analysis techniques (FMEA, FTA, HAZOP, STPA, ETA, Bow-Tie)
    - Fault-handling architectures (fail-safe, fail-operational, graceful degradation)
    - Safety argumentation (GSN, safety cases, patterns)
 
-4. **Practical Orientation:**
+1. **Practical Orientation:**
    - Tool recommendations (Vivado, Questa, Git, Jira, etc.)
    - Configuration examples
    - Troubleshooting guides
@@ -388,18 +391,18 @@
    - CENELEC standards
    - **Priority:** Medium (essential for railway domain)
 
-2. **Quality Attributes:**
+1. **Quality Attributes:**
    - Dependability Engineering (RAM - Reliability, Availability, Maintainability)
    - Reliability Engineering (MTBF, MTTF, FIT calculations, Weibull analysis)
    - Availability Analysis
    - **Priority:** Medium (referenced in keywords, useful for all domains)
 
-3. **Modern Practices:**
+1. **Modern Practices:**
    - Agile in Safety-Critical Systems (partially covered in SAFe_Agile_Cheatsheet)
    - DevOps for Safety-Critical (CI/CD with compliance)
    - **Priority:** Low (emerging, not yet mandated)
 
-4. **Embedded Core Keywords:**
+1. **Embedded Core Keywords:**
    - SOC/ARM terminology reference
    - **Priority:** Low (nice-to-have)
 
@@ -413,24 +416,24 @@
    - Signaling examples
 
 **Medium Priority:**
-2. ⚠️ **Dependability Engineering Cheatsheet** (~700 lines)
+1. ⚠️ **Dependability Engineering Cheatsheet** (~700 lines)
    - RAM attributes (Reliability, Availability, Maintainability)
    - Metrics integration
    - Multi-domain application
 
-3. ⚠️ **Reliability Engineering Cheatsheet** (~800 lines)
+1. ⚠️ **Reliability Engineering Cheatsheet** (~800 lines)
    - MTBF, MTTF, FIT calculations
    - Weibull analysis
    - Reliability block diagrams
    - Bathtub curve
 
 **Low Priority:**
-4. **Agile/DevOps Safety-Critical** (~600 lines)
+1. **Agile/DevOps Safety-Critical** (~600 lines)
    - Continuous compliance
    - Automated verification
    - Tool chains
 
-5. **Embedded Core Keywords.rst** (~300 lines)
+1. **Embedded Core Keywords.rst** (~300 lines)
    - SOC terminology
    - ARM architecture terms
    - Quick reference
@@ -440,12 +443,14 @@
 ## Compliance & Standards Coverage
 
 ### Automotive ✅
+
 - ✅ ISO 26262 (comprehensive)
 - ✅ ASIL levels (A, B, C, D, QM)
 - ✅ AUTOSAR (Classic + Adaptive)
 - ✅ ASPICE
 
 ### Aerospace ✅
+
 - ✅ DO-178C (software)
 - ✅ DO-254 (hardware) — NEW
 - ✅ DO-331 (formal methods)
@@ -453,16 +458,19 @@
 - ✅ ARP4754A (system development)
 
 ### Industrial ✅
+
 - ✅ IEC 61508 (functional safety)
 - ✅ SIL levels (1, 2, 3, 4)
 - ✅ Safety instrumented systems
 
 ### Medical ✅
+
 - ✅ IEC 62304 (software) — NEW
 - ✅ ISO 14971 (risk management)
 - ✅ Software safety classes (A, B, C)
 
 ### Railway ⚠️
+
 - ⚠️ EN 50128 (software) — IDENTIFIED AS NEEDED
 - ⚠️ EN 50129 (safety systems) — IDENTIFIED AS NEEDED
 - ✅ Railway concepts covered in Keywords.rst
@@ -472,22 +480,26 @@
 ## Tool & Technology Coverage
 
 ### Development Tools ✅
+
 - Compilers: GCC, Clang
 - IDEs: Eclipse, VS Code
 - Version Control: Git, SVN, Perforce
 - Build Systems: Yocto, Buildroot, CMake
 
 ### FPGA/Hardware ✅
+
 - Xilinx Vivado, Intel Quartus
 - ModelSim, Questa (simulation)
 - Cadence Conformal (equivalence checking)
 
 ### Safety Analysis ✅
+
 - IBM DOORS (requirements)
 - Jama Connect (traceability)
 - MathWorks Polyspace (static analysis)
 
 ### Testing ✅
+
 - CppUTest, Unity, Google Test (unit testing)
 - HIL (Hardware-In-Loop)
 - Coverage tools (MC/DC analysis)
@@ -518,7 +530,9 @@
 - Modern practices (Agile/DevOps in safety) — emerging trend
 
 **Recommendation:**
+
 The workspace is **production-ready** for:
+
 - Exam preparation (functional safety, avionics, automotive)
 - Industry reference (engineers, safety specialists)
 - Training & onboarding (new team members)
