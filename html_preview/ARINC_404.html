@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
+<title>ARINC_404.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="arinc-404a-atr-equipment-form-factors">
+<h1>ARINC 404A — ATR Equipment Form Factors</h1>
+</div>
+<div class="section" id="tl-dr-quick-reference">
+<h1>TL;DR — Quick Reference</h1>
+<p><strong>ARINC 404A</strong> defines standard mechanical packaging sizes for <strong>Air Transport Rackable (ATR)</strong> avionics equipment.</p>
+<p><strong>Key Characteristics:</strong>
+- <strong>Standard Sizes:</strong> 1/4, 1/2, 3/4, 1, 1.5, 2, 3, 4 ATR (width multiples of 1.2&quot;)
+- <strong>Mounting:</strong> Rail system with captive screws (1/4-turn or slide-lock)
+- <strong>Cooling:</strong> Forced air (front-to-back), specified airflow rates
+- <strong>Connectors:</strong> Rear-mounted (ARINC 600 series), EMI-shielded
+- <strong>Applications:</strong> LRU packaging for commercial/military aircraft</p>
+<p><strong>Common ATR Sizes:</strong></p>
+<pre class="code text literal-block">
+Size    Width    Height   Depth    Typical Use
+──────  ───────  ───────  ───────  ───────────────────────────
+1/4 ATR 1.2&quot;     7.88&quot;    14.5&quot;    Small modules (PSU, I/O)
+1/2 ATR 2.4&quot;     7.88&quot;    14.5&quot;    Radio tuners, converters
+3/4 ATR 3.6&quot;     7.88&quot;    14.5&quot;    Comm radios, TCAS
+1 ATR   4.8&quot;     7.88&quot;    14.5&quot;    FMS, GPS, transponder
+2 ATR   9.625&quot;   7.88&quot;    14.5&quot;    Flight control computer
+
+**Most Common:** 1/2 ATR (54% of avionics LRUs)
+</pre>
+<p><strong>Cooling Airflow:</strong>
+- Requirement: 10-30 CFM (cubic feet per minute) per ATR unit
+- Direction: Front (connector side) → Back (exhaust)
+- Temperature: 55°C max inlet, ΔT = 20°C rise</p>
+<p><strong>ARINC 404A Benefits:</strong>
+- <strong>Interchangeability:</strong> Any 1 ATR fits in 1 ATR slot (multi-vendor)
+- <strong>Reduced Weight:</strong> Standardized rails vs custom mounting brackets
+- <strong>Ease of Maintenance:</strong> Slide-lock for quick removal (no tools)
+- <strong>Modularity:</strong> Mix sizes (e.g., 2× 1/2 ATR = 1× 1 ATR space)</p>
+</div>
+<div class="section" id="overview-background">
+<h1>1. Overview &amp; Background</h1>
+<div class="section" id="why-standardized-form-factors">
+<h2><strong>1.1 Why Standardized Form Factors?</strong></h2>
+<p><strong>Pre-ARINC 404 (1950s-1960s):</strong>
+- Each avionics vendor had proprietary mounting
+- Custom brackets, cutouts, wiring harnesses
+- Aircraft modification required for equipment changes
+- Heavy (15-20 kg per LRU for mounting hardware)</p>
+<p><strong>ARINC 404 Introduction (1966):</strong>
+- Defined 5 standard widths (1/4, 1/2, 3/4, 1, 1.5 ATR)
+- Standard rail system (aircraft installs rails, LRU slides in)
+- Weight savings: 40% reduction in mounting hardware
+- First adoption: Boeing 747 (1970)</p>
+<p><strong>ARINC 404A Revision (1995):</strong>
+- Added 2, 3, 4 ATR sizes (larger FMS, flight control computers)
+- Improved EMI shielding requirements
+- Updated cooling specifications (higher TDP for modern avionics)
+- Incorporated DO-160 environmental testing</p>
+</div>
+<div class="section" id="market-adoption">
+<h2><strong>1.2 Market Adoption</strong></h2>
+<p><strong>Commercial Aircraft:</strong>
+- Boeing 737 MAX: 28× ATR slots per aircraft
+- Airbus A320neo: 32× ATR slots
+- Boeing 787: 45× ATR slots (more systems, more LRUs)</p>
+<p><strong>Military Aircraft:</strong>
+- F-16: Mission computers, EW pods
+- C-130J: Avionics upgrade (legacy round-dial → glass cockpit)
+- AH-64 Apache: Fire control, communication, navigation</p>
+<p><strong>Avionics Vendors:</strong>
+- Honeywell, Collins Aerospace, Thales, Garmin all produce ATR-compliant LRUs</p>
+</div>
+</div>
+<div class="section" id="atr-sizes-dimensions">
+<h1>2. ATR Sizes &amp; Dimensions</h1>
+<div class="section" id="standard-atr-sizes">
+<h2><strong>2.1 Standard ATR Sizes</strong></h2>
+<p><strong>Dimensional Standards (ARINC 404A Table 2-1):</strong></p>
+<table border="1" class="docutils">
+<caption>ATR Size Specifications</caption>
+<colgroup>
+<col width="12%" />
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Size</th>
+<th class="head">Width</th>
+<th class="head">Height</th>
+<th class="head">Depth</th>
+<th class="head">Volume</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1/4</td>
+<td>1.2&quot; (30.5mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>137 in³</td>
+</tr>
+<tr><td>1/2</td>
+<td>2.4&quot; (61mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>274 in³</td>
+</tr>
+<tr><td>3/4</td>
+<td>3.6&quot; (91.5mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>411 in³</td>
+</tr>
+<tr><td>1</td>
+<td>4.8&quot; (122mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>548 in³</td>
+</tr>
+<tr><td>1.5</td>
+<td>7.2&quot; (183mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>822 in³</td>
+</tr>
+<tr><td>2</td>
+<td>9.625&quot; (244mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>1,099 in³</td>
+</tr>
+<tr><td>3</td>
+<td>14.425&quot; (366mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>1,648 in³</td>
+</tr>
+<tr><td>4</td>
+<td>19.25&quot; (489mm)</td>
+<td>7.875&quot; (200mm)</td>
+<td>14.5&quot; (368mm)</td>
+<td>2,198 in³</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Dimensions:</strong></p>
+<ul class="simple">
+<li><strong>Width Increment:</strong> 1.2&quot; per 1/4 ATR (30.5 mm)</li>
+<li><strong>Height:</strong> Fixed 7.875&quot; (includes 0.125&quot; clearance for rails)</li>
+<li><strong>Depth:</strong> 14.5&quot; max (some LRUs shorter, e.g., 10&quot; for low-profile)</li>
+</ul>
+<p><strong>Visual Comparison:</strong></p>
+<pre class="code text literal-block">
+Front View (looking into rack):
+
+┌──┐  ┌────┐  ┌──────┐  ┌────────┐  ┌────────────┐
+│  │  │    │  │      │  │        │  │            │
+│1/4 │1/2 │  │  3/4 │  │   1    │  │     1.5    │
+│  │  │    │  │      │  │        │  │            │
+└──┘  └────┘  └──────┘  └────────┘  └────────────┘
+1.2&quot;   2.4&quot;     3.6&quot;      4.8&quot;         7.2&quot;
+</pre>
+</div>
+<div class="section" id="modular-combinations">
+<h2><strong>2.2 Modular Combinations</strong></h2>
+<p><strong>Space Allocation:</strong>
+Aircraft racks can accommodate different combinations:</p>
+<pre class="code text literal-block">
+Example: 4.8&quot; wide slot can hold:
+- 1× 1 ATR unit
+- 2× 1/2 ATR units (side-by-side)
+- 4× 1/4 ATR units
+- 1× 3/4 ATR + 1× 1/4 ATR
+
+Boeing 737 Avionics Bay:
+┌──────────────────────────────────────┐
+│  Rack 1 (Left Side)                  │
+├────────────┬────────────┬────────────┤
+│  2 ATR     │  1 ATR     │  1 ATR     │  Slot 1-3
+│  FMS       │  TCAS      │  Transponder│
+├──────┬─────┼──────┬─────┼──────┬─────┤
+│ 1/2  │ 1/2 │ 3/4  │ 1/4 │ 1/2  │ 1/2 │  Slot 4-6
+│ Radio│ VHF │ DME  │ ADF │ Marker│ GPS │
+└──────┴─────┴──────┴─────┴──────┴─────┘
+</pre>
+</div>
+</div>
+<div class="section" id="mounting-system">
+<h1>3. Mounting System</h1>
+<div class="section" id="rail-system">
+<h2><strong>3.1 Rail System</strong></h2>
+<p><strong>Aircraft-Side Rails:</strong></p>
+<pre class="code text literal-block">
+Side View (cross-section of rack):
+
+┌───────────────────────────────────────┐
+│        Aircraft Rack Structure         │
+├───┐                               ┌───┤
+│   │←── Upper Rail (0.125&quot; track) ─│   │
+│   │                               │   │
+│   │          Empty Space          │   │
+│   │        (for LRU insertion)    │   │
+│   │                               │   │
+│   │←── Lower Rail (0.125&quot; track) ─│   │
+└───┘                               └───┘
+
+Rails are T-shaped extrusions:
+- Material: Aluminum alloy (6061-T6)
+- Finish: Anodized (corrosion protection)
+- Tolerance: ±0.005&quot; (tight for smooth sliding)
+</pre>
+<p><strong>LRU-Side Guide Rails:</strong></p>
+<pre class="code text literal-block">
+LRU has matching guide rails on sides:
+
+Top View (LRU cross-section):
+
+┌─────────────────────────────────────┐
+│                                     │
+│           LRU Chassis               │
+│                                     │
+├──┐                               ┌──┤
+│  │← Guide rail (slides into rack)│  │
+└──┘                               └──┘
+
+- Stainless steel (wear resistance)
+- Teflon coating (low friction)
+- Curved front edge (guide into rack slot)
+</pre>
+</div>
+<div class="section" id="retention-mechanisms">
+<h2><strong>3.2 Retention Mechanisms</strong></h2>
+<p><strong>1/4-Turn Captive Screws (Most Common):</strong></p>
+<pre class="code text literal-block">
+Front Panel (LRU):
+
+┌─────────────────────────────────────┐
+│  ┌───┐                       ┌───┐  │
+│  │ ○ │  LRU Front Panel      │ ○ │  │ ← Captive screws
+│  └───┘                       └───┘  │    (1/4-turn lock)
+│                                     │
+│       [Equipment Label]             │
+│                                     │
+└─────────────────────────────────────┘
+
+Installation:
+1. Slide LRU into rails (push until seated)
+2. Rotate captive screws 90° (clockwise)
+3. Screws engage threads in rack front panel
+4. LRU locked in place (cannot slide out)
+</pre>
+<p><strong>Slide-Lock Mechanism (Quick Release):</strong>
+- Used for frequently-removed LRUs (e.g., FMS database updates)
+- Lever on front panel
+- Push lever → releases lock → LRU slides out
+- No tools required</p>
+</div>
+<div class="section" id="connector-engagement">
+<h2><strong>3.3 Connector Engagement</strong></h2>
+<p><strong>Rear Connector Mating:</strong></p>
+<pre class="code text literal-block">
+Side View (LRU insertion):
+
+Step 1: Insert LRU into rails
+┌────────────┐
+│    LRU     │──────────►
+└────────────┘
+      Rails guide LRU into position
+
+Step 2: Push LRU to mate connector
+┌────────────┐            ┌─Rack Connector
+│    LRU     │───────────►│ (fixed to aircraft)
+└────┬───────┘            └─┘
+     │
+     Connector on LRU rear
+
+Step 3: Lock captive screws
+┌────────────┐
+│    LRU     │ [LOCKED]
+└────────────┘
+</pre>
+<p><strong>Insertion Force:</strong>
+- Typical: 20-40 lbf (89-178 N)
+- Connector: ARINC 600 series (multiple pins: 50-200)
+- Extraction force: 30-50 lbf (with slide-lock released)</p>
+</div>
+</div>
+<div class="section" id="cooling-thermal-management">
+<h1>4. Cooling &amp; Thermal Management</h1>
+<div class="section" id="forced-air-cooling">
+<h2><strong>4.1 Forced Air Cooling</strong></h2>
+<p><strong>Airflow Direction:</strong></p>
+<pre class="code text literal-block">
+Top View (LRU airflow):
+
+Front (Connector Side)       Back (Exhaust)
+─────────────────────►────────────────────
+     Cool Air                  Hot Air
+     (55°C max)               (75°C max)
+
+┌───────────────────────────────────────┐
+│  ┌──────┐  ┌──────┐  ┌──────┐         │
+│  │ PCB  │  │ PCB  │  │ PCB  │         │
+│  └──────┘  └──────┘  └──────┘         │
+│                                        │
+│  Heat dissipated to airflow            │
+└───────────────────────────────────────┘
+
+- Inlet vents: Front panel (honeycomb pattern)
+- Exhaust vents: Rear panel
+- Airflow path: Straight through (no baffles)
+</pre>
+<p><strong>Airflow Requirements (ARINC 404A Table 4-1):</strong></p>
+<pre class="code text literal-block">
+ATR Size   Min Airflow   Max TDP (Thermal Design Power)
+─────────  ────────────  ────────────────────────────────
+1/4 ATR    5 CFM         25 W
+1/2 ATR    10 CFM        50 W
+3/4 ATR    15 CFM        75 W
+1 ATR      20 CFM        100 W
+1.5 ATR    30 CFM        150 W
+2 ATR      40 CFM        200 W
+
+CFM = Cubic Feet per Minute
+TDP assumes ΔT = 20°C (inlet to exhaust)
+</pre>
+<p><strong>Aircraft Cooling System:</strong>
+- <strong>Blowers:</strong> Centrifugal fans (28 VDC, 5-10 A per fan)
+- <strong>Ductwork:</strong> Distributes air to each rack slot
+- <strong>Filters:</strong> HEPA (High-Efficiency Particulate Air) to prevent dust
+- <strong>Temperature sensors:</strong> Monitor exhaust temp (&gt;80°C = overheat alarm)</p>
+</div>
+<div class="section" id="heat-sink-design">
+<h2><strong>4.2 Heat Sink Design</strong></h2>
+<p><strong>Component Thermal Management:</strong></p>
+<pre class="code text literal-block">
+Cross-Section (PCB with power components):
+
+             Airflow →
+┌─────────────────────────────────────┐
+│  ┌────┐    ┌────┐    ┌────┐         │
+│  │HS1 │    │HS2 │    │HS3 │         │ ← Heat sinks
+│  └─┬──┘    └─┬──┘    └─┬──┘         │
+│    │         │         │             │
+│  ┌─┴───┐  ┌─┴───┐  ┌─┴───┐          │
+│  │FPGA │  │ PSU │  │ CPU │          │ ← Components
+│  └─────┘  └─────┘  └─────┘          │
+├─────────────────────────────────────┤
+│             PCB                      │
+└─────────────────────────────────────┘
+
+Heat Sink Guidelines:
+- Orientation: Fins parallel to airflow (minimize resistance)
+- Material: Aluminum 6063 (thermal conductivity 200 W/m·K)
+- Fin spacing: 3-5 mm (balance surface area vs airflow)
+- Thermal interface: Thermal pad or paste (0.5 W/m·K)
+</pre>
+<p><strong>Thermal Resistance Calculation:</strong></p>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 384)</p>
+<p>Cannot analyze code. Pygments package not found.</p>
+<pre class="literal-block">
+.. code-block:: python
+
+   def calculate_junction_temp(P_diss, R_ja, T_amb):
+       &quot;&quot;&quot;
+       Calculate component junction temperature.
+
+       P_diss: Power dissipation (W)
+       R_ja: Junction-to-ambient thermal resistance (°C/W)
+       T_amb: Ambient temperature (°C)
+
+       Returns: Junction temperature (°C)
+       &quot;&quot;&quot;
+       T_j = T_amb + (P_diss * R_ja)
+       return T_j
+
+   # Example: FPGA in 1 ATR LRU
+   P_fpga = 15  # Watts
+   R_ja = 2.5   # °C/W (with heat sink + airflow)
+   T_inlet = 55 # °C (max inlet air temp)
+
+   T_junction = calculate_junction_temp(P_fpga, R_ja, T_inlet)
+   print(f&quot;FPGA junction temp: {T_junction}°C&quot;)
+
+   # Output: 92.5°C (within FPGA max 125°C spec)
+
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="emi-emc-shielding">
+<h1>5. EMI/EMC Shielding</h1>
+<div class="section" id="conductive-enclosure">
+<h2><strong>5.1 Conductive Enclosure</strong></h2>
+<p><strong>Shielding Requirements (DO-160G Section 21):</strong></p>
+<pre class="code text literal-block">
+Material: Aluminum alloy chassis (natural shielding)
+Thickness: 0.063&quot; minimum (1.6 mm)
+Finish: Chromate conversion coating (MIL-DTL-5541, conductive)
+
+Gaps/Seams:
+- All seams &lt;0.1&quot; gap (λ/10 rule &#64; 300 MHz)
+- Gaskets at removable panels (beryllium-copper fingers)
+- Vent holes &lt;0.125&quot; diameter (honeycomb pattern)
+</pre>
+<p><strong>Front Panel EMI Gasket:</strong></p>
+<pre class="code text literal-block">
+Cross-Section (front panel to rack):
+
+┌─────────────────┐
+│   LRU Panel     │
+└────┬────────────┘
+     │  ╔════════╗  ← EMI gasket (0.125&quot; thick)
+     └──╢ Rack   ║
+        ╚════════╝
+
+Gasket Types:
+- Beryllium-copper fingers (most common)
+- Conductive elastomer (silicone + silver particles)
+- Wire mesh (stainless steel)
+
+Purpose: Prevent RF leakage at panel interface
+</pre>
+</div>
+<div class="section" id="connector-backshell-grounding">
+<h2><strong>5.2 Connector Backshell Grounding</strong></h2>
+<p><strong>ARINC 600 Connector Grounding:</strong></p>
+<pre class="code text literal-block">
+Rear View (connector on LRU):
+
+┌─────────────────────────────────────┐
+│         LRU Chassis (ground)         │
+└────────────────┬────────────────────┘
+                 │
+           ┌─────┴─────┐
+           │ Connector │
+           │ Backshell │ ← 360° shield termination
+           └─────┬─────┘
+                 │
+           ┌─────┴─────┐
+           │  Cable    │
+           │  Shield   │
+           └───────────┘
+
+Grounding Points:
+- Connector backshell bonded to chassis (4× screws)
+- Cable shield terminated to backshell (360° crimp)
+- Rack connector bonded to aircraft structure
+</pre>
+<p><strong>Bonding Resistance:</strong>
+- Requirement: &lt;2.5 mΩ (DC resistance, chassis to rack)
+- Test: 100 A DC current, measure voltage drop
+- Ensures lightning protection (low-impedance ground path)</p>
+</div>
+</div>
+<div class="section" id="mechanical-specifications">
+<h1>6. Mechanical Specifications</h1>
+<div class="section" id="material-construction">
+<h2><strong>6.1 Material &amp; Construction</strong></h2>
+<p><strong>Chassis Materials:</strong></p>
+<pre class="code text literal-block">
+Component          Material              Reason
+─────────────────  ────────────────────  ─────────────────────────
+Chassis            Al 6061-T6            Lightweight, machinable
+Front panel        Al 5052-H32           Corrosion-resistant
+Rails (guide)      Stainless 304         Wear-resistant
+Captive screws     Stainless 316         Corrosion-resistant
+PCB standoffs      Brass (nickel-plated) Conductive, vibration
+
+Weight Budget (1 ATR):
+- Chassis: 1.2 kg
+- PCBs: 0.5 kg
+- Components: 1.0 kg
+- Connectors: 0.3 kg
+─────────────────
+Total: ~3 kg (vs 5 kg for non-standard packaging)
+</pre>
+</div>
+<div class="section" id="vibration-shock-requirements">
+<h2><strong>6.2 Vibration &amp; Shock Requirements</strong></h2>
+<p><strong>DO-160G Section 8 (Vibration):</strong></p>
+<pre class="code text literal-block">
+Operational Vibration (Category D):
+
+Frequency (Hz)   Acceleration (G)   Duration
+───────────────  ─────────────────  ────────
+5-18.8           0.008 in DA        15 min per axis
+18.8-50          1.04 G             15 min per axis
+50-500           Random (0.04 G²/Hz) 15 min per axis
+
+Axes: X, Y, Z (3 axes)
+Total test time: 45 min operational + 45 min powered-off
+
+Critical Resonances:
+- PCB: 100-300 Hz (avoid by stiffening)
+- Connector pins: 400-600 Hz (use proper retention)
+</pre>
+<p><strong>Crash Safety (DO-160G Section 8.6):</strong></p>
+<pre class="code text literal-block">
+Crash Pulse: 6 G triangle wave (20 ms duration)
+
+Acceleration →
+
+  6G ┌──┐
+     │  │
+     │  │
+     │  │
+  0  └──┘────────
+     0  20 ms
+
+LRU must remain mounted (no separation from rack)
+Captive screws must hold 10× operating load
+</pre>
+</div>
+</div>
+<div class="section" id="common-atr-avionics-examples">
+<h1>7. Common ATR Avionics Examples</h1>
+<div class="section" id="flight-management-system-fms">
+<h2><strong>7.1 Flight Management System (FMS)</strong></h2>
+<p><strong>Honeywell Pegasus FMS:</strong>
+- <strong>Size:</strong> 2 ATR (9.625&quot; wide)
+- <strong>Weight:</strong> 8.5 kg
+- <strong>Power:</strong> 28 VDC, 3.5 A (98 W)
+- <strong>Cooling:</strong> 35 CFM forced air
+- <strong>Connectors:</strong> 2× ARINC 600 (78-pin + 156-pin)
+- <strong>Features:</strong></p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 563)</p>
+Unexpected indentation.</div>
+<blockquote>
+<ul class="simple">
+<li>Dual GPS/IRS integration</li>
+<li>RNAV/RNP flight planning</li>
+<li>Database: ARINC 424 navigation data</li>
+</ul>
+</blockquote>
+<p><strong>FMS Internal Layout (2 ATR):</strong></p>
+<pre class="code text literal-block">
+Top View:
+
+┌─────────────────────────────────────────┐
+│ ┌─────┐  ┌─────────┐  ┌──────┐  ┌────┐ │
+│ │ PSU │  │  CPU    │  │ I/O  │  │Fan │ │
+│ │     │  │ (SBC)   │  │ FPGA │  │    │ │
+│ └─────┘  └─────────┘  └──────┘  └────┘ │
+│                                         │
+│ ┌───────────────────────────────────┐   │
+│ │       Memory (128 GB SSD)         │   │
+│ └───────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+        ▲
+        Airflow
+</pre>
+</div>
+<div class="section" id="transponder-1-atr">
+<h2><strong>7.2 Transponder (1 ATR)</strong></h2>
+<p><strong>Garmin GTX 345 ADS-B Transponder:</strong>
+- <strong>Size:</strong> 1 ATR (4.8&quot; wide)
+- <strong>Weight:</strong> 1.8 kg
+- <strong>Power:</strong> 28 VDC, 1.5 A (42 W)
+- <strong>Cooling:</strong> 18 CFM
+- <strong>Features:</strong></p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 595)</p>
+Unexpected indentation.</div>
+<blockquote>
+<ul class="simple">
+<li>Mode S Extended Squitter (1090 MHz)</li>
+<li>ADS-B Out (position broadcast)</li>
+<li>ADS-B In (traffic reception)</li>
+<li>UAT support (978 MHz)</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="vhf-communication-radio-1-2-atr">
+<h2><strong>7.3 VHF Communication Radio (1/2 ATR)</strong></h2>
+<p><strong>Collins Aerospace VHF-422D:</strong>
+- <strong>Size:</strong> 1/2 ATR (2.4&quot; wide)
+- <strong>Frequency:</strong> 118-137 MHz (AM, 25 kHz / 8.33 kHz spacing)
+- <strong>Power:</strong> 10 W RF output
+- <strong>Cooling:</strong> 10 CFM
+- <strong>Weight:</strong> 1.2 kg</p>
+</div>
+</div>
+<div class="section" id="installation-maintenance">
+<h1>8. Installation &amp; Maintenance</h1>
+<div class="section" id="installation-procedure">
+<h2><strong>8.1 Installation Procedure</strong></h2>
+<p><strong>Step-by-Step LRU Installation:</strong></p>
+<pre class="code text literal-block">
+Pre-Installation:
+□ Verify LRU part number matches installation drawing
+□ Inspect LRU for damage (cracks, bent pins)
+□ Check connector pins (none bent, debris-free)
+□ Verify aircraft power OFF (circuit breaker open)
+
+Installation:
+□ Align LRU with rack rails
+□ Slide LRU into rack (firm, steady push)
+□ Ensure connector fully seated (audible click or mark)
+□ Rotate captive screws 90° clockwise (1/4-turn)
+□ Verify front panel flush with rack
+
+Post-Installation:
+□ Connect any required external cables (if applicable)
+□ Close aircraft circuit breaker (apply power)
+□ Perform Built-In Test (BIT)
+□ Verify operational (check displays, indicators)
+□ Update aircraft logbook (part number, serial number, date)
+</pre>
+</div>
+<div class="section" id="removal-procedure">
+<h2><strong>8.2 Removal Procedure</strong></h2>
+<pre class="code text literal-block">
+Pre-Removal:
+□ Open circuit breaker (remove power)
+□ Disconnect external cables (if any)
+
+Removal:
+□ Rotate captive screws 90° counter-clockwise
+□ Pull LRU straight out (firm, steady pull)
+□ Support LRU weight (do not drop)
+
+Post-Removal:
+□ Inspect rack connector (bent pins, corrosion)
+□ Install blank panel if slot empty (EMI shielding)
+□ Label removed LRU with reason (fault code, replacement)
+</pre>
+</div>
+<div class="section" id="common-issues">
+<h2><strong>8.3 Common Issues</strong></h2>
+<p><strong>Problem: LRU won't slide into rack</strong></p>
+<pre class="code text literal-block">
+Possible Causes:
+- Bent guide rails on LRU
+- Obstructed rack rails (debris, corrosion)
+- Wrong ATR size (1 ATR in 3/4 ATR slot)
+
+Troubleshooting:
+1. Inspect LRU rails (straighten if bent)
+2. Clean rack rails (solvent, wire brush)
+3. Verify LRU size matches rack slot
+</pre>
+<p><strong>Problem: Connector won't mate</strong></p>
+<pre class="code text literal-block">
+Possible Causes:
+- Bent pins on LRU or rack connector
+- Foreign object in connector (FOD)
+- Misalignment (LRU not centered in rails)
+
+Troubleshooting:
+1. Remove LRU, inspect connector with flashlight
+2. Use pin-straightening tool (DO NOT force)
+3. Re-insert LRU, ensure centered in rails
+</pre>
+<p><strong>Problem: Overheating</strong></p>
+<pre class="code text literal-block">
+Possible Causes:
+- Insufficient airflow (fan failure, clogged filter)
+- Excessive TDP (over-spec components)
+- Blocked vents (dust, tape)
+
+Troubleshooting:
+1. Check blower operation (28 VDC at fan connector)
+2. Inspect/replace HEPA filters (every 500 flight hours)
+3. Verify exhaust vents clear
+</pre>
+</div>
+</div>
+<div class="section" id="exam-preparation-5-questions">
+<h1>9. Exam Preparation — 5 Questions</h1>
+<p><strong>Question 1: Size Calculations (10 points)</strong></p>
+<p>An avionics rack has 14.4&quot; width available.</p>
+<ol class="loweralpha simple">
+<li>What ATR combinations fit? (list 3 different) (6 pts)</li>
+<li>Which combination maximizes space utilization? (2 pts)</li>
+<li>If each slot requires 0.1&quot; clearance, recalculate. (2 pts)</li>
+</ol>
+<p><strong>Answer:</strong></p>
+<ol class="loweralpha simple">
+<li><strong>ATR Combinations for 14.4&quot; width:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Option 1: 3× 1 ATR (3 × 4.8&quot; = 14.4&quot;) ✓
+Option 2: 6× 1/2 ATR (6 × 2.4&quot; = 14.4&quot;) ✓
+Option 3: 2× 1.5 ATR (2 × 7.2&quot; = 14.4&quot;) ✓
+Option 4: 1× 2 ATR + 1× 1 ATR (9.625&quot; + 4.8&quot; = 14.425&quot;) ✗ (too wide)
+Option 5: 1× 3 ATR (14.425&quot;) ✗ (too wide)
+Option 6: 4× 3/4 ATR (4 × 3.6&quot; = 14.4&quot;) ✓
+
+Valid: Options 1, 2, 3, 6
+</pre>
+<ol class="loweralpha simple" start="2">
+<li><strong>Maximum Utilization:</strong>
+- <strong>Option 2 (6× 1/2 ATR) or Option 6 (4× 3/4 ATR)</strong>
+- Both use exactly 14.4&quot; (100% utilization)
+- More smaller units = more flexibility (modularity)</li>
+<li><strong>With 0.1&quot; Clearance per Slot:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Usable width per ATR:
+- 1 ATR = 4.8&quot; - 0.1&quot; = 4.7&quot;
+- 1/2 ATR = 2.4&quot; - 0.1&quot; = 2.3&quot;
+- 3/4 ATR = 3.6&quot; - 0.1&quot; = 3.5&quot;
+- 1.5 ATR = 7.2&quot; - 0.1&quot; = 7.1&quot;
+
+Revised combinations:
+- Option 1: 3× 1 ATR = 3 × 4.7&quot; = 14.1&quot; (0.3&quot; unused) ✓
+- Option 2: 6× 1/2 ATR = 6 × 2.3&quot; = 13.8&quot; (0.6&quot; unused) ✓
+- Option 3: 2× 1.5 ATR = 2 × 7.1&quot; = 14.2&quot; (0.2&quot; unused) ✓
+</pre>
+<p>---</p>
+<p><strong>Question 2: Thermal Design (12 points)</strong></p>
+<p>Design cooling for 1 ATR FMS:
+- CPU: 15 W
+- FPGA: 12 W
+- PSU: 8 W (losses)
+- Other: 5 W</p>
+<ol class="loweralpha simple">
+<li>Calculate total TDP (2 pts)</li>
+<li>Determine required airflow (assume ΔT=20°C) (6 pts)</li>
+<li>Select blower (given options) (4 pts)</li>
+</ol>
+<p><strong>Answer:</strong></p>
+<ol class="loweralpha simple">
+<li><strong>Total TDP:</strong>
+- TDP = 15 + 12 + 8 + 5 = <strong>40 W</strong></li>
+<li><strong>Required Airflow:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Heat equation: Q = ṁ × Cp × ΔT
+
+Where:
+- Q = Heat (40 W = 40 J/s)
+- ṁ = Mass flow rate (kg/s)
+- Cp = Specific heat of air = 1005 J/(kg·K)
+- ΔT = Temperature rise = 20°C = 20 K
+
+ṁ = Q / (Cp × ΔT) = 40 / (1005 × 20) = 0.00199 kg/s
+
+Convert to CFM (Cubic Feet per Minute):
+- Air density &#64; 55°C = 1.05 kg/m³
+- Volume flow = ṁ / ρ = 0.00199 / 1.05 = 0.00190 m³/s
+- CFM = 0.00190 × 2118.88 (m³/s → CFM) = 4.0 CFM
+
+**Safety factor:** 2× (account for non-uniform flow, aging)
+**Required airflow:** 4.0 × 2 = **8 CFM**
+</pre>
+<ol class="loweralpha simple" start="3">
+<li><strong>Blower Selection:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Available Blowers:
+A) 5 CFM &#64; 0.5&quot; H2O (insufficient) ✗
+B) 10 CFM &#64; 0.3&quot; H2O (adequate) ✓
+C) 20 CFM &#64; 0.8&quot; H2O (overkill, higher power) ✗
+
+**Select B (10 CFM blower)**
+- Provides 25% margin over required 8 CFM
+- Lower static pressure (0.3&quot;) saves power
+</pre>
+<p>---</p>
+<p><strong>Question 3: EMI Shielding (10 points)</strong></p>
+<ol class="loweralpha simple">
+<li>Calculate maximum gap size for 1 GHz shielding (λ/10 rule) (4 pts)</li>
+<li>Why use beryllium-copper EMI gaskets? (3 pts)</li>
+<li>What bonding resistance required? (3 pts)</li>
+</ol>
+<p><strong>Answer:</strong></p>
+<ol class="loweralpha simple">
+<li><strong>Maximum Gap Size (λ/10 Rule):</strong></li>
+</ol>
+<pre class="code text literal-block">
+Wavelength: λ = c / f
+
+Where:
+- c = Speed of light = 3 × 10⁸ m/s
+- f = Frequency = 1 GHz = 1 × 10⁹ Hz
+
+λ = 3 × 10⁸ / 1 × 10⁹ = 0.3 m = 300 mm
+
+Maximum gap: λ / 10 = 300 mm / 10 = 30 mm
+
+**Practical limit:** Much smaller (1-2 mm) for better shielding
+- 30 mm allows significant RF leakage
+- DO-160G typically requires &lt;3 mm gaps
+</pre>
+<ol class="loweralpha" start="2">
+<li><p class="first"><strong>Beryllium-Copper Gaskets:</strong>
+- <strong>High conductivity:</strong> Excellent RF shielding (σ = 2 × 10⁷ S/m)
+- <strong>Spring force:</strong> Maintains contact under vibration
+- <strong>Corrosion-resistant:</strong> Beryllium oxide layer protects
+- <strong>Ductile:</strong> Conforms to uneven surfaces (panel tolerances)</p>
+</li>
+<li><p class="first"><strong>Bonding Resistance:</strong>
+- <strong>Requirement:</strong> &lt;2.5 mΩ (DO-160G Section 16)
+- <strong>Measurement:</strong> 100 A DC, measure voltage drop (V = I × R)
+- <strong>Purpose:</strong></p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 844)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<ul class="simple">
+<li>Lightning protection (low-impedance ground path)</li>
+<li>EMI shielding (equipotential bonding)</li>
+<li>Prevents voltage differentials (electrostatic discharge)</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>---</p>
+<p><strong>Question 4: Vibration Analysis (8 points)</strong></p>
+<p>1 ATR LRU has PCB resonance at 180 Hz. DO-160G Category D vibration:
+- 50-500 Hz: 0.04 G²/Hz random PSD</p>
+<ol class="loweralpha simple">
+<li>What is RMS acceleration at 180 Hz? (4 pts)</li>
+<li>Is this acceptable? (2 pts)</li>
+<li>How to mitigate? (2 pts)</li>
+</ol>
+<p><strong>Answer:</strong></p>
+<ol class="loweralpha simple">
+<li><strong>RMS Acceleration:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Power Spectral Density (PSD): 0.04 G²/Hz
+
+For random vibration:
+G_rms = √(PSD × Δf)
+
+Where:
+- Δf = Bandwidth around resonance (assume 10 Hz)
+
+G_rms = √(0.04 × 10) = √0.4 = 0.63 G
+
+At resonance, amplification factor Q ≈ 10 (typical PCB)
+
+Peak acceleration: 0.63 G × 10 = **6.3 G at 180 Hz**
+</pre>
+<ol class="loweralpha" start="2">
+<li><p class="first"><strong>Acceptability:</strong>
+- <strong>NOT acceptable</strong> for fragile components (connectors, solder joints)
+- 6.3 G can cause:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 882)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<ul class="simple">
+<li>Solder joint fatigue (over time)</li>
+<li>Connector fretting (intermittent contact)</li>
+<li>Component lead failures</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first"><strong>Mitigation Strategies:</strong>
+- <strong>Increase PCB stiffness:</strong> Thicker PCB (0.093&quot; vs 0.062&quot;), edge stiffeners
+- <strong>Damping:</strong> Viscoelastic damping material on PCB underside
+- <strong>Standoff spacing:</strong> Reduce span between mounting points (shift resonance &gt;300 Hz)
+- <strong>Component placement:</strong> Keep heavy components (connectors, transformers) near standoffs</p>
+</li>
+</ol>
+<p>---</p>
+<p><strong>Question 5: Installation Scenario (10 points)</strong></p>
+<p>During 1 ATR FMS installation, connector mates but LRU front panel doesn't sit flush (0.25&quot; gap). Captive screws won't engage.</p>
+<ol class="loweralpha simple">
+<li>What are 3 possible causes? (6 pts)</li>
+<li>What is the correct troubleshooting sequence? (4 pts)</li>
+</ol>
+<p><strong>Answer:</strong></p>
+<ol class="loweralpha simple">
+<li><strong>Possible Causes:</strong></li>
+</ol>
+<ol class="arabic simple">
+<li><strong>Connector Backshell Interference:</strong>
+- Cable bundle behind rack connector blocking full insertion
+- Connector shell bottoming on rack (not fully seated)</li>
+<li><strong>Foreign Object Debris (FOD):</strong>
+- Washer, wire, or debris in rail tracks
+- Prevents LRU from sliding all the way forward</li>
+<li><strong>Bent/Damaged Rails:</strong>
+- LRU guide rails bent outward (won't fit in track)
+- Rack rails damaged (obstruction)</li>
+</ol>
+<ol class="loweralpha simple" start="2">
+<li><strong>Troubleshooting Sequence:</strong></li>
+</ol>
+<pre class="code text literal-block">
+Step 1: Remove LRU (do not force)
+- Pull straight out (avoid twisting)
+
+Step 2: Visual Inspection
+- Inspect LRU rails (bent, damaged?)
+- Inspect rack rails (debris, corrosion?)
+- Check connector backshell clearance
+
+Step 3: Verify Empty Rack
+- Slide dummy LRU (or ruler) into rails
+- Confirm rails clear, no obstructions
+
+Step 4: Check Connector Depth
+- Measure rack connector protrusion (should be &lt;1&quot;)
+- Verify LRU connector receptacle depth matches
+
+Step 5: Reinstall with Observation
+- Slide LRU slowly, watch for binding point
+- Identify where interference occurs
+
+Step 6: Correct Issue
+- Remove debris, straighten rails, reroute cables
+- Retest until flush fit achieved
+</pre>
+</div>
+<div class="section" id="completion-checklist">
+<h1>10. Completion Checklist</h1>
+<p>□ Know standard ATR sizes (1/4, 1/2, 3/4, 1, 1.5, 2, 3, 4 ATR)
+□ Understand rail mounting system (captive screws, slide-locks)
+□ Calculate airflow requirements (CFM for given TDP)
+□ Design heat sinks (thermal resistance, fin spacing)
+□ Apply EMI shielding (gaskets, bonding resistance)
+□ Analyze vibration (resonance, PSD, G_rms)
+□ Perform installation/removal procedures
+□ Troubleshoot common issues (won't insert, overheat)
+□ Select materials (Al 6061, stainless 304, beryllium-copper)
+□ Understand DO-160G environmental testing</p>
+</div>
+<div class="section" id="key-takeaways">
+<h1>11. Key Takeaways</h1>
+<ol class="arabic simple">
+<li><strong>ATR = Standardized Packaging:</strong> 1.2&quot; width increments, 7.875&quot; height, 14.5&quot; depth</li>
+<li><strong>Rail System:</strong> T-shaped rails, LRU slides in, 1/4-turn captive screws lock</li>
+<li><strong>Cooling:</strong> Forced air, front-to-back, 20 CFM per 1 ATR (100 W TDP)</li>
+<li><strong>EMI Shielding:</strong> Conductive chassis, beryllium-copper gaskets, &lt;2.5 mΩ bonding</li>
+<li><strong>Most Common:</strong> 1/2 ATR (54% of avionics), modular (2× 1/2 = 1× 1 ATR)</li>
+<li><strong>Weight Savings:</strong> 40% reduction vs custom mounting (standardized rails)</li>
+<li><strong>DO-160G Compliance:</strong> Vibration Category D, crash 6G, temperature -55 to +85°C</li>
+<li><strong>Connector Engagement:</strong> ARINC 600 rear connector, 20-40 lbf insertion force</li>
+<li><strong>Modular Combinations:</strong> Mix sizes in rack slots (flexibility)</li>
+<li><strong>Quick Removal:</strong> Slide-lock for frequently-accessed LRUs (no tools)</li>
+</ol>
+</div>
+<div class="section" id="references-further-reading">
+<h1>References &amp; Further Reading</h1>
+<p><strong>Standards:</strong>
+- ARINC 404A — ATR Equipment Form Factors
+- ARINC 600 — Air Transport Connector System
+- RTCA DO-160G — Environmental Conditions and Test Procedures
+- MIL-DTL-5541 — Chromate Conversion Coating
+- MIL-DTL-38999 — Connectors (EMI shielded)</p>
+<p><strong>Avionics Equipment:</strong>
+- Honeywell Pegasus FMS
+- Collins Aerospace VHF-422D Radio
+- Garmin GTX 345 Transponder</p>
+<p><strong>Aircraft Installation Manuals:</strong>
+- Boeing 737 AMM (Aircraft Maintenance Manual) Chapter 34 (Navigation)
+- Airbus A320 AMM Chapter 31 (Indicating/Recording Systems)</p>
+<p><strong>Thermal Management:</strong>
+- &quot;Thermal Management of Electronics&quot; by Avram Bar-Cohen
+- MIL-HDBK-217 (Reliability Prediction)</p>
+<hr class="docutils" />
+<p><strong>Document Version:</strong> 1.0
+<strong>Last Updated:</strong> January 16, 2026
+<strong>Standards:</strong> ARINC 404A, ARINC 600, DO-160G</p>
+<hr class="docutils" />
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Avionics/ARINC_404.rst</tt>, line 1014)</p>
+Document may not end with a transition.</div>
+</div>
+</div>
+</body>
+</html>
