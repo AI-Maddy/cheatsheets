@@ -7,17 +7,18 @@
 Here is a practical, ADAS-focused **cheatsheet for JPEG, MPEG video codecs + common feature extraction methods**  
 (oriented toward embedded automotive perception engineers — 2025/2026 reality)
 
-```text
-╔════════════════════════════════════════════════════════════════════════════╗
-║         JPEG / MPEG / Feature Extraction Cheatsheet ─ ADAS Edition         ║
-╚════════════════════════════════════════════════════════════════════════════╝
+.. code-block:: text
 
-                            ADAS Camera Pipeline Context
-                 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-Raw Bayer ───►  Debayer/DPC  ───►  JPEG/MJPEG   ───►  Feature Extraction  ───► Detection/Tracking
-                 (ISP)               (compression)          (classical / DL)
-                                           └───────────────┘
-                                 or H.264/H.265 (MPEG) for recording/streaming
+    ═══════════════════════════════════════════════════════════════════════════════
+            JPEG / MPEG / Feature Extraction Cheatsheet ─ ADAS Edition
+    ═══════════════════════════════════════════════════════════════════════════════
+
+                             ADAS Camera Pipeline Context
+                  ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+    Raw Bayer ───►  Debayer/DPC  ───►  JPEG/MJPEG   ───►  Feature Extraction  ───► Detection/Tracking
+                  (ISP)               (compression)          (classical / DL)
+                                            └───────────────┘
+                                  or H.264/H.265 (MPEG) for recording/streaming
 
 ════════════════════════════════════════════════════════════════════════════════
 ⭐ 1. JPEG (Still Image Compression) – Most Important in ADAS Cameras 2025–2026

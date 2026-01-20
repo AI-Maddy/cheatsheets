@@ -120,36 +120,36 @@ Segmentation Descriptor Types:
 │ splice_info_section Anatomy                                               │
 ├───────────────────────────────────────────────────────────────────────────┤
 │                                                                           │
-│  ╔═══════════════════════════════════════════════════════════════════╗  │
-│  ║ HEADER                                                            ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ table_id: 0xFC (identifies this as SCTE-35)                       ║  │
-│  ║ section_length: Total message size                                ║  │
-│  ║ protocol_version: 0                                               ║  │
-│  ║ pts_adjustment: Global timeline offset (usually 0)                ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ SPLICE COMMAND (variable based on command_type)                   ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ splice_insert (0x05):                                             ║  │
-│  ║   ├─ splice_event_id: 12345                                       ║  │
-│  ║   ├─ out_of_network_indicator: 1 (leaving for ads)                ║  │
-│  ║   ├─ splice_immediate_flag: 0 (scheduled)                         ║  │
-│  ║   ├─ pts_time: 3600000 (PTS ticks, 40 seconds at 90kHz)          ║  │
-│  ║   ├─ break_duration: 2700000 (30 seconds)                         ║  │
-│  ║   └─ unique_program_id: 0x0001                                    ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ DESCRIPTORS (optional, rich metadata)                             ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ Segmentation Descriptor:                                          ║  │
-│  ║   ├─ segmentation_event_id: 67890                                 ║  │
-│  ║   ├─ segmentation_type_id: 0x34 (Provider Ad Start)               ║  │
-│  ║   ├─ segment_num: 1 (first ad in break)                           ║  │
-│  ║   ├─ segments_expected: 2 (2 ads total)                           ║  │
-│  ║   ├─ segmentation_upid_type: 0x08 (Ad-ID)                         ║  │
-│  ║   └─ segmentation_upid: "ABC1234567H" (specific ad creative)      ║  │
-│  ╠═══════════════════════════════════════════════════════════════════╣  │
-│  ║ CRC_32: 0x1A2B3C4D (integrity check)                              ║  │
-│  ╚═══════════════════════════════════════════════════════════════════╝  │
+│  ┌───────────────────────────────────────────────────────────────────┐  │
+│  │ HEADER                                                            │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ table_id: 0xFC (identifies this as SCTE-35)                       │  │
+│  │ section_length: Total message size                                │  │
+│  │ protocol_version: 0                                               │  │
+│  │ pts_adjustment: Global timeline offset (usually 0)                │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ SPLICE COMMAND (variable based on command_type)                   │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ splice_insert (0x05):                                             │  │
+│  │   ├─ splice_event_id: 12345                                       │  │
+│  │   ├─ out_of_network_indicator: 1 (leaving for ads)                │  │
+│  │   ├─ splice_immediate_flag: 0 (scheduled)                         │  │
+│  │   ├─ pts_time: 3600000 (PTS ticks, 40 seconds at 90kHz)          │  │
+│  │   ├─ break_duration: 2700000 (30 seconds)                         │  │
+│  │   └─ unique_program_id: 0x0001                                    │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ DESCRIPTORS (optional, rich metadata)                             │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ Segmentation Descriptor:                                          │  │
+│  │   ├─ segmentation_event_id: 67890                                 │  │
+│  │   ├─ segmentation_type_id: 0x34 (Provider Ad Start)               │  │
+│  │   ├─ segment_num: 1 (first ad in break)                           │  │
+│  │   ├─ segments_expected: 2 (2 ads total)                           │  │
+│  │   ├─ segmentation_upid_type: 0x08 (Ad-ID)                         │  │
+│  │   └─ segmentation_upid: "ABC1234567H" (specific ad creative)      │  │
+│  ├───────────────────────────────────────────────────────────────────┤  │
+│  │ CRC_32: 0x1A2B3C4D (integrity check)                              │  │
+│  └───────────────────────────────────────────────────────────────────┘  │
 │                                                                           │
 └───────────────────────────────────────────────────────────────────────────┘
 
