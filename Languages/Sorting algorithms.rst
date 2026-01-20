@@ -105,12 +105,569 @@ Pick wisely based on **array size**, **RAM**, **stack size**, **real-time requir
 Most real embedded projects in 2026 use **Insertion Sort** for small arrays and **Quick Sort** (or library ``qsort``) for larger ones.
 
 ================================================================================
-
-**Last updated:** January 2026
-
+5. Non-Comparison Based Sorting Algorithms
 ================================================================================
 
-**Last updated:** January 2026
+These algorithms can achieve O(n) or O(n+k) time complexity by not comparing
+elements directly. They work on integer keys or can be adapted for other data.
+
+5.1 Counting Sort
+--------------------------------------------------------------------------------
+
+**Time Complexity:** O(n + k) where k is range of input  
+**Space Complexity:** O(k)  
+**Stable:** Yes  
+**Use Case:** Small integer range (k ≤ 10,000), embedded sensor data
+
+**Algorithm:**
+
+1. Count frequency of each value
+2. Calculate cumulative counts (positions)
+3. Place elements in output array using counts
+
+.. code-block:: c
+
+   // Counting sort for integers in range [0, k]
+   void counting_sort(int arr[], int n, int k) {
+       int count[k + 1];  // Frequency array
+       int output[n];     // Output array
+       
+       // Initialize count array
+       for (int i = 0; i <= k; i++) {
+           count[i] = 0;
+       }
+       
+       // Count occurrences
+       for (int i = 0; i < n; i++) {
+           count[arr[i]]++;
+       }
+       
+       // Calculate cumulative counts
+       for (int i = 1; i <= k; i++) {
+           count[i] += count[i - 1];
+       }
+       
+       // Build output array (traverse backwards for stability)
+       for (int i = n - 1; i >= 0; i--) {
+           output[count[arr[i]] - 1] = arr[i];
+           count[arr[i]]--;
+       }
+       
+       // Copy back to original array
+       for (int i = 0; i < n; i++) {
+           arr[i] = output[i];
+       }
+   }
+
+**Embedded Example - Sort Sensor IDs (0-255):**
+
+.. code-block:: c
+
+   #define MAX_SENSORS 32
+   #define SENSOR_ID_RANGE 256
+   
+   uint8_t sensor_ids[MAX_SENSORS];
+   
+   void counting_sort_sensors(uint8_t arr[], int n) {
+       uint8_t count[SENSOR_ID_RANGE] = {0};
+       uint8_t output[MAX_SENSORS];
+       
+       // Count occurrences
+       for (int i = 0; i < n; i++) {
+           count[arr[i]]++;
+       }
+       
+       // Calculate cumulative
+       for (int i = 1; i < SENSOR_ID_RANGE; i++) {
+           count[i] += count[i - 1];
+       }
+       
+       // Build output
+       for (int i = n - 1; i >= 0; i--) {
+           output[--count[arr[i]]] = arr[i];
+       }
+       
+       // Copy back
+       memcpy(arr, output, n);
+   }
+
+**When to Use:**
+
+- ✅ Small range of integers (k is small)
+- ✅ Need stable sort
+- ✅ O(n) performance required
+- ❌ Large range (wastes memory)
+- ❌ Floating point or complex keys
+
+5.2 Radix Sort
+--------------------------------------------------------------------------------
+
+**Time Complexity:** O(d × (n + k)) where d is digits, k is radix base  
+**Space Complexity:** O(n + k)  
+**Stable:** Yes (requires stable counting sort)  
+**Use Case:** Multi-byte integers, timestamps, IP addresses
+
+**Algorithm:**
+
+1. Sort by least significant digit
+2. Sort by next digit
+3. Repeat for all digits
+4. Uses counting sort as subroutine
+
+.. code-block:: c
+
+   // Get digit at position d (base 10)
+   static int get_digit(int num, int d) {
+       return (num / (int)pow(10, d)) % 10;
+   }
+   
+   // Counting sort by digit position
+   static void counting_sort_by_digit(int arr[], int n, int digit) {
+       int output[n];
+       int count[10] = {0};  // Base 10
+       
+       // Count occurrences of digits
+       for (int i = 0; i < n; i++) {
+           int d = get_digit(arr[i], digit);
+           count[d]++;
+       }
+       
+       // Cumulative count
+       for (int i = 1; i < 10; i++) {
+           count[i] += count[i - 1];
+       }
+       
+       // Build output (backward for stability)
+       for (int i = n - 1; i >= 0; i--) {
+           int d = get_digit(arr[i], digit);
+           output[count[d] - 1] = arr[i];
+           count[d]--;
+       }
+       
+       // Copy back
+       for (int i = 0; i < n; i++) {
+           arr[i] = output[i];
+       }
+   }
+   
+   // Radix sort (LSD - Least Significant Digit first)
+   void radix_sort_lsd(int arr[], int n) {
+       // Find maximum to determine number of digits
+       int max_val = arr[0];
+       for (int i = 1; i < n; i++) {
+           if (arr[i] > max_val) {
+               max_val = arr[i];
+           }
+       }
+       
+       // Count digits
+       int num_digits = 0;
+       int temp = max_val;
+       while (temp > 0) {
+           num_digits++;
+           temp /= 10;
+       }
+       
+       // Sort by each digit
+       for (int d = 0; d < num_digits; d++) {
+           counting_sort_by_digit(arr, n, d);
+       }
+   }
+
+**Optimized Base-256 Radix Sort (for uint32_t):**
+
+.. code-block:: c
+
+   // Radix sort using base 256 (1 byte at a time)
+   void radix_sort_base256(uint32_t arr[], int n) {
+       uint32_t output[n];
+       
+       // Process each byte (4 bytes for uint32_t)
+       for (int byte_pos = 0; byte_pos < 4; byte_pos++) {
+           int count[256] = {0};
+           
+           // Count occurrences of current byte
+           for (int i = 0; i < n; i++) {
+               uint8_t byte = (arr[i] >> (byte_pos * 8)) & 0xFF;
+               count[byte]++;
+           }
+           
+           // Cumulative count
+           for (int i = 1; i < 256; i++) {
+               count[i] += count[i - 1];
+           }
+           
+           // Build output
+           for (int i = n - 1; i >= 0; i--) {
+               uint8_t byte = (arr[i] >> (byte_pos * 8)) & 0xFF;
+               output[--count[byte]] = arr[i];
+           }
+           
+           // Copy back
+           for (int i = 0; i < n; i++) {
+               arr[i] = output[i];
+           }
+       }
+   }
+
+**Embedded Example - Sort Timestamps:**
+
+.. code-block:: c
+
+   #define MAX_EVENTS 128
+   
+   typedef struct {
+       uint32_t timestamp;  // Milliseconds
+       uint16_t event_id;
+       uint8_t priority;
+   } event_log_t;
+   
+   event_log_t event_log[MAX_EVENTS];
+   
+   // Extract timestamp for sorting
+   void sort_events_by_timestamp(event_log_t events[], int n) {
+       uint32_t timestamps[MAX_EVENTS];
+       
+       // Extract timestamps
+       for (int i = 0; i < n; i++) {
+           timestamps[i] = events[i].timestamp;
+       }
+       
+       // Sort timestamps
+       radix_sort_base256(timestamps, n);
+       
+       // Reorder events (requires temp array)
+       event_log_t temp[MAX_EVENTS];
+       memcpy(temp, events, n * sizeof(event_log_t));
+       
+       // Build sorted array
+       for (int i = 0; i < n; i++) {
+           for (int j = 0; j < n; j++) {
+               if (temp[j].timestamp == timestamps[i]) {
+                   events[i] = temp[j];
+                   temp[j].timestamp = 0xFFFFFFFF;  // Mark as used
+                   break;
+               }
+           }
+       }
+   }
+
+**When to Use:**
+
+- ✅ Fixed-width integers (uint8_t, uint16_t, uint32_t)
+- ✅ Large arrays where O(n) is needed
+- ✅ Timestamps, IP addresses, hash values
+- ❌ Variable-length strings
+- ❌ Very few elements (overhead not worth it)
+
+5.3 Bucket Sort
+--------------------------------------------------------------------------------
+
+**Time Complexity:** O(n + k) average, O(n²) worst  
+**Space Complexity:** O(n + k)  
+**Stable:** Depends on bucket sorting algorithm  
+**Use Case:** Uniformly distributed data, sensor readings
+
+**Algorithm:**
+
+1. Create k buckets for different ranges
+2. Distribute elements into buckets
+3. Sort each bucket individually
+4. Concatenate sorted buckets
+
+.. code-block:: c
+
+   #define NUM_BUCKETS 10
+   #define BUCKET_SIZE 20
+   
+   typedef struct {
+       float values[BUCKET_SIZE];
+       int count;
+   } bucket_t;
+   
+   // Bucket sort for floats in range [0.0, 1.0)
+   void bucket_sort(float arr[], int n) {
+       bucket_t buckets[NUM_BUCKETS];
+       
+       // Initialize buckets
+       for (int i = 0; i < NUM_BUCKETS; i++) {
+           buckets[i].count = 0;
+       }
+       
+       // Distribute elements into buckets
+       for (int i = 0; i < n; i++) {
+           int bucket_idx = (int)(arr[i] * NUM_BUCKETS);
+           if (bucket_idx >= NUM_BUCKETS) {
+               bucket_idx = NUM_BUCKETS - 1;
+           }
+           
+           if (buckets[bucket_idx].count < BUCKET_SIZE) {
+               buckets[bucket_idx].values[buckets[bucket_idx].count++] = arr[i];
+           }
+       }
+       
+       // Sort each bucket (using insertion sort)
+       for (int i = 0; i < NUM_BUCKETS; i++) {
+           if (buckets[i].count > 1) {
+               // Insertion sort on bucket
+               for (int j = 1; j < buckets[i].count; j++) {
+                   float key = buckets[i].values[j];
+                   int k = j - 1;
+                   while (k >= 0 && buckets[i].values[k] > key) {
+                       buckets[i].values[k + 1] = buckets[i].values[k];
+                       k--;
+                   }
+                   buckets[i].values[k + 1] = key;
+               }
+           }
+       }
+       
+       // Concatenate buckets
+       int index = 0;
+       for (int i = 0; i < NUM_BUCKETS; i++) {
+           for (int j = 0; j < buckets[i].count; j++) {
+               arr[index++] = buckets[i].values[j];
+           }
+       }
+   }
+
+**Embedded Example - Sort ADC Readings (0-4095, 12-bit):**
+
+.. code-block:: c
+
+   #define MAX_ADC_SAMPLES 256
+   #define ADC_MAX 4096
+   #define NUM_ADC_BUCKETS 16
+   #define BUCKET_RANGE (ADC_MAX / NUM_ADC_BUCKETS)
+   
+   typedef struct {
+       uint16_t values[64];
+       int count;
+   } adc_bucket_t;
+   
+   void bucket_sort_adc(uint16_t arr[], int n) {
+       adc_bucket_t buckets[NUM_ADC_BUCKETS] = {0};
+       
+       // Distribute into buckets
+       for (int i = 0; i < n; i++) {
+           int bucket_idx = arr[i] / BUCKET_RANGE;
+           if (bucket_idx >= NUM_ADC_BUCKETS) {
+               bucket_idx = NUM_ADC_BUCKETS - 1;
+           }
+           
+           buckets[bucket_idx].values[buckets[bucket_idx].count++] = arr[i];
+       }
+       
+       // Sort each bucket
+       for (int i = 0; i < NUM_ADC_BUCKETS; i++) {
+           // Insertion sort
+           for (int j = 1; j < buckets[i].count; j++) {
+               uint16_t key = buckets[i].values[j];
+               int k = j - 1;
+               while (k >= 0 && buckets[i].values[k] > key) {
+                   buckets[i].values[k + 1] = buckets[i].values[k];
+                   k--;
+               }
+               buckets[i].values[k + 1] = key;
+           }
+       }
+       
+       // Concatenate
+       int index = 0;
+       for (int i = 0; i < NUM_ADC_BUCKETS; i++) {
+           for (int j = 0; j < buckets[i].count; j++) {
+               arr[index++] = buckets[i].values[j];
+           }
+       }
+   }
+
+**When to Use:**
+
+- ✅ Uniformly distributed data
+- ✅ Known data range
+- ✅ Sensor readings, ADC values
+- ❌ Highly skewed data distribution
+- ❌ Unknown data range
+
+================================================================================
+6. Advanced Sorting Comparison
+================================================================================
+
+Non-Comparison vs Comparison Sorts
+--------------------------------------------------------------------------------
+
++------------------+-------------+-------------+---------+--------------------+
+| Algorithm        | Time (Avg)  | Space       | Stable  | Best For          |
++==================+=============+=============+=========+====================+
+| Counting Sort    | O(n + k)    | O(k)        | Yes     | Small range ints  |
++------------------+-------------+-------------+---------+--------------------+
+| Radix Sort       | O(d(n + k)) | O(n + k)    | Yes     | Fixed-width ints  |
++------------------+-------------+-------------+---------+--------------------+
+| Bucket Sort      | O(n + k)    | O(n + k)    | Depends | Uniform floats    |
++------------------+-------------+-------------+---------+--------------------+
+| Quick Sort       | O(n log n)  | O(log n)    | No      | General purpose   |
++------------------+-------------+-------------+---------+--------------------+
+| Merge Sort       | O(n log n)  | O(n)        | Yes     | Stable required   |
++------------------+-------------+-------------+---------+--------------------+
+| Heap Sort        | O(n log n)  | O(1)        | No      | Memory tight      |
++------------------+-------------+-------------+---------+--------------------+
+
+================================================================================
+7. Embedded Sorting Decision Tree
+================================================================================
+
+.. code-block:: text
+
+   Array size n?
+   ├─ n ≤ 50
+   │  └─ Use: Insertion Sort (simple, fast for small n)
+   │
+   ├─ n > 50, data type?
+   │  ├─ Integers with small range (k < 10,000)
+   │  │  └─ Use: Counting Sort (O(n + k), stable)
+   │  │
+   │  ├─ Fixed-width integers (uint8_t, uint16_t, uint32_t)
+   │  │  └─ Use: Radix Sort base-256 (O(n), 4 passes for uint32_t)
+   │  │
+   │  ├─ Floats/sensor data uniformly distributed
+   │  │  └─ Use: Bucket Sort (O(n) average)
+   │  │
+   │  └─ General data / unknown distribution
+   │     ├─ Memory tight + need predictable time
+   │     │  └─ Use: Heap Sort (O(n log n), O(1) space)
+   │     │
+   │     ├─ Stability required
+   │     │  └─ Use: Merge Sort (O(n log n), stable)
+   │     │
+   │     └─ General purpose
+   │        └─ Use: Quick Sort (O(n log n) average, watch stack)
+
+================================================================================
+8. Real-World Embedded Examples
+================================================================================
+
+8.1 Sort CAN Message IDs (11-bit: 0-2047)
+--------------------------------------------------------------------------------
+
+.. code-block:: c
+
+   #define MAX_CAN_MESSAGES 64
+   
+   typedef struct {
+       uint16_t id;  // 11-bit CAN ID
+       uint8_t data[8];
+       uint8_t dlc;
+   } can_message_t;
+   
+   can_message_t can_buffer[MAX_CAN_MESSAGES];
+   
+   // Use counting sort (range 0-2047)
+   void sort_can_messages(can_message_t msgs[], int n) {
+       uint16_t count[2048] = {0};
+       can_message_t output[MAX_CAN_MESSAGES];
+       
+       // Count IDs
+       for (int i = 0; i < n; i++) {
+           count[msgs[i].id]++;
+       }
+       
+       // Cumulative
+       for (int i = 1; i < 2048; i++) {
+           count[i] += count[i - 1];
+       }
+       
+       // Build output
+       for (int i = n - 1; i >= 0; i--) {
+           output[--count[msgs[i].id]] = msgs[i];
+       }
+       
+       memcpy(msgs, output, n * sizeof(can_message_t));
+   }
+
+8.2 Sort Ethernet Packets by Priority (0-7)
+--------------------------------------------------------------------------------
+
+.. code-block:: c
+
+   #define MAX_PACKETS 128
+   
+   typedef struct {
+       uint8_t priority;  // 0-7
+       uint8_t payload[1500];
+       uint16_t length;
+   } packet_t;
+   
+   packet_t packet_queue[MAX_PACKETS];
+   
+   // Counting sort for priority (only 8 values)
+   void sort_packets_by_priority(packet_t pkts[], int n) {
+       int count[8] = {0};
+       packet_t output[MAX_PACKETS];
+       
+       for (int i = 0; i < n; i++) {
+           count[pkts[i].priority]++;
+       }
+       
+       for (int i = 1; i < 8; i++) {
+           count[i] += count[i - 1];
+       }
+       
+       for (int i = n - 1; i >= 0; i--) {
+           output[--count[pkts[i].priority]] = pkts[i];
+       }
+       
+       memcpy(pkts, output, n * sizeof(packet_t));
+   }
+
+================================================================================
+9. Performance Optimization Tips
+================================================================================
+
+**Memory-Constrained Systems:**
+
+1. Prefer in-place algorithms (heap sort, quick sort)
+2. Avoid extra O(n) arrays if RAM < 32KB
+3. Use insertion sort for n < 50
+
+**Speed-Critical Systems:**
+
+1. Use radix sort for fixed-width integers
+2. Use counting sort for small ranges
+3. Profile before optimizing
+
+**Real-Time Systems:**
+
+1. Avoid recursive algorithms (stack overflow)
+2. Use heap sort for predictable O(n log n)
+3. Consider iterative quick sort
+
+**Code Size Critical:**
+
+1. Insertion sort has smallest code footprint
+2. Avoid multiple algorithm implementations
+3. Use library qsort() if available and trusted
+
+================================================================================
+10. Summary Table - All Sorting Algorithms
+================================================================================
+
++------------------+-------------+--------+--------+---------------------------+
+| Algorithm        | Time        | Space  | Stable | Embedded Use Case        |
++==================+=============+========+========+===========================+
+| Insertion        | O(n²)       | O(1)   | Yes    | n ≤ 50, nearly sorted    |
++------------------+-------------+--------+--------+---------------------------+
+| Quick Sort       | O(n log n)  | O(log) | No     | General purpose          |
++------------------+-------------+--------+--------+---------------------------+
+| Merge Sort       | O(n log n)  | O(n)   | Yes    | Stable + predictable     |
++------------------+-------------+--------+--------+---------------------------+
+| Heap Sort        | O(n log n)  | O(1)   | No     | Memory tight, real-time  |
++------------------+-------------+--------+--------+---------------------------+
+| Counting Sort    | O(n + k)    | O(k)   | Yes    | Small int range          |
++------------------+-------------+--------+--------+---------------------------+
+| Radix Sort       | O(d×n)      | O(n)   | Yes    | Fixed-width ints         |
++------------------+-------------+--------+--------+---------------------------+
+| Bucket Sort      | O(n)        | O(n)   | Maybe  | Uniform distribution     |
++------------------+-------------+--------+--------+---------------------------+
 
 ================================================================================
 
