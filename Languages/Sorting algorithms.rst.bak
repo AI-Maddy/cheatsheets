@@ -1,4 +1,4 @@
-]633;E;cat /tmp/fix_table.txt;a5e06165-88f0-4836-aed4-8b2bcf249377]633;C
+
 .. contents:: 📑 Quick Navigation
    :depth: 2
    :local:
@@ -121,20 +121,12 @@ void quick_sort(int arr[], int low, int high) {
 +------------------------------------------------------+---------------------------------------------------------------+
 | Advice                                               | Reason / Impact                                               |
 +======================================================+===============================================================+
-| Prefer Insertion Sort for n ≤ 40–50                  | Often faster than quicksort on small data due to cache & low  |
-|                                                      | overhead                                                      |
-+------------------------------------------------------+---------------------------------------------------------------+
-| Avoid recursive quicksort on deep stacks             | Stack overflow risk on small MCUs (use iterative version if   |
-|                                                      | needed)                                                       |
-+------------------------------------------------------+---------------------------------------------------------------+
-| Use ``qsort()`` from ``<stdlib.h>`` only if...       | You trust the library version & don't need strict determinism |
-+------------------------------------------------------+---------------------------------------------------------------+
-| For deterministic timing → prefer Heap Sort          | Fixed O(n log n) – no pivot selection issues                  |
-+------------------------------------------------------+---------------------------------------------------------------+
-| For flash-only code → Insertion or Bubble            | Very small code size                                          |
-+------------------------------------------------------+---------------------------------------------------------------+
-| For sorted insert into fixed buffer                  | Use binary search + shift (like insertion sort logic)         |
-+------------------------------------------------------+---------------------------------------------------------------+
+| Prefer Insertion Sort for n ≤ 40–50         | Often faster than quicksort on small data due to cache & low overhead |
+| 🔴 🔴 Avoid recursive quicksort on deep stacks    | Stack overflow risk on small MCUs (use iterative version if needed) |
+| Use ``qsort()`` from ``<stdlib.h>`` only if...  | You trust the library version & don’t need strict determinism |
+| For deterministic timing → prefer Heap Sort | Fixed O(n log n) – no pivot selection issues |
+| For flash-only code → Insertion or Bubble   | Very small code size |
+| For sorted insert into fixed buffer         | Use binary search + shift (like insertion sort logic) |
 
 Pick wisely based on **array size**, **RAM**, **stack size**, **real-time requirements**, and **code size constraints**.  
 Most real embedded projects in 2026 use **Insertion Sort** for small arrays and **Quick Sort** (or library ``qsort``) for larger ones.
