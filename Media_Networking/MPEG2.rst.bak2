@@ -28,8 +28,7 @@ Common Bitrates
 | DVD            | 4-8 Mbps          |
 | SDTV Broadcast | 3-6 Mbps          |
 | HDTV Broadcast | 15-20 Mbps        |
-| Contribution   | 50-100 Mbps       |
-|                | (I-frame only)    |
+| Contribution   | 50-100 Mbps (I-frame only) |
 +----------------+-------------------+
 
 Common Use Cases
