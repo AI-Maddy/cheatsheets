@@ -20,18 +20,22 @@
 
 📌 2. Core Adaptive AUTOSAR Layers & Blocks
 
-⭐ | Layer / Module             | Abbreviation | Main Responsibility / Key APIs                          | Typical Implementation |
-|----------------------------|--------------|----------------------------------------------------------|------------------------|
-| Application                | —            | User SWCs (Adaptive Applications)                        | C++ / ARA::com           |
-| Execution Management       | EM           | Lifecycle, state machine, mode management                | ara::exec              |
-| Communication Management   | CM           | SOME/IP service discovery, RPC, event subscription       | ara::com               |
-| Platform Health Management | PHM          | Alive supervision, heartbeat, error reporting           | ara::phm               |
-| Update & Configuration Management | UCM     | OTA, manifest parsing, software package installation    | ara::ucm               |
-| State Management           | SM           | Machine state transitions (Startup, Running, Shutdown)   | ara::sm                |
-⭐ | Persistency                | —            | Key-value store, file-based persistence                  | ara::persistency       |
-| Diagnostics                | —            | UDS over SOME/IP, DTC handling                           | ara::diag              |
-| Time Synchronization       | —            | gPTP / PTP time sync across ECUs                         | ara::timesync          |
-| RESTful / HTTP             | —            | Optional web services                                    | ara::rest              |
+⭐ | Layer / Module             | Abbreviation | Main Responsibility / Key APIs                          | Typical Implementation | Detailed Guide |
+|----------------------------|--------------|----------------------------------------------------------|------------------------|----------------|
+| Application                | —            | User SWCs (Adaptive Applications)                        | C++ / ARA::com           |                |
+| Execution Management       | EM           | Lifecycle, state machine, mode management                | ara::exec              |                |
+| Communication Management   | CM           | SOME/IP service discovery, RPC, event subscription       | ara::com               |                |
+| Platform Health Management | PHM          | Alive supervision, heartbeat, error reporting           | ara::phm               | See `Platform_Health_Management.rst`_ |
+| Update & Configuration Management | UCM     | OTA, manifest parsing, software package installation    | ara::ucm               |                |
+| State Management           | SM           | Machine state transitions (Startup, Running, Shutdown)   | ara::sm                |                |
+⭐ | Persistency                | —            | Key-value store, file-based persistence                  | ara::persistency       |                |
+| Diagnostics                | —            | UDS over SOME/IP, DTC handling                           | ara::diag              |                |
+| Time Synchronization       | —            | gPTP / PTP time sync across ECUs                         | ara::timesync          |                |
+| RESTful / HTTP             | —            | Optional web services                                    | ara::rest              |                |
+| Safe Hardware Acceleration | SHWA         | GPU/FPGA/DSP acceleration for ADAS, AI inference         | ara::shwa              | See `Safe_Hardware_Acceleration_API.rst`_ |
+
+.. _Platform_Health_Management.rst: Platform_Health_Management.rst
+.. _Safe_Hardware_Acceleration_API.rst: Safe_Hardware_Acceleration_API.rst
 
 ⭐ 📚 3. Key ARA APIs & Usage Patterns (C++)
 
@@ -107,17 +111,42 @@ updateMgr.ProcessUpdatePackage(packagePath);
 - **Ethernet backbone** – 100/1000BASE-T1 → zonal architecture
 - **First project pain** – manifest consistency, service discovery, PHM timeouts
 
+📌 9. New in R25-11 (2025-2026)
+
+**Key Updates:**
+
+⭐ - **Platform Health Management (ara::phm)** – Major API refinement
+  
+  - Removed deprecated Health Channel concept
+  - Simplified SupervisedEntity API
+  - Enhanced supervision modes and recovery actions
+  - Better integration with hardware watchdog
+  - **See:** `Platform_Health_Management.rst`_ for complete guide
+
+⭐ - **Safe Hardware Acceleration API (ara::shwa)** – First stable release
+  
+  - Standardized GPU/FPGA/DSP acceleration
+  - ASIL-B/D certified parallel computing
+  - Queue, Buffer, Accessor abstractions (SYCL-inspired)
+  - Device health monitoring for safety-critical use
+  - **See:** `Safe_Hardware_Acceleration_API.rst`_ for complete guide
+
+- **Security & Crypto Updates**
+  
+  - Enhanced ara::crypto with post-quantum algorithms
+  - Improved key management
+
+- **Time Synchronization**
+  
+  - Better gPTP support for TSN networks
+
 ⭐ This cheatsheet covers the essentials for understanding, developing, or integrating with Adaptive AUTOSAR in modern automotive HPC ECUs.
 
 🟢 🟢 Good luck with your Adaptive AUTOSAR project!
 
 ================================================================================
 
-**Last updated:** January 2026
-
-================================================================================
-
-**Last updated:** January 2026
+**Last updated:** January 2026 (R25-11)
 
 ================================================================================
 
