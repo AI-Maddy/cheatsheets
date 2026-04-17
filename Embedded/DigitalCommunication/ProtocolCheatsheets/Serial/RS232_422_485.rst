@@ -1,0 +1,58 @@
+RS-232 / RS-422 / RS-485
+========================
+
+**Domain:** Embedded/Industrial
+
+**Description:**
+Classic serial standards (differential/long distance).
+
+.. raw:: html
+
+	<div style="background-color:#e3f2fd; border-radius:10px; padding:16px; margin-bottom:16px;">
+	<h2 style="color:#1565c0;">🔌📡 RS-232 / RS-422 / RS-485</h2>
+	<b>Domain:</b> <span style="color:#1976d2;">Embedded/Industrial</span><br>
+	<b>Mnemonic:</b> <span style="color:#388e3c;">"Really Simple, 2/4/5 wires!"</span><br>
+	<b>Icon:</b> 🔌📡<br>
+	</div>
+
+**Key Features:**
+- 🔌 Serial, point-to-point (RS-232), multi-drop (RS-485)
+- 📡 Differential signaling (RS-422/485)
+- 🛡️ Long distance, robust
+- 🧩 Simple, low-cost
+
+**Physical/Electrical Layer:**
+- ⚡ RS-232: ±12V, single-ended
+- ⚡ RS-422/485: differential, up to 1.2 km
+- ⚡ Data rates: up to 1 Mbps (RS-485)
+
+**Topology:**
+- 🌐 Point-to-point (RS-232/422), bus (RS-485)
+
+**Use Cases:**
+- 🖥️ Industrial automation, PLCs
+- 🛠️ Legacy PC serial ports, modems
+
+**Pros:**
+- 🧩 Simple, cheap, reliable
+- 🛡️ Long range (RS-485)
+
+**Cons:**
+- 🐢 Low speed (RS-232)
+- ⚠️ Susceptible to noise (RS-232)
+
+**Standard:**
+- 📜 EIA/TIA-232/422/485
+
+**Typical Applications:**
+- 🏭 Factories, industrial equipment, legacy PCs
+
+**Memorization Tip:**
+<span style="color:#1976d2;">Think of RS-232/422/485 as the "old-school serial lines"—simple, tough, and everywhere in industry!</span>
+
+.. raw:: html
+
+	<div style="background-color:#fffde7; border-radius:10px; padding:12px; margin-top:16px;">
+	<b>Quick Visual:</b> <span style="font-size:1.5em;">🔌 &rarr; 📡 &rarr; 🏭</span><br>
+	<i>Classic serial lines still run the world's machines!</i>
+	</div>

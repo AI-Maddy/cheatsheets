@@ -1,0 +1,59 @@
+RS-422
+======
+
+**Domain:** Embedded/Avionics/Industrial
+
+**Description:**
+RS-422 is a differential, point-to-point serial communication standard, widely used for long-distance, high-speed data transfer in industrial, embedded, and avionics systems.
+
+.. raw:: html
+
+   <div style="background-color:#e3f2fd; border-radius:10px; padding:16px; margin-bottom:16px;">
+   <h2 style="color:#1565c0;">🔌📡 RS-422</h2>
+   <b>Domain:</b> <span style="color:#1976d2;">Embedded/Avionics/Industrial</span><br>
+   <b>Mnemonic:</b> <span style="color:#388e3c;">"Really Simple, 4 wires!"</span><br>
+   <b>Icon:</b> 🔌📡<br>
+   </div>
+
+**Key Features:**
+- 📡 Differential, point-to-point
+- 🛡️ Long distance, high speed
+- 🧩 Simple, robust
+- 🔄 Multi-drop (one driver, up to 10 receivers)
+
+**Physical/Electrical Layer:**
+- 🔌 Differential signaling, twisted pair
+- ⚡ Data rates: up to 10 Mbps
+- 📏 Distance: up to 1,200 meters
+
+**Topology:**
+- 🌐 Point-to-point, multi-drop
+
+**Use Cases:**
+- 🖥️ Industrial automation, PLCs
+- ✈️ Avionics, sensors, displays
+- 🛠️ Embedded systems
+
+**Pros:**
+- 🧩 Simple, reliable, long range
+- 🚀 Higher speed than RS-232
+
+**Cons:**
+- 🏗️ One driver per bus
+- ⚠️ Not as flexible as RS-485
+
+**Standard:**
+- 📜 EIA/TIA-422
+
+**Typical Applications:**
+- 🏭 Factories, aircraft, embedded devices
+
+**Memorization Tip:**
+<span style="color:#1976d2;">Think of RS-422 as the "long wire for fast data"—simple, tough, and perfect for long runs!</span>
+
+.. raw:: html
+
+   <div style="background-color:#fffde7; border-radius:10px; padding:12px; margin-top:16px;">
+   <b>Quick Visual:</b> <span style="font-size:1.5em;">🔌 &rarr; 📡 &rarr; 🏭</span><br>
+   <i>Fast, reliable data over long distances!</i>
+   </div>
